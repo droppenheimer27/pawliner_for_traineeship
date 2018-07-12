@@ -1,4 +1,22 @@
-﻿<button class="btn-primary">
+﻿@model Pawliner.Model.UserViewModel
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </th>
+        <th></th>
+    </tr>
+
+</table>
+
+<button class="btn-primary">
     <h2 class="my-4">Customers</h2>
 </button>
 <button class="btn-outline-primary">
