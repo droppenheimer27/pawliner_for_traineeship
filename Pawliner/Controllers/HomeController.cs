@@ -10,9 +10,9 @@ namespace Pawliner.Controllers
 {
     public class HomeController : Controller
     {
-        IUserManager userManager;
+        IApplicationUserManager userManager;
 
-        public HomeController(IUserManager userManager)
+        public HomeController(IApplicationUserManager userManager)
         {
             this.userManager = userManager;
         }
@@ -21,19 +21,18 @@ namespace Pawliner.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            var userTransport = userManager.GetUserTransport(1);
-            var user = new UserViewModel
-            {
-                Id = userTransport.Id,
-                Name = userTransport.Name,
-                Email = userTransport.Email,
-                Passhash = userTransport.Passhash,
-                CreatedAt = userTransport.CreatedAt,
-                LastLogin = userTransport.LastLogin,
-                IP = userTransport.IP
-            };
+            //var userTransport = userManager.GetUser(1);
+            //var user = new UserViewModel
+            //{
+            //    Name = userTransport.Name,
+            //    Email = userTransport.Email,
+            //    Passhash = userTransport.Passhash,
+            //    CreatedAt = userTransport.CreatedAt,
+            //    LastLogin = userTransport.LastLogin,
+            //    IP = userTransport.IP
+            //};
 
-            return View(user);
+            return View();
         }
     }
 }

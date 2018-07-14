@@ -4,6 +4,8 @@ using Ninject.Web.Mvc;
 using System.Web.Mvc;
 using Pawliner.DataProvider;
 using Pawliner.Logic;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Pawliner.IoC
 {
@@ -18,8 +20,9 @@ namespace Pawliner.IoC
 
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
-            Bind<IUserManager>().To<UserManager>();
+            Bind<IUnitOfWork>().To<UnitOfWork>();
+            Bind<IUserStore<User>>().To<UserStore<User>>();
+            Bind<IApplicationUserManager>().To<ApplicationUserManager>();
         }
     }
 }

@@ -4,10 +4,10 @@ namespace Pawliner.DataProvider
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ApplicationContext database;
+        private UserContext database;
         private UserRepository userRepository;
 
-        private bool disposed = false;
+        private bool disposed = false; //TODO: убрать к чертям обычного юзера и попробовать починить зависимость.
 
         public IRepository<User> Users
         {
@@ -22,9 +22,9 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public UnitOfWork(string connectionString)
+        public UnitOfWork()
         {
-            database = new ApplicationContext(connectionString);
+            database = new UserContext();
         }
 
         public void Save()

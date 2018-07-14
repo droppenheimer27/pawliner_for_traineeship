@@ -1,25 +1,23 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Pawliner.DataProvider
 {
-    [Table("users")]
-    public class User
+    public class User : IdentityUser
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("user_id")]
-        public int Id { get; set; }
-        [Column("user_name")]
-        public string Name { get; set; }
-        [Column("user_email")]
-        public string Email { get; set; }
-        [Column("user_passhash")]
-        public string Passhash { get; set; }
-        [Column("user_created_at")]
-        public DateTime CreatedAt { get; set; }
-        [Column("user_last_login")]
-        public DateTime LastLogin { get; set; }
-        [Column("user_last_ip")]
-        public string IP { get; set; }
+        public string UserLastIP { get; set; }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
+        {
+
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+
+            return userIdentity;
+        }
     }
 }

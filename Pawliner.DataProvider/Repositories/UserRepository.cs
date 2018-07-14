@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace Pawliner.DataProvider
 {
     public class UserRepository : IRepository<User>
     {
-        private ApplicationContext database;
+        private UserContext database;
 
-        public UserRepository(ApplicationContext database)
+        public UserRepository(UserContext database)
         {
             this.database = database;
         }
@@ -40,6 +41,11 @@ namespace Pawliner.DataProvider
         public IEnumerable<User> GetList()
         {
             return database.Users;
+        }
+
+        public async Task SaveAsync()
+        {
+            await database.SaveChangesAsync();
         }
     }
 }
