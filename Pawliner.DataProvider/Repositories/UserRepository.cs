@@ -7,9 +7,9 @@ namespace Pawliner.DataProvider
 {
     public class UserRepository : IRepository<User>
     {
-        private UserContext database;
+        private ApplicationContext database;
 
-        public UserRepository(UserContext database)
+        public UserRepository(ApplicationContext database)
         {
             this.database = database;
         }

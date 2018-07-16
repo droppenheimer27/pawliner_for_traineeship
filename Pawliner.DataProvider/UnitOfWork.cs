@@ -1,35 +1,36 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Pawliner.DataProvider
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private UserContext database;
-        private UserRepository userRepository;
+        private ApplicationContext database;
+        private OrderRepository orderRepository;
 
-        private bool disposed = false; //TODO: убрать к чертям обычного юзера и попробовать починить зависимость.
+        private bool disposed = false;
 
-        public IRepository<User> Users
+        public IRepository<Order> Orders
         {
             get
             {
-                if (userRepository == null)
+                if (orderRepository == null)
                 {
-                    userRepository = new UserRepository(database);
+                    orderRepository = new OrderRepository(database);
                 }
 
-                return userRepository;
+                return orderRepository;
             }
         }
 
         public UnitOfWork()
         {
-            database = new UserContext();
+            database = new ApplicationContext();
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            database.SaveChanges();
+            await database.SaveChangesAsync();
         }
 
         public virtual void Dispose(bool disposing)

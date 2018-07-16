@@ -7,7 +7,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using Pawliner.DataProvider;
 
 namespace Pawliner.Logic
 {
@@ -29,14 +28,7 @@ namespace Pawliner.Logic
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            if (userManager == null)
-            {
-                context.SetError("invalid_grant", "ALARM.");
-                return;
-            }
-
-
-            User user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {

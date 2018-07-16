@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Pawliner.DataProvider
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<User> Users { get; }
-        void Save();
+        IRepository<Order> Orders { get; }
+        Task SaveAsync();
     }
 }

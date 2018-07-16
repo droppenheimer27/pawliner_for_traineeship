@@ -142,41 +142,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\UserContext.cs" />
+    <Compile Include="Context\ApplicationContext.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201807141654159_InitialCreate.cs" />
-    <Compile Include="Migrations\201807141654159_InitialCreate.Designer.cs">
-      <DependentUpon>201807141654159_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807141726428_MigrateDB.cs" />
-    <Compile Include="Migrations\201807141726428_MigrateDB.Designer.cs">
-      <DependentUpon>201807141726428_MigrateDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807141802205_MigrateDB1.cs" />
-    <Compile Include="Migrations\201807141802205_MigrateDB1.Designer.cs">
-      <DependentUpon>201807141802205_MigrateDB1.cs</DependentUpon>
+    <Compile Include="Migrations\201807161758450_MigrateDB.cs" />
+    <Compile Include="Migrations\201807161758450_MigrateDB.Designer.cs">
+      <DependentUpon>201807161758450_MigrateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807141654159_InitialCreate.resx">
-      <DependentUpon>201807141654159_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807141726428_MigrateDB.resx">
-      <DependentUpon>201807141726428_MigrateDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807141802205_MigrateDB1.resx">
-      <DependentUpon>201807141802205_MigrateDB1.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201807161758450_MigrateDB.resx">
+      <DependentUpon>201807161758450_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
