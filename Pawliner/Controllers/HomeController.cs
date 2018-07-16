@@ -12,6 +12,9 @@ namespace Pawliner.Controllers
     {
         IApplicationUserManager userManager;
 
+        public HomeController()
+        { }
+
         public HomeController(IApplicationUserManager userManager)
         {
             this.userManager = userManager;

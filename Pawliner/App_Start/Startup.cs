@@ -9,6 +9,7 @@ using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Pawliner.Logic;
+using System.Web.Mvc;
 
 [assembly: OwinStartup(typeof(Pawliner.Startup))]
 
@@ -23,8 +24,9 @@ namespace Pawliner
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationUserManager.CreateContext);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create); 
+            //app.CreatePerOwinContext(ApplicationUserManager.CreateContext);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider

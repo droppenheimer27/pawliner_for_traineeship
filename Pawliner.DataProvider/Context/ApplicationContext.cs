@@ -10,13 +10,13 @@ namespace Pawliner.DataProvider
     {
         public DbSet<Order> Orders { get; set; }
 
-        public ApplicationContext() : base("DefaultConnection", throwIfV1Schema: false) // DefaultConnection
+        public ApplicationContext(string connectionString) : base(connectionString, throwIfV1Schema: false) // DefaultConnection
         {
         }
 
-        public static ApplicationContext Create()
+        public static ApplicationContext Create(string connectionString)
         {
-            return new ApplicationContext();
+            return new ApplicationContext(connectionString);
         }
     }
 }

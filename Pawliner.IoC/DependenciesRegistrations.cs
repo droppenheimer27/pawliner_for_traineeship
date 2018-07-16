@@ -1,28 +1,36 @@
-﻿using Ninject;
-using Ninject.Modules;
-using Ninject.Web.Mvc;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Pawliner.DataProvider;
 using Pawliner.Logic;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Autofac;
+using System.Web;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
+using Autofac.Integration.Mvc;
 
 namespace Pawliner.IoC
 {
-    public class DependenciesRegistrations : NinjectModule
+    public class DependenciesRegistrations
     {
-        private string connectionString;
-
-        public DependenciesRegistrations(string connectionString)
+        public static void ConfigureContainer()
         {
-            this.connectionString = connectionString;
-        }
+            var builder = new ContainerBuilder();
 
-        public override void Load()
-        {
-            Bind<IUnitOfWork>().To<UnitOfWork>();
-            Bind<IUserStore<User>>().To<UserStore<User>>();
-            Bind<IApplicationUserManager>().To<ApplicationUserManager>();
+            builder.RegisterControllers(typeof(User).Assembly);
+
+            builder.RegisterType<ApplicationContext>().AsSelf().InstancePerRequest().WithParameter("connectionString", "DefaultConnection");
+            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.Register(c => new UserStore<User>(c.Resolve<ApplicationContext>())).AsImplementedInterfaces().InstancePerRequest();
+            //builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
+            builder.Register(c => new IdentityFactoryOptions<ApplicationUserManager>
+            {
+                DataProtectionProvider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("ASP.NET Identity​")
+            });
+
+            var container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 }

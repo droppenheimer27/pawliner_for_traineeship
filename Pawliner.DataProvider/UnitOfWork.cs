@@ -23,9 +23,9 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public UnitOfWork()
+        public UnitOfWork(string connectionString)
         {
-            database = new ApplicationContext();
+            database = new ApplicationContext(connectionString);
         }
 
         public async Task SaveAsync()
