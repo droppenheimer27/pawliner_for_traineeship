@@ -63,7 +63,8 @@ $(function () {
                     $('#userInfoBlock').css('display', 'block');
                     $('#loginBlock').css('display', 'none');
 
-                    sessionStorage.setItem(tokenKey, data.access_token);
+                    //sessionStorage.setItem(tokenKey, data.access_token);
+                    localStorage.setItem(tokenKey, data.access_token);
                 },
                 error: function (data) {
                     alert("Ошибка входа");
@@ -100,6 +101,7 @@ $(function () {
                 $('#loginBlock').css('display', 'none');
 
                 sessionStorage.setItem(tokenKey, data.access_token);
+                localStorage.setItem(tokenKey, data.access_token);
             },
             error: function (data) {
                 alert("Ошибка входа");
@@ -114,5 +116,6 @@ $(function () {
         $("#loginBlock").css('display', 'block');
 
         sessionStorage.removeItem(tokenKey);
+        localStorage.removeItem(tokenKey);
     });
 })

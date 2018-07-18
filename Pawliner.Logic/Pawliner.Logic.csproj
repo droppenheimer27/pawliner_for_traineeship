@@ -87,6 +87,10 @@
       <Project>{2ee1aa92-7546-4e0e-a5dc-59d6ed369af2}</Project>
       <Name>Pawliner.DataProvider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Pawliner.Model\Pawliner.Model.csproj">
+      <Project>{963B2412-8007-417F-B110-45B02FEBD690}</Project>
+      <Name>Pawliner.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

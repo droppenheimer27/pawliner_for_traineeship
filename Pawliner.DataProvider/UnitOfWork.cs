@@ -7,6 +7,10 @@ namespace Pawliner.DataProvider
     {
         private ApplicationContext database;
         private OrderRepository orderRepository;
+        private ExecutorRepository executorRepository;
+        private ServiceRepository serviceRepository;
+        private ServiceClassiferRepository serviceClassiferRepository;
+        private DocumentRepository documentRepository;
 
         private bool disposed = false;
 
@@ -23,9 +27,60 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public UnitOfWork(string connectionString)
+        public IRepository<Executor> Executors
         {
-            database = new ApplicationContext(connectionString);
+            get
+            {
+                if (executorRepository == null)
+                {
+                    executorRepository = new ExecutorRepository(database);
+                }
+
+                return executorRepository;
+            }
+        }
+        public IRepository<Service> Services
+        {
+            get
+            {
+                if (serviceRepository == null)
+                {
+                    serviceRepository = new ServiceRepository(database);
+                }
+
+                return serviceRepository;
+            }
+        }
+
+        public IRepository<ServiceClassifer> ServiceClassifers
+        {
+            get
+            {
+                if (serviceClassiferRepository == null)
+                {
+                    serviceClassiferRepository = new ServiceClassiferRepository(database);
+                }
+
+                return serviceClassiferRepository;
+            }
+        }
+
+        public IRepository<Document> Documents
+        {
+            get
+            {
+                if (documentRepository == null)
+                {
+                    documentRepository = new DocumentRepository(database);
+                }
+
+                return documentRepository;
+            }
+        }
+
+        public UnitOfWork(ApplicationContext database)
+        {
+            this.database = database;
         }
 
         public async Task SaveAsync()
@@ -41,6 +96,7 @@ namespace Pawliner.DataProvider
                 {
                     database.Dispose();
                 }
+
                 this.disposed = true;
             }
         }

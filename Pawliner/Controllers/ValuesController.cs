@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Pawliner.DataProvider;
+using Pawliner.Logic;
+using Pawliner.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,17 +12,40 @@ namespace Pawliner.Controllers
 {
     public class ValuesController : ApiController
     {
+        protected OrderManager orderManager;
+
+        //public ValuesController()
+        //{ }
+
+        public ValuesController(OrderManager orderManager)
+        {
+            OrderManager = orderManager;
+        }
+
+        public OrderManager OrderManager
+        {
+            get { return orderManager; }
+            set { orderManager = value;  }
+        }
+
         // GET api/values
-        [Authorize]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        // GET api/values/1
+        public OrderViewModel Get(int id)
         {
-            return "value";
+            var order = OrderManager.GetOrder(id);
+
+            var orderViewModel = new OrderViewModel
+            {
+                Header = order.Header,
+                Description = order.Description,
+            };
+
+            return orderViewModel;
         }
 
         // POST api/values

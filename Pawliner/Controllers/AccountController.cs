@@ -24,7 +24,7 @@ namespace Pawliner
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-        private ApplicationUserManager _userManager;
+        protected ApplicationUserManager _userManager;
 
         public AccountController()
         {
@@ -40,7 +40,7 @@ namespace Pawliner
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager;// ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
@@ -327,7 +327,7 @@ namespace Pawliner
                 return BadRequest(ModelState);
             }
 
-            var user = UserManager.CreateUser(model.UserName, model.Email, model.Password); //TODO: UserName 
+            var user = UserManager.CreateUser(model.UserName, model.Email, model.Password);
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
