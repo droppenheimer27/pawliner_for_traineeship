@@ -13,11 +13,16 @@ namespace Pawliner.DataProvider
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceClassifer> ServiceClassifers { get; set; }
         public DbSet<Document> Documents { get; set; }
+       // public DbSet<User> Users { get; set; }
 
         public ApplicationContext() : base() 
         { }
 
         public ApplicationContext(string connectionString) : base(connectionString, throwIfV1Schema: false) // DefaultConnection
         { }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

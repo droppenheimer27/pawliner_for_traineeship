@@ -1,0 +1,9 @@
+<% if(total >= 1){ %>
+<div class="progress-group">
+    <span class="progress-text loading-title"><%= title %></span>
+    <span class="progress-number"><b class="loading-current-value"><%= value %></b>/<span class="loading-total"><%= total %></span></span>
+    <div class="progress sm">
+        <div class="progress-bar progress-bar-info loading-current-percent" style="width: <%= percent %>%"></div>
+    </div>
+</div>
+<% } %>

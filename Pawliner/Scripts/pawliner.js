@@ -29,6 +29,7 @@ $('.dropdown-menu').on('click', function (event) {
     event.stopPropagation();
 });
 
+
 $(function () {
 
     var tokenKey = "tokenInfo";
@@ -42,34 +43,14 @@ $(function () {
             ConfirmPassword: $('#confirmPassword').val()
         };
 
-        var loginData = {
-            grant_type: 'password',
-            UserName: $('#login').val(),
-            Password: $('#password').val()
-        }
-
         $.ajax({
             type: 'POST',
             url: '/api/Account/Register',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
-            success: $.ajax({
-                type: 'POST',
-                url: '/Token',
-                data: loginData,
-                success: function (data) {
-                    $('#username').text(data.userName);
-
-                    $('#userInfoBlock').css('display', 'block');
-                    $('#loginBlock').css('display', 'none');
-
-                    //sessionStorage.setItem(tokenKey, data.access_token);
-                    localStorage.setItem(tokenKey, data.access_token);
-                },
-                error: function (data) {
-                    alert("Ошибка входа");
-                }
-            }),
+            success: function (data) {
+                alert("Успешная регистрация!")
+            },
             error: function(data) {
                 alert("В процесе регистрации возникла ошибка");
             }
@@ -101,7 +82,7 @@ $(function () {
                 $('#loginBlock').css('display', 'none');
 
                 sessionStorage.setItem(tokenKey, data.access_token);
-                localStorage.setItem(tokenKey, data.access_token);
+                //localStorage.setItem(tokenKey, data.access_token);
             },
             error: function (data) {
                 alert("Ошибка входа");
@@ -119,3 +100,31 @@ $(function () {
         localStorage.removeItem(tokenKey);
     });
 })
+
+$(function () {
+
+    var tokenKey = "tokenInfo";
+
+    $('#username').click(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/Account/GetUserClaims',
+            beforeSend: function (xhr) {
+
+                var token = sessionStorage.getItem(tokenKey);
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            success: function (data) {
+                $('#profileLogin').text(data.userName);
+
+                sessionStorage.setItem(tokenKey, data.access_token);
+                //localStorage.setItem(tokenKey, data.access_token);
+            },
+            error: function (data) {
+                alert("Ошибка входа");
+            }
+        });
+    });
+});

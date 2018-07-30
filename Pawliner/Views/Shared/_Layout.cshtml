@@ -22,9 +22,6 @@
                     <li class="nav-item active">
                         @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })
-                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" aria-expanded="true">Profile</a>
                         <div class="dropdown-menu">
@@ -69,7 +66,7 @@
                             <div id="userInfoBlock" style=" display: none">
                                 <form class="px-1 py-3">
                                     <div class="dropdown-item" form-group>
-                                        <span class="label-primary" id="username"></span>
+                                        <a href="/Home/UserProfile"><span class="label-primary" id="username"></span></a>
                                     </div>
                                     <div class="dropdown-divider"></div>
                                     <div class="dropdown-item form-group">

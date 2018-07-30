@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 
 namespace Pawliner.DataProvider
 {
@@ -33,7 +34,7 @@ namespace Pawliner.DataProvider
 
         public IEnumerable<Service> GetList()
         {
-            return database.Services;
+            return database.Services.Include(s => s.ServiceClassifers);
         }
 
         public void Update(Service item)

@@ -7,8 +7,10 @@ namespace Pawliner.Logic
 {
     public interface IOrderManager
     {
-        void CreateOrder(OrderViewModel order);
-        Order GetOrder(int id);
-        IEnumerable<Order> GetOrders();
+        void CreateOrder(OrderTransport order);
+        void UpdateOrder(OrderTransport order);
+        void DeleteOrder(int id);
+        OrderTransport GetOrder(int id);
+        IEnumerable<OrderTransport> GetOrders();
     }
 }

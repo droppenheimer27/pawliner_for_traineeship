@@ -24,36 +24,29 @@ namespace Pawliner
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-        protected ApplicationUserManager _userManager;
+        protected ApplicationUserManager userManager;
 
-        public AccountController()
-        {
-        }
+        //public AccountController()
+        //{ }
 
-        public AccountController(ApplicationUserManager userManager, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public AccountController(ApplicationUserManager userManager)//, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
+            //AccessTokenFormat = accessTokenFormat;
         }
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager;// ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return userManager; }
+            set { userManager = value; }
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        [Route("UserInfos")]
+        public UserInfoViewModel GetUserInfos() // GetUserInfo
         {
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
@@ -107,7 +100,7 @@ namespace Pawliner
             return new ManageInfoViewModel
             {
                 LocalLoginProvider = LocalLoginProvider,
-                Email = user.UserName,
+                Email = user.Email,
                 Logins = logins,
                 ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
             };
@@ -263,7 +256,7 @@ namespace Pawliner
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.Id);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -327,7 +320,14 @@ namespace Pawliner
                 return BadRequest(ModelState);
             }
 
-            var user = UserManager.CreateUser(model.UserName, model.Email, model.Password);
+            //var user = UserManager.CreateUser(model.UserName, model.Email, model.Password);
+
+            var user = new DataProvider.User
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                PasswordHash = model.Password
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -337,7 +337,54 @@ namespace Pawliner
             }
 
             return Ok();
-        }   
+        }
+
+        [HttpGet]
+        [Route("UserInfo")]
+        public UserViewModel GetUserInfo()
+        {
+            var user = UserManager.FindByName(User.Identity.Name);
+
+            var model = new UserViewModel
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FullName = user.FullName,
+                Skype = user.Skype,
+                PhoneNumber = user.PhoneNumber,
+                Birthday = user.Birthday
+            };
+
+            return model;
+        }
+
+        [HttpPut]
+        [Route("UserInfo")]
+        public async Task<IHttpActionResult> SetUserInfo(UserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = UserManager.FindByName(User.Identity.Name);
+
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.FullName = model.FullName;
+            user.Skype = model.Skype;
+            user.PhoneNumber = model.PhoneNumber;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
@@ -374,10 +421,10 @@ namespace Pawliner
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _userManager != null)
+            if (disposing && userManager != null)
             {
-                _userManager.Dispose();
-                _userManager = null;
+                userManager.Dispose();
+                userManager = null;
             }
 
             base.Dispose(disposing);

@@ -8,34 +8,28 @@ using Pawliner.Model;
 
 namespace Pawliner.Controllers
 {
-    public class HomeController : Controller
-    {
-        IApplicationUserManager userManager;
+    //public class HomeController : Controller
+    //{
+    //    IApplicationUserManager userManager;
 
-        public HomeController()
-        { }
+    //    public HomeController()
+    //    { }
 
-        public HomeController(IApplicationUserManager userManager)
-        {
-            this.userManager = userManager;
-        }
+    //    public HomeController(IApplicationUserManager userManager)
+    //    {
+    //        this.userManager = userManager;
+    //    }
 
-        public ActionResult Index()
-        {
-            ViewBag.Title = "Home Page";
+    //    public ActionResult Index()
+    //    {
+    //        ViewBag.Title = "Home Page";
 
-            //var userTransport = userManager.GetUser(1);
-            //var user = new UserViewModel
-            //{
-            //    Name = userTransport.Name,
-            //    Email = userTransport.Email,
-            //    Passhash = userTransport.Passhash,
-            //    CreatedAt = userTransport.CreatedAt,
-            //    LastLogin = userTransport.LastLogin,
-            //    IP = userTransport.IP
-            //};
+    //        return View();
+    //    }
 
-            return View();
-        }
-    }
+    //    public ActionResult UserProfile()
+    //    {
+    //        return View();
+    //    }
+    //}
 }

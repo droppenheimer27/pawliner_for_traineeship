@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -9,6 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Pawliner.DataProvider;
 using Pawliner.IoC;
 using Pawliner.Logic;
+using Pawliner.Model;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -21,6 +24,7 @@ namespace Pawliner
         public static void Register(HttpConfiguration config)
         {
             ConfigureContainer();
+            ConfigureMapper();
             // Web API configuration and services
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
@@ -33,6 +37,8 @@ namespace Pawliner
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
 
         public static void ConfigureContainer()
@@ -48,15 +54,17 @@ namespace Pawliner
             builder.RegisterWebApiModelBinderProvider();
 
             builder.RegisterType<ApplicationContext>().AsSelf().InstancePerRequest().WithParameter("connectionString", "DefaultConnection");
+            builder.RegisterType<UserStore<User>>().As<IUserStore<User>>().InstancePerRequest();
+            //builder.RegisterType<UserManager<User>>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.Register(c => new UserStore<User>(c.Resolve<ApplicationContext>())).AsImplementedInterfaces().InstancePerRequest();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
-            builder.RegisterType<OrderManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<OrderManager>().As<IOrderManager>().InstancePerRequest();
+            builder.RegisterType<ServiceManager>().As<IServiceManager>().InstancePerRequest();
 
             //builder.RegisterType<UserStore<User>>().As<IUserStore<User>>().InstancePerLifetimeScope();
-            //builder.RegisterType<RoleStore<IdentityRole>>().As<IRoleStore<IdentityRole, string>>().InstancePerLifetimeScope();
-            //builder.Register(c => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).As<ApplicationUserManager>().InstancePerLifetimeScope();
-            //builder.Register(c => new UserStore<User>(c.Resolve<ApplicationContext>())).AsImplementedInterfaces().InstancePerRequest();
+            builder.RegisterType<RoleStore<IdentityRole>>().As<IRoleStore<IdentityRole, string>>().InstancePerLifetimeScope();
+            //builder.Register(c => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).AsSelf().InstancePerLifetimeScope();
             //builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
             builder.Register(c => new IdentityFactoryOptions<ApplicationUserManager>
             {
@@ -66,6 +74,11 @@ namespace Pawliner
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+
+        public static void ConfigureMapper()
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<OrderTransport, OrderViewModel>());
         }
     }
 }

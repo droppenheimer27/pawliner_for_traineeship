@@ -1,10 +1,8 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Pawliner.DataProvider;
-using Pawliner.Model;
 
 namespace Pawliner.Logic
 {
@@ -17,11 +15,14 @@ namespace Pawliner.Logic
             this.database = database;
         }
 
-        public void CreateOrder(OrderViewModel order)
+        public void CreateOrder(OrderTransport order)
         {
+            var service = database.Services.GetList().FirstOrDefault(s => string.Equals(s.Description, order.Service));
+
             database.Orders.Create(new Order
             {
                 UserId = order.UserId,
+                ServiceId = service.Id,
                 Header = order.Header,
                 Description = order.Description,
                 City = order.City,
@@ -30,19 +31,48 @@ namespace Pawliner.Logic
                 Name = order.Name,
                 PhoneNumber = order.PhoneNumber,
                 CompletedOn = order.CompletedOn,
-                CreatedAt = order.CreatedAt,
-                UpdatedAt = order.UpdatedAt
+                CreatedAt = order.CreatedAt
             });
+
+            database.Save();
         }
 
-        public Order GetOrder(int id)
+        public void UpdateOrder(OrderTransport model)
         {
-            return database.Orders.Get(id);
+            Mapper.Initialize(cfg => cfg.CreateMap<OrderTransport, Order>());
+            var order = Mapper.Map<OrderTransport, Order>(model);
+
+            database.Orders.Update(order);
         }
 
-        public IEnumerable<Order> GetOrders()
+        public void DeleteOrder(int id)
         {
-            return database.Orders.GetList();
+            database.Orders.Delete(id);
+        }
+
+        public OrderTransport GetOrder(int id)
+        {
+            var order = database.Orders.Get(id);
+            return new OrderTransport
+            {
+                UserId = order.UserId,
+                ServiceId = order.ServiceId,
+                Header = order.Header,
+                Description = order.Description,
+                City = order.City,
+                Address = order.Address,
+                Price = order.Price,
+                Name = order.Name,
+                PhoneNumber = order.PhoneNumber,
+                CompletedOn = order.CompletedOn,
+                CreatedAt = order.CreatedAt
+            };
+        }
+
+        public IEnumerable<OrderTransport> GetOrders()
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderTransport>()).CreateMapper();
+            return mapper.Map<IEnumerable<Order>, List<OrderTransport>>(database.Orders.GetList().OrderByDescending(o => o.Id));
         }
     }
 }

@@ -83,9 +83,9 @@ namespace Pawliner.DataProvider
             this.database = database;
         }
 
-        public async Task SaveAsync()
+        public void Save()
         {
-            await database.SaveChangesAsync();
+            database.SaveChanges();
         }
 
         public virtual void Dispose(bool disposing)

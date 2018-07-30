@@ -8,5 +8,6 @@ namespace Pawliner.DataProvider
         public int Id { get; set; }
         public int ParentId { get; set; }
         public string Description { get; set; }
+        public Service Service { get; set; }
     }
 }

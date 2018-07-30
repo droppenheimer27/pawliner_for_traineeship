@@ -43,11 +43,11 @@ namespace Pawliner.Logic
             };
         }
 
-        public static ApplicationContext CreateContext(string connectionString)
+        //public static ApplicationContext CreateContext()
 
-        {
-            return new ApplicationContext(connectionString);
-        }
+        //{
+        //    return new ApplicationContext();
+        //}
 
         //public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         //{
