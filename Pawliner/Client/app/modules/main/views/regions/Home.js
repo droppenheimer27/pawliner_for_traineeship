@@ -45,7 +45,6 @@ define([
 
             this.showChildView('orderRegion', new OrderCollectionView());
             this.showChildView('serviceRegion', new ServiceCollectionView());
-            // this.showChildView('serviceRegion', new ServiceBlock());
         },
     });
 });

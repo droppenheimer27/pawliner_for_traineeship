@@ -11,6 +11,6 @@ namespace Pawliner.Logic
         void UpdateOrder(OrderTransport order);
         void DeleteOrder(int id);
         OrderTransport GetOrder(int id);
-        IEnumerable<OrderTransport> GetOrders();
+        IEnumerable<OrderTransport> GetOrders(List<string> filter);
     }
 }

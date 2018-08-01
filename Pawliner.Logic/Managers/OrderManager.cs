@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using Pawliner.DataProvider;
 
@@ -17,12 +16,11 @@ namespace Pawliner.Logic
 
         public void CreateOrder(OrderTransport order)
         {
-            var service = database.Services.GetList().FirstOrDefault(s => string.Equals(s.Description, order.Service));
+            var service = database.Services.GetList().FirstOrDefault(s => string.Equals(s.Description, order.ServiceDescription));
+            var serviceClassifer = database.ServiceClassifers.GetList().FirstOrDefault(s => string.Equals(s.Description, order.ServiceClassiferDescription));
 
             database.Orders.Create(new Order
             {
-                UserId = order.UserId,
-                ServiceId = service.Id,
                 Header = order.Header,
                 Description = order.Description,
                 City = order.City,
@@ -31,7 +29,9 @@ namespace Pawliner.Logic
                 Name = order.Name,
                 PhoneNumber = order.PhoneNumber,
                 CompletedOn = order.CompletedOn,
-                CreatedAt = order.CreatedAt
+                CreatedAt = order.CreatedAt,
+                ServiceId = service.Id,
+                ServiceClassiferId = serviceClassifer.Id
             });
 
             database.Save();
@@ -53,10 +53,10 @@ namespace Pawliner.Logic
         public OrderTransport GetOrder(int id)
         {
             var order = database.Orders.Get(id);
+            var service = database.ServiceClassifers.Get(order.ServiceClassiferId);
+
             return new OrderTransport
             {
-                UserId = order.UserId,
-                ServiceId = order.ServiceId,
                 Header = order.Header,
                 Description = order.Description,
                 City = order.City,
@@ -65,14 +65,22 @@ namespace Pawliner.Logic
                 Name = order.Name,
                 PhoneNumber = order.PhoneNumber,
                 CompletedOn = order.CompletedOn,
-                CreatedAt = order.CreatedAt
+                CreatedAt = order.CreatedAt,
+                ServiceClassiferDescription = service.Description
             };
         }
 
-        public IEnumerable<OrderTransport> GetOrders()
+        public IEnumerable<OrderTransport> GetOrders(List<string> filter)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderTransport>()).CreateMapper();
-            return mapper.Map<IEnumerable<Order>, List<OrderTransport>>(database.Orders.GetList().OrderByDescending(o => o.Id));
+
+            var orders = mapper.Map<IEnumerable<Order>, List<OrderTransport>>(database.Orders.GetList().OrderByDescending(o => o.Id));
+            if (filter.Count == 0)
+            {
+                return orders;
+            }
+
+            return orders.Where(o => filter.Contains(o.ServiceClassiferDescription));
         }
     }
 }

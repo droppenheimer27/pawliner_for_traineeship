@@ -7,6 +7,7 @@ define([
 
     return marionette.CollectionView.extend({
         tagName: 'ul',
-        childView: ServiceListBlock
+        className: 'list-group list-group-flush',
+        childView: ServiceListBlock,
     });
 });

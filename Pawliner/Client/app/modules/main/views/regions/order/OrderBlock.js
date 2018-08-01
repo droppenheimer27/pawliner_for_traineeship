@@ -8,6 +8,6 @@ define([
     return marionette.View.extend({
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
-        }
+        },
     });
 });

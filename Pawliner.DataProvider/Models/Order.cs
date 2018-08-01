@@ -11,11 +11,8 @@ namespace Pawliner.DataProvider
     public class Order
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
-        public string UserId { get; set; }
-        [Required]
-        public int ServiceId { get; set; }
         [Required]
         [MaxLength(128, ErrorMessage = "The header should be less than 128 characters")]
         public string Header { get; set; }
@@ -35,5 +32,17 @@ namespace Pawliner.DataProvider
         public string CompletedOn { get; set; }
         public string CreatedAt { get; set; }
         public string UpdatedAt { get; set; }
+        public OrderStatus Status { get; set; }
+        public User User { get; set; }
+        public int? ServiceId { get; set; }
+        public virtual Service Service { get; set; }
+        public int? ServiceClassiferId { get; set; }
+        public virtual ServiceClassifer ServiceClassifer { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+
+        public Order()
+        {
+            Photos = new List<Photo>();
+        }
     }
 }

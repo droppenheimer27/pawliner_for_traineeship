@@ -6,7 +6,8 @@ namespace Pawliner.Model
     {
         public int Id { get; set; }
         public string UserId { get; set; }
-        public string Service { get; set; }
+        public string ServiceDescription { get; set; }
+        public string ServiceClassiferDescription { get; set; }
         public string Header { get; set; }
         public string Description { get; set; }
         public string City { get; set; }

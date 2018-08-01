@@ -6,12 +6,10 @@ namespace Pawliner.DataProvider
     public class Document
     {
         [Key]
+        [ForeignKey("Executor")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
-        public User User { get; set; }
-        [Required]
         public byte[] Picture { get; set; }
+        public Executor Executor { get; set; }
     }
 }

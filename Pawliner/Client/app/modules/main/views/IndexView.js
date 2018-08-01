@@ -12,10 +12,12 @@ define([
     'css!../../../../vendor/js/AdminLTE/bower_components/bootstrap/dist/css/bootstrap',
     'css!../../../../vendor/js/AdminLTE/dist/css/AdminLTE.min',
     'css!../../../../vendor/js/AdminLTE/dist/css/skins/_all-skins.min',
+    'css!../../../../vendor/css/pawliner',
     'bootstrap',
     'fastclick',
     'slimScroll',
-    'AdminLTE'
+    'AdminLTE',
+    'jqueryvalidate'
 ], function (_, $, Mn, tpl, Login, Register, Order, UserBlock, Home) {
 	'use strict';
 

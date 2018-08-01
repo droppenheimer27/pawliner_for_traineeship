@@ -25,9 +25,9 @@ namespace Pawliner.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<OrderTransport> Get()
+        public IEnumerable<OrderTransport> Get([FromUri]List<string> filter)
         {
-            return OrderManager.GetOrders();
+            return OrderManager.GetOrders(filter);
         }
 
         [AllowAnonymous]
@@ -53,7 +53,8 @@ namespace Pawliner.Controllers
             var order = new OrderTransport
             {
                 UserId = model.UserId,
-                Service = model.Service,
+                ServiceDescription = model.ServiceDescription,
+                ServiceClassiferDescription = model.ServiceClassiferDescription,
                 Header = model.Header,
                 Description = model.Description,
                 City = model.City,

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pawliner.DataProvider
 {
@@ -6,8 +7,13 @@ namespace Pawliner.DataProvider
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int ParentId { get; set; }
         public string Description { get; set; }
         public Service Service { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
+        public ServiceClassifer()
+        {
+            Orders = new List<Order>();
+        }
     }
 }

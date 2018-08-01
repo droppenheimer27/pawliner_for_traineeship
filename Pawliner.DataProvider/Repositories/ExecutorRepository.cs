@@ -26,7 +26,7 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public Executor Get(int id)
+        public Executor Get(int? id)
         {
             return database.Executors.Find(id);
         }

@@ -26,7 +26,7 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public Document Get(int id)
+        public Document Get(int? id)
         {
             return database.Documents.Find(id);
         }

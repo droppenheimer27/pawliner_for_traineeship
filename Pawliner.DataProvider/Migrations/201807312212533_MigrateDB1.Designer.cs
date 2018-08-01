@@ -7,13 +7,13 @@ namespace Pawliner.DataProvider.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class MigrateDB4 : IMigrationMetadata
+    public sealed partial class MigrateDB1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MigrateDB4));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MigrateDB1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807250207401_MigrateDB4"; }
+            get { return "201807312212533_MigrateDB1"; }
         }
         
         string IMigrationMetadata.Source

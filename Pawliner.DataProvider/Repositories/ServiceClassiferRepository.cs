@@ -26,7 +26,7 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public ServiceClassifer Get(int id)
+        public ServiceClassifer Get(int? id)
         {
             return database.ServiceClassifers.Find(id);
         }

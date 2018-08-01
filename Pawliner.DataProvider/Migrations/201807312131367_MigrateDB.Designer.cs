@@ -13,7 +13,7 @@ namespace Pawliner.DataProvider.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201807161758450_MigrateDB"; }
+            get { return "201807312131367_MigrateDB"; }
         }
         
         string IMigrationMetadata.Source

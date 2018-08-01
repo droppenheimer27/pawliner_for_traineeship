@@ -27,7 +27,7 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public Service Get(int id)
+        public Service Get(int? id)
         {
             return database.Services.Find(id);
         }

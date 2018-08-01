@@ -5,6 +5,7 @@ define([], function () {
         "": "index",
         "index": "index",
         "!/main/profile": "profile",
+        "!/main/register": "register",
         "!/main/placeorder": "placeorder",
         "!/main/becomeexecutor": "becomeexecutor",
         "!/main/order/:id": "order",

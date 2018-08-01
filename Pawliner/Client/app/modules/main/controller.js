@@ -9,8 +9,9 @@ define([
     './views/CreateOrderView',
     './views/BecomeExecutorView',
     './views/OrderView',
+    './views/RegisterView',
     'modules/main/models/Order'
-], function (B/*, LoginView, ProfileView*/, SettingsView, Pages, Index, UserProfile, CreateOrderView, BecomeExecutorView, OrderView, Order) {
+], function (B/*, LoginView, ProfileView*/, SettingsView, Pages, Index, UserProfile, CreateOrderView, BecomeExecutorView, OrderView, RegisterView, Order) {
     'use strict';
 
     var channel = B.Radio.channel('main');
@@ -18,6 +19,9 @@ define([
     return {
         index: function () {
 
+        },
+        register: function () {
+            channel.trigger('routeChange', new RegisterView());
         },
         profile: function () {
             channel.trigger('routeChange', new UserProfile());

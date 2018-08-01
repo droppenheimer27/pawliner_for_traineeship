@@ -28,7 +28,7 @@ namespace Pawliner.DataProvider
             }
         }
 
-        public Order Get(int id)
+        public Order Get(int? id)
         {
             return database.Orders.Find(id);
         }

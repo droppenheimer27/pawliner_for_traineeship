@@ -320,8 +320,6 @@ namespace Pawliner
                 return BadRequest(ModelState);
             }
 
-            //var user = UserManager.CreateUser(model.UserName, model.Email, model.Password);
-
             var user = new DataProvider.User
             {
                 UserName = model.UserName,
@@ -353,7 +351,6 @@ namespace Pawliner
                 FullName = user.FullName,
                 Skype = user.Skype,
                 PhoneNumber = user.PhoneNumber,
-                Birthday = user.Birthday
             };
 
             return model;
