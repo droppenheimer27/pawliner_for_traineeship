@@ -18,16 +18,16 @@ namespace Pawliner.DataProvider
         public string LastName { get; set; } 
         [Required]
         public string Description { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public ExecutorType ExecutorType { get; set; }
         public Document Document { get; set; }
         public NaturalExecutor NaturalExecutor { get; set; }
         public JuridicalExecutor JuridicalExecutor { get; set; }
         public SoleTraderExecutor SoleTraderExecutor { get; set; }
-        public ICollection<Service> Services { get; set; }
+        public ICollection<ServiceClassifer> ServiceClassifers { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public Executor()
         {
-            Services = new List<Service>();
+            ServiceClassifers = new List<ServiceClassifer>();
             Photos = new List<Photo>();
         }
     }

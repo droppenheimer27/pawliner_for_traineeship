@@ -61,6 +61,7 @@ namespace Pawliner
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<OrderManager>().As<IOrderManager>().InstancePerRequest();
             builder.RegisterType<ServiceManager>().As<IServiceManager>().InstancePerRequest();
+            builder.RegisterType<ExecutorManager>().As<IExecutorManager>().InstancePerRequest();
 
             //builder.RegisterType<UserStore<User>>().As<IUserStore<User>>().InstancePerLifetimeScope();
             builder.RegisterType<RoleStore<IdentityRole>>().As<IRoleStore<IdentityRole, string>>().InstancePerLifetimeScope();

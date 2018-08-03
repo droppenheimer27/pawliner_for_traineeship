@@ -33,7 +33,7 @@ namespace Pawliner.DataProvider
 
         public IEnumerable<Executor> GetList()
         {
-            return database.Executors;
+            return database.Executors.Include(e => e.ServiceClassifers);
         }
 
         public void Update(Executor item)

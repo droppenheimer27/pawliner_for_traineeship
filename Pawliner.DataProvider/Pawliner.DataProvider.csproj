@@ -169,7 +169,24 @@
     <Compile Include="Migrations\201808011432159_MigrateDB5.Designer.cs">
       <DependentUpon>201808011432159_MigrateDB5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808022213548_MigrateDB6.cs" />
+    <Compile Include="Migrations\201808022213548_MigrateDB6.Designer.cs">
+      <DependentUpon>201808022213548_MigrateDB6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808022257350_MigrateDB7.cs" />
+    <Compile Include="Migrations\201808022257350_MigrateDB7.Designer.cs">
+      <DependentUpon>201808022257350_MigrateDB7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808022324371_MigrateDB8.cs" />
+    <Compile Include="Migrations\201808022324371_MigrateDB8.Designer.cs">
+      <DependentUpon>201808022324371_MigrateDB8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808030046207_MigrateDB9.cs" />
+    <Compile Include="Migrations\201808030046207_MigrateDB9.Designer.cs">
+      <DependentUpon>201808030046207_MigrateDB9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Enums\ExecutorType.cs" />
     <Compile Include="Models\Enums\OrderStatus.cs" />
     <Compile Include="Models\Executor.cs" />
     <Compile Include="Models\Document.cs" />
@@ -211,6 +228,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808011432159_MigrateDB5.resx">
       <DependentUpon>201808011432159_MigrateDB5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808022213548_MigrateDB6.resx">
+      <DependentUpon>201808022213548_MigrateDB6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808022257350_MigrateDB7.resx">
+      <DependentUpon>201808022257350_MigrateDB7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808022324371_MigrateDB8.resx">
+      <DependentUpon>201808022324371_MigrateDB8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808030046207_MigrateDB9.resx">
+      <DependentUpon>201808030046207_MigrateDB9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

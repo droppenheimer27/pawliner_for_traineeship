@@ -37,10 +37,7 @@ namespace Pawliner.Logic
 
         public IEnumerable<ServiceTransport> GetServices()
         {
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Service, ServiceTransport>()).CreateMapper();
-
             return Mapper.Map<IEnumerable<Service>, IEnumerable<ServiceTransport>>(database.Services.GetList());
-            //return Mapper.Map<IEnumerable<Service>, IEnumerable<ServiceTransport>>(services.Where(s => s.ServiceClassifers.Any(sr => filter.Contains(sr.Description))));
         }
 
         public void UpdateService(ServiceTransport service)

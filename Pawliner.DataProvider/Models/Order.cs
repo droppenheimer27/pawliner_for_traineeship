@@ -34,8 +34,6 @@ namespace Pawliner.DataProvider
         public string UpdatedAt { get; set; }
         public OrderStatus Status { get; set; }
         public User User { get; set; }
-        public int? ServiceId { get; set; }
-        public virtual Service Service { get; set; }
         public int? ServiceClassiferId { get; set; }
         public virtual ServiceClassifer ServiceClassifer { get; set; }
         public ICollection<Photo> Photos { get; set; }

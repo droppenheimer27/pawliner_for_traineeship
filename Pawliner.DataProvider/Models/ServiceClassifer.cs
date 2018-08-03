@@ -10,10 +10,12 @@ namespace Pawliner.DataProvider
         public string Description { get; set; }
         public Service Service { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Executor> Executors { get; set; }
 
         public ServiceClassifer()
         {
             Orders = new List<Order>();
+            Executors = new List<Executor>();
         }
     }
 }

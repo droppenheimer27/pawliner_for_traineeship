@@ -3,12 +3,10 @@ define([
     'jquery',
     'marionette',
     'text!../../templates/regions/Home.html',
-    './order/OrderBlock',
-    '../CreateOrderView',
     '../collections/OrderCollectionView',
     '../collections/ServiceCollectionView',
-    './service/ServiceBlock',
-], function (B, $, marionette, template, OrderBlock, CreateOrderView, OrderCollectionView, ServiceCollectionView, ServiceBlock) {
+    '../collections/ExecutorCollectionView'
+], function (B, $, marionette, template, OrderCollectionView, ServiceCollectionView, ExecutorCollectionView) {
     'use strict';
 
     return marionette.View.extend({
@@ -20,6 +18,7 @@ define([
         },
         ui: {
             orderRegion: '#order-template-region',
+            executorRegion: '#executor-template-region',
             serviceRegion: '.service-template-region',
             placeOrder: '.check-login'
         },
@@ -29,6 +28,9 @@ define([
         regions: {
             orderRegion: {
                 el: '@ui.orderRegion',
+            },
+            executorRegion: {
+                el: '@ui.executorRegion',
             },
             serviceRegion: {
                 el: '@ui.serviceRegion',
@@ -42,9 +44,9 @@ define([
             }
         },
         onRender: function() {
-
-            this.showChildView('orderRegion', new OrderCollectionView());
             this.showChildView('serviceRegion', new ServiceCollectionView());
+            this.showChildView('orderRegion', new OrderCollectionView());
+            this.showChildView('executorRegion', new ExecutorCollectionView());
         },
     });
 });

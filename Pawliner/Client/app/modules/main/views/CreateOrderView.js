@@ -16,15 +16,14 @@ define([
     'use strict';
 
     return Mn.View.extend({
-        initialize: function() {
-            // console.log(this.collection);
-            // this.collection.on("sync", this.onSync, this);
-        },
-        template: function(tplPrms) {
+        template: function (tplPrms) {
             return _.template(template)(tplPrms);
         },
+        initialize: function () {
+            this.model = new Order();
+        },
         ui: {
-            orderForm: '#orderForm',
+            orderForm: 'form[role="form"]',
             selectServiceRegion: '.select-service-region'
         },
         regions: {
@@ -37,52 +36,50 @@ define([
         events: {
             'submit @ui.orderForm': 'onSubmitOrderForm'
         },
-        onSync: function() {
+        // onSync: function() {
 
-            $(this.el).select2({
-                theme: "bootstrap",
-                allowClear: true,
-                placeholder: "All "+ this.options.label,
-                width: "200"
-            });
-        },
+        //     $(this.el).select2({
+        //         theme: "bootstrap",
+        //         allowClear: true,
+        //         placeholder: "All "+ this.options.label,
+        //         width: "200"
+        //     });
+        // },
         onSubmitOrderForm: function (e) {
-            e.preventDefault();
-            
+            // e.preventDefault();
 
-
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/api/order',
-            //     data: {
-            //         UserId:  window.app.model.get('userId'),
-            //         service: $('#serviceCreateOrder').val(),
-            //         header: $('#headerCreateOrder').val(),
-            //         description: $('#descriptionCreateOrder').val(),
-            //         city: $('#cityCreateOrder').val(),
-            //         address: $('#addressCreateOrder').val(),
-            //         name: $('#nameCreateOrder').val(),
-            //         CompletedOn: $('#completeDate').val(),
-            //         price: $('#priceCreateOrder').val(),
-            //         PhoneNumber: $('#profileNumber').val(),
-            //     },
-            //     beforeSend: function (xhr) {
-            //         let token =  window.app.model.get('tokenInfo');
-            //         xhr.setRequestHeader("Authorization", "Bearer " + token);
-            //     },
-            //     success: function (response) {
-            //         console.log(response);
-            //     },
-            //     error: function (response) {
-            //         console.log(response);
-            //     }
-            // });
-
-
+            if (this.ui.orderForm.valid()) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/order',
+                    data: {
+                        UserId:  window.app.model.get('userId'),
+                        serviceClassiferDescription: $('.paw-select').val(),
+                        header: $('#headerCreateOrder').val(),
+                        description: $('#descriptionCreateOrder').val(),
+                        city: $('#cityCreateOrder').val(),
+                        address: $('#addressCreateOrder').val(),
+                        name: $('#nameCreateOrder').val(),
+                        CompletedOn: $('#completeDate').val(),
+                        price: $('#priceCreateOrder').val(),
+                        PhoneNumber: $('#profileNumber').val(),
+                    },
+                    beforeSend: function (xhr) {
+                        let token =  window.app.model.get('tokenInfo');
+                        xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    },
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
         },
         onRender: function () {
             this.showChildView('selectServicesRegion', new SelectServiceCollectionView({
-                collection: new Services(/*this.model.get('ServiceClassifers')*/)
+                collection: new Services()
             }));
         }
     });

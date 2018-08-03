@@ -4,9 +4,8 @@ define([
     'jquery',
     'marionette',
     '../../collections/Orders',
-    '../regions/order/OrderBlock',
-    '../regions/service/ServiceListBlock'
-], function (B, _, $, marionette, Orders, OrderBlock, ServiceListBlock) {
+    '../regions/order/OrderBlock'
+], function (B, _, $, marionette, Orders, OrderBlock) {
     'use strict';
 
     return marionette.CollectionView.extend({

@@ -29,6 +29,7 @@ define([
             }
 
             B.Radio.channel('main').trigger('getOrdersByCheckbox', services);
+            B.Radio.channel('main').trigger('getExecutorsByCheckbox', services);
         },
     });
 });

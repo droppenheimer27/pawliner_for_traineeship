@@ -7,11 +7,16 @@ define([
         idAttribute: 'Id',
         urlRoot : '/api/order',
         defaults: {
-            Id: '', // remove
+            Id: '', 
             Header: '',
             Description: '',
+            City: '',
+            Address: '',
             Price: '',
-            CompletedOn: ''
-        }
+            CompletedOn: '',
+            Name: '',
+            PhoneNumber: '',
+            ServiceClassiferDescription: ''
+        },
     });
 });

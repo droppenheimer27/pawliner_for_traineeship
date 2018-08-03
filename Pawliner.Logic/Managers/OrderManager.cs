@@ -14,23 +14,22 @@ namespace Pawliner.Logic
             this.database = database;
         }
 
-        public void CreateOrder(OrderTransport order)
+        public void CreateOrder(OrderTransport orderTransport)
         {
-            var service = database.Services.GetList().FirstOrDefault(s => string.Equals(s.Description, order.ServiceDescription));
-            var serviceClassifer = database.ServiceClassifers.GetList().FirstOrDefault(s => string.Equals(s.Description, order.ServiceClassiferDescription));
+            var serviceClassifer = database.ServiceClassifers.GetList()
+                .FirstOrDefault(sr => string.Equals(sr.Description, orderTransport.ServiceClassiferDescription));
 
             database.Orders.Create(new Order
             {
-                Header = order.Header,
-                Description = order.Description,
-                City = order.City,
-                Address = order.Address,
-                Price = order.Price,
-                Name = order.Name,
-                PhoneNumber = order.PhoneNumber,
-                CompletedOn = order.CompletedOn,
-                CreatedAt = order.CreatedAt,
-                ServiceId = service.Id,
+                Header = orderTransport.Header,
+                Description = orderTransport.Description,
+                City = orderTransport.City,
+                Address = orderTransport.Address,
+                Price = orderTransport.Price,
+                Name = orderTransport.Name,
+                PhoneNumber = orderTransport.PhoneNumber,
+                CompletedOn = orderTransport.CompletedOn,
+                CreatedAt = orderTransport.CreatedAt,
                 ServiceClassiferId = serviceClassifer.Id
             });
 
@@ -39,9 +38,7 @@ namespace Pawliner.Logic
 
         public void UpdateOrder(OrderTransport model)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<OrderTransport, Order>());
             var order = Mapper.Map<OrderTransport, Order>(model);
-
             database.Orders.Update(order);
         }
 
