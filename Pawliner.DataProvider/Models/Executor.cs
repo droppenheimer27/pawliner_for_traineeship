@@ -19,6 +19,8 @@ namespace Pawliner.DataProvider
         [Required]
         public string Description { get; set; }
         public ExecutorType ExecutorType { get; set; }
+        [NotMapped]
+        public string Type { get; set; }
         public Document Document { get; set; }
         public NaturalExecutor NaturalExecutor { get; set; }
         public JuridicalExecutor JuridicalExecutor { get; set; }

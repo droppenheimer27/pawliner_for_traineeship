@@ -1,7 +1,7 @@
 define([
     'underscore',
     'marionette',
-    'text!../../../templates/regions/order/OrderBlock.html'
+    'text!../../../templates/regions/executor/ExecutorBlock.html'
 ], function (_, marionette, template) {
     'use strict';
 

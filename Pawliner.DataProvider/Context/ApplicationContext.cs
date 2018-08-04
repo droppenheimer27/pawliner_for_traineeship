@@ -12,7 +12,7 @@ namespace Pawliner.DataProvider
         public DbSet<Executor> Executors { get; set; }
         public DbSet<NaturalExecutor> NaturalExecutors { get; set; }
         public DbSet<SoleTraderExecutor> SoleTraderExecutors { get; set; }
-        public DbSet<JuridicalExecutor> JuridicalExecutor { get; set; }
+        public DbSet<JuridicalExecutor> JuridicalExecutors { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceClassifer> ServiceClassifers { get; set; }
         public DbSet<Document> Documents { get; set; }

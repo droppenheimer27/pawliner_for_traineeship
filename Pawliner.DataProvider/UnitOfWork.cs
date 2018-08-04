@@ -8,6 +8,9 @@ namespace Pawliner.DataProvider
         private ApplicationContext database;
         private OrderRepository orderRepository;
         private ExecutorRepository executorRepository;
+        private NaturalExecutorRepository naturalExecutorRepository;
+        private SoleTraderExecutorRepository soleTraderExecutorRepository;
+        private JuridicalExecutorRepository juridicalExecutorRepository;
         private ServiceRepository serviceRepository;
         private ServiceClassiferRepository serviceClassiferRepository;
         private DocumentRepository documentRepository;
@@ -39,6 +42,46 @@ namespace Pawliner.DataProvider
                 return executorRepository;
             }
         }
+
+        public IRepository<NaturalExecutor> NaturalExecutors
+        {
+            get
+            {
+                if (naturalExecutorRepository == null)
+                {
+                    naturalExecutorRepository = new NaturalExecutorRepository(database);
+                }
+
+                return naturalExecutorRepository;
+            }
+        }
+
+        public IRepository<SoleTraderExecutor> SoleTraderExecutors
+        {
+            get
+            {
+                if (soleTraderExecutorRepository == null)
+                {
+                    soleTraderExecutorRepository = new SoleTraderExecutorRepository(database);
+                }
+
+                return soleTraderExecutorRepository;
+            }
+        }
+
+        public IRepository<JuridicalExecutor> JuridicalExecutors
+        {
+            get
+            {
+                if (juridicalExecutorRepository == null)
+                {
+                    juridicalExecutorRepository = new JuridicalExecutorRepository(database);
+                }
+
+                return juridicalExecutorRepository;
+            }
+        }
+
         public IRepository<Service> Services
         {
             get

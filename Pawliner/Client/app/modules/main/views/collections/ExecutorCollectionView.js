@@ -3,8 +3,8 @@ define([
     'underscore',
     'marionette',
     '../../collections/Executors',
-    '../regions/order/ExecutorBlock'
-], function (B, _, $, marionette, Executors, ExecutorBlock) {
+    '../regions/executor/ExecutorBlock'
+], function (B, _, marionette, Executors, ExecutorBlock) {
     'use strict';
 
     return marionette.CollectionView.extend({

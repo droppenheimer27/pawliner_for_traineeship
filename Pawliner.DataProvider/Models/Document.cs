@@ -9,7 +9,7 @@ namespace Pawliner.DataProvider
         [ForeignKey("Executor")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public byte[] Picture { get; set; }
+        public string Path { get; set; }
         public Executor Executor { get; set; }
     }
 }

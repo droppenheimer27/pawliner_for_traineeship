@@ -1,7 +1,5 @@
 define([
     'backbone',
-//    './views/LoginView',
-//    './views/ProfileView',
     './views/SettingsView',
     './views/Pages',
     './views/IndexView',
@@ -9,9 +7,11 @@ define([
     './views/CreateOrderView',
     './views/BecomeExecutorView',
     './views/OrderView',
+    './views/ExecutorView',
     './views/RegisterView',
-    'modules/main/models/Order'
-], function (B/*, LoginView, ProfileView*/, SettingsView, Pages, Index, UserProfile, CreateOrderView, BecomeExecutorView, OrderView, RegisterView, Order) {
+    'modules/main/models/Order',
+    'modules/main/models/Executor'
+], function (B, SettingsView, Pages, Index, UserProfile, CreateOrderView, BecomeExecutorView, OrderView, ExecutorView,  RegisterView, Order, Executor) {
     'use strict';
 
     var channel = B.Radio.channel('main');
@@ -34,6 +34,9 @@ define([
         },
         order: function (id) {
             channel.trigger('routeChange', new OrderView({model: new Order({Id: id})}));
+        },
+        executor: function (id) {
+            channel.trigger('routeChange', new ExecutorView({model: new Executor({Id: id})}));
         },
         pages: function (pagename) {
             if (!pagename) {

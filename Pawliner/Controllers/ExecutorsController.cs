@@ -34,9 +34,7 @@ namespace Pawliner.Controllers
         [HttpGet]
         public ExecutorViewModel Get(int id)
         {
-            var executorViewModel = Mapper.Map<ExecutorTransport, ExecutorViewModel>(ExecutorManager.GetExecutor(id));
-
-            return executorViewModel;
+            return Mapper.Map<ExecutorTransport, ExecutorViewModel>(ExecutorManager.GetExecutor(id));
         }
 
         [HttpPost]
