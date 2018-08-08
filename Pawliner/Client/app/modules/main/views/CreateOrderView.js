@@ -46,38 +46,46 @@ define([
         //     });
         // },
         onSubmitOrderForm: function (e) {
-            // e.preventDefault();
+            e.preventDefault();
 
-            if (this.ui.orderForm.valid()) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/api/order',
-                    data: {
-                        UserId:  window.app.model.get('userId'),
-                        serviceClassiferDescription: $('.paw-select').val(),
-                        header: $('#headerCreateOrder').val(),
-                        description: $('#descriptionCreateOrder').val(),
-                        city: $('#cityCreateOrder').val(),
-                        address: $('#addressCreateOrder').val(),
-                        name: $('#nameCreateOrder').val(),
-                        CompletedOn: $('#completeDate').val(),
-                        price: $('#priceCreateOrder').val(),
-                        PhoneNumber: $('#profileNumber').val(),
-                    },
-                    beforeSend: function (xhr) {
-                        let token =  window.app.model.get('tokenInfo');
-                        xhr.setRequestHeader("Authorization", "Bearer " + token);
-                    },
-                    success: function (response) {
-                        console.log(response);
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                });
-            }
+            var data = syphon.serialize(this.ui.orderForm);
+            data.UserId = window.app.model.get('userId');
+
+            console.log(data);
+
+            // this.model.set(data);
+            // this.model.save(data);
+
+            // console.log(this.model);
+            $.ajax({
+                type: 'POST',
+                url: '/api/order',
+                data: {
+                    UserId:  window.app.model.get('userId'),
+                    serviceClassiferDescription: $('.paw-select').val(),
+                    Header: $('#headerCreateOrder').val(),
+                    description: $('#descriptionCreateOrder').val(),
+                    city: $('#cityCreateOrder').val(),
+                    address: $('#addressCreateOrder').val(),
+                    name: $('#nameCreateOrder').val(),
+                    CompletedOn: $('#completeDate').val(),
+                    price: $('#priceCreateOrder').val(),
+                    PhoneNumber: $('#profileNumber').val(),
+                },
+                beforeSend: function (xhr) {
+                    let token =  window.app.model.get('tokenInfo');
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
         },
         onRender: function () {
+
             this.showChildView('selectServicesRegion', new SelectServiceCollectionView({
                 collection: new Services()
             }));

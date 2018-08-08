@@ -42,7 +42,9 @@ namespace Pawliner.Logic
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName, user.Id);
+            List<Claim> roles = oAuthIdentity.Claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+
+            AuthenticationProperties properties = CreateProperties(user.UserName, user.Id, roles.Select(r => r.Value).ElementAtOrDefault(0));
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -84,12 +86,18 @@ namespace Pawliner.Logic
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string id)
+        public static AuthenticationProperties CreateProperties(string userName, string id, string roles)
         {
+            if (string.IsNullOrEmpty(roles))
+            {
+                roles = "";
+            }
+
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName },
-                { "id", id }
+                { "id", id },
+                { "roles", roles }
             };
             return new AuthenticationProperties(data);
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pawliner.Model
 {
@@ -12,17 +13,18 @@ namespace Pawliner.Model
         public string Description { get; set; }
         public ExecutorTypeViewModel ExecutorType { get; set; }
         public string Type { get; set; }
+        public string UserId { get; set; }
+        public UserViewModel User { get; set; }
         public DocumentViewModel Document { get; set; }
         public NaturalExecutorViewModel NaturalExecutor { get; set; }
         public JuridicalExecutorViewModel JuridicalExecutor { get; set; }
         public SoleTraderExecutorViewModel SoleTraderExecutor { get; set; }
-        public ICollection<ServiceClassiferViewModel> ServiceClassifers { get; set; }
+        public List<string> ServiceClassifersIds { get; set; }
+        public int PayerAccountNumber { get; set; }
+        public string FullJuredicalName { get; set; }
+        public string ShortJuredicalName { get; set; }
         public ICollection<PhotoViewModel> Photos { get; set; }
-        public ExecutorViewModel()
-        {
-            ServiceClassifers = new List<ServiceClassiferViewModel>();
-            Photos = new List<PhotoViewModel>();
-
-        }
+        public ICollection<RespondViewModel> Responds { get; set; }
+        public virtual ICollection<ServiceClassiferViewModel> ServiceClassifers { get; set; }
     }
 }

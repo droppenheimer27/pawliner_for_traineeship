@@ -33,14 +33,18 @@ namespace Pawliner.DataProvider
         public string CreatedAt { get; set; }
         public string UpdatedAt { get; set; }
         public OrderStatus Status { get; set; }
-        public User User { get; set; }
-        public int? ServiceClassiferId { get; set; }
+        public string UserId { get; set; }
+
+        public virtual User User { get; set; }
+        public int ServiceClassiferId { get; set; }
         public virtual ServiceClassifer ServiceClassifer { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Respond> Responds { get; set; }
 
         public Order()
         {
             Photos = new List<Photo>();
+            Responds = new List<Respond>();
         }
     }
 }

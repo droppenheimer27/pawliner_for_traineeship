@@ -1,19 +1,25 @@
 <div class="row">
     <div class="box">
         <div class="box-header">
-            <div class="jumbotron">
-                <h1 class="box-title"><b><%= Header %></b></h1>
-            </div>
             <div class="row">
+                <div class="col">
+                    <h3 class="pull-left" style="margin-left: 50px"><b><%= Header %></b></h3>
+                </div>
+                <div class="col">
+                    <!-- <a href="" class="text-muted pull-right" style="margin-right: 50px"><small>Edit</small></a> -->
+                    <div id="edit-order-block-region"></div>
+                </div>
+            </div>
+            <!-- <div class="row">
                 <div class="col-md-2">
                     <img class="img-thumbnail img-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" width="150" height="150">
                 </div>
                 <div class="col">
                     <h2 class="box-title"><b>ИП Солончук Виталий Александрович</b></h2>
                 </div>
-            </div>
-            <hr/>
-        </div>
+            </div> -->
+        </div> 
+        <hr/> 
         <div class="box-body">
             <div class="row" style="margin-left: 100px; margin-bottom: 100px;">
                 <div class="col">
@@ -22,16 +28,27 @@
                 </div>
                 <div class="col col-lg-2">
                     <ul class="">
-                        <li class=""><%= Price %> р.</li>
-                        <li class=""><small class="text-muted">Активный</small></li>
-                        <li class="">1 отклик</li>
+                        <li class="text-muted"><%= Price %> р.</li>
+                        <li class="text-muted"><%= ServiceClassiferDescription %></li>
+                        <li class="text-muted"><%= PhoneNumber %></li>
+                        <li class="text-muted"><%= City %>, <%= Address %></li>
+                        <!-- <li class=""><small class="text-muted">Активный</small></li> -->
+                        <!-- <li class="">1 отклик</li> -->
                     </ul>
                 </div>
             </div>
         </div>
         <div class="box-footer">
-            <p>Выполнить до <%= CompletedOn %> </p>
+            <div class="row">
+                <div class="col">
+                    <p>Выполнить до <%= CompletedOn %> </p>
+                </div>
+                <div class="pull-right" style="margin-right: 50px;">
+                    <div id="create-respond-block-region"/>
+                </div>
+            </div>
         </div>
+     
     </div>
 </div>
 

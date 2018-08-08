@@ -6,16 +6,31 @@ namespace Pawliner.DataProvider
     public class UnitOfWork : IUnitOfWork
     {
         private ApplicationContext database;
+        private UserRepository userRepository;
         private OrderRepository orderRepository;
         private ExecutorRepository executorRepository;
         private NaturalExecutorRepository naturalExecutorRepository;
         private SoleTraderExecutorRepository soleTraderExecutorRepository;
         private JuridicalExecutorRepository juridicalExecutorRepository;
+        private RespondRepository respondRepository;
         private ServiceRepository serviceRepository;
         private ServiceClassiferRepository serviceClassiferRepository;
         private DocumentRepository documentRepository;
 
         private bool disposed = false;
+
+        public IUserRepository<User> Users
+        {
+            get
+            {
+                if (userRepository == null)
+                {
+                    userRepository = new UserRepository(database);
+                }
+
+                return userRepository;
+            }
+        }
 
         public IRepository<Order> Orders
         {
@@ -79,6 +94,19 @@ namespace Pawliner.DataProvider
                 }
 
                 return juridicalExecutorRepository;
+            }
+        }
+
+        public IRepository<Respond> Responds
+        {
+            get
+            {
+                if (respondRepository == null)
+                {
+                    respondRepository = new RespondRepository(database);
+                }
+
+                return respondRepository;
             }
         }
 

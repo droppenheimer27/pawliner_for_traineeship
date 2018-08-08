@@ -21,6 +21,7 @@ define([
 
         },
         register: function () {
+            console.log("register");
             channel.trigger('routeChange', new RegisterView());
         },
         profile: function () {

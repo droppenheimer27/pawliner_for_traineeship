@@ -9,7 +9,7 @@ namespace Pawliner.DataProvider
     {
         [Key]
         [ForeignKey("Executor")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int PayerAccountNumber { get; set; } 
         public Executor Executor { get; set; }

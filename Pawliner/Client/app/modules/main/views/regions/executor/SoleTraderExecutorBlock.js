@@ -1,0 +1,64 @@
+define([
+    'syphon',
+    'underscore',
+    'marionette',
+    'text!../../../templates/regions/executor/SoleTraderExecutorBlock.html',
+    '../../collections/SelectExecutorServiceCollectionView',
+    'modules/main/collections/Services',
+    'modules/main/models/Executor'
+], function (syphon, _, marionette, template, SelectExecutorServiceCollectionView, Services, Executor) {
+    'use strict';
+
+    return marionette.View.extend({
+        template: function(tplPrms) {
+            return _.template(template)(tplPrms);
+        },
+        initialize: function () {
+            this.model = new Executor();
+        },
+        ui: {
+            soleTraderForm: '#soleTraderForm',
+            selectServiceRegion: '.select-executor-service-region',
+            executorServicesRegion: '.executor-services-region'
+        },
+        regions: {
+            content: '.content',
+            selectServicesRegion: {
+                el: '@ui.selectServiceRegion',
+                replaceElement: true
+            },
+            executorServicesRegion: {
+                el: '@ui.executorServicesRegion',
+                replaceElement: true
+            },
+        },
+        events: {
+            'submit @ui.soleTraderForm': 'onSubmitSoleTraderForm'
+        },
+        onSubmitSoleTraderForm: function (e) {
+            e.preventDefault();
+            
+            var data = syphon.serialize(this.ui.soleTraderForm);
+            data.Type = this.options.type;
+            data.UserId = window.app.model.get('userId');
+
+            this.model.set(data);
+            this.model.save(data);
+
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/api/account/SetUserRole',
+                beforeSend: function (xhr) {
+                    let token =  window.app.model.get('tokenInfo');
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                },
+            });
+        },
+        onRender: function () {
+            this.showChildView('selectServicesRegion', new SelectExecutorServiceCollectionView({
+                collection: new Services()
+            }));
+        }
+    });
+});

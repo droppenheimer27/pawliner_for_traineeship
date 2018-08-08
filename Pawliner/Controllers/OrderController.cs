@@ -25,9 +25,9 @@ namespace Pawliner.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<OrderTransport> Get([FromUri]List<string> filter)
+        public IEnumerable<OrderTransport> Get([FromUri]List<string> filter, int page = 1)
         {
-            return OrderManager.GetOrders(filter);
+            return OrderManager.GetOrders(filter, page);
         }
 
         [AllowAnonymous]
@@ -35,7 +35,6 @@ namespace Pawliner.Controllers
         public OrderViewModel Get(int id)
         {
             var orderViewModel = Mapper.Map<OrderTransport, OrderViewModel>(OrderManager.GetOrder(id));
-
             return orderViewModel;
         }
 
@@ -76,6 +75,7 @@ namespace Pawliner.Controllers
         {
             var order = OrderManager.GetOrder(id);
 
+            order.ServiceClassiferDescription = model.ServiceClassiferDescription;
             order.Header = model.Header;
             order.Description = model.Description;
             order.City = model.City;

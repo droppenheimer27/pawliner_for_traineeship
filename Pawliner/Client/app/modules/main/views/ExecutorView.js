@@ -1,10 +1,10 @@
 define([
+    'backbone',
     'jquery',
     'marionette',
     'text!../templates/ExecutorView.html',
-    './collections/ExecutorServicesCollectionView',
-    './regions/service/ExecutorServiceListBlock'
-], function ($, marionette, template, ExecutorServiceListBlock, ExecutorServicesCollectionView) {
+    './collections/ExecutorServicesCollectionView'
+], function (B, $, marionette, template, ExecutorServicesCollectionView) {
     'use strict';
     return marionette.View.extend({
         template: function (args) {
@@ -26,10 +26,8 @@ define([
             this.render();
         },
         onRender: function () {
-            var self = this;
-            // console.log(this.model.get('ServiceClassifers'), '-------ExecutorView');
             this.showChildView('serviceBlock', new ExecutorServicesCollectionView({
-                model: self.model.get('ServiceClassifers')
+                collection: new B.Collection(this.model.get('ServiceClassifers'))
             }));
         }
     });

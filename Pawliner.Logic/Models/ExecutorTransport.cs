@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pawliner.Logic
 {
@@ -11,18 +12,20 @@ namespace Pawliner.Logic
         public string LastName { get; set; }
         public string Description { get; set; }
         public ExecutorTypeTransport ExecutorType { get; set; }
+        [NotMapped]
         public string Type { get; set; }
+        public string UserId { get; set; }
+        public UserTransport User { get; set; }
         public DocumentTransport Document { get; set; }
         public NaturalExecutorTransport NaturalExecutor { get; set; }
         public JuridicalExecutorTransport JuridicalExecutor { get; set; }
         public SoleTraderExecutorTransport SoleTraderExecutor { get; set; }
         public ICollection<ServiceClassiferTransport> ServiceClassifers { get; set; }
+        public List<string> ServiceClassifersIds { get; set; }
+        public int PayerAccountNumber { get; set; }
+        public string FullJuredicalName { get; set; }
+        public string ShortJuredicalName { get; set; }
         public ICollection<PhotoTransport> Photos { get; set; }
-        public ExecutorTransport()
-        {
-            ServiceClassifers = new List<ServiceClassiferTransport>();
-            Photos = new List<PhotoTransport>();
-
-        }
+        public ICollection<RespondTransport> Responds { get; set; }
     }
 }

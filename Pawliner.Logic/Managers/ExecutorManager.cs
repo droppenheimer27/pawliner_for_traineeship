@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Pawliner.DataProvider;
-using System;
+using Pawliner.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pawliner.Logic
 {
@@ -17,10 +15,71 @@ namespace Pawliner.Logic
             this.database = database;
         }
 
-        public void CreateExecutor(ExecutorTransport executor)
+        public void CreateExecutor(ExecutorViewModel model)
         {
-            throw new NotImplementedException();
+            var services = database.ServiceClassifers.GetList()
+                .Where(s => model.ServiceClassifersIds
+                .Contains(s.Id.ToString()))
+                .ToList();
+
+            var executor = new Executor
+            {
+                UserId = model.UserId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Patronymic = model.Patronymic,
+                Description = model.Description,
+                ServiceClassifers = services
+            };
+
+            if (string.Equals(model.Type, "NP"))
+            {
+                executor.ExecutorType = ExecutorType.Natural;
+                database.Executors.Create(executor);
+                database.Save();
+
+                var natural = new NaturalExecutor
+                {
+                    Id = executor.Id
+                };
+
+                database.NaturalExecutors.Create(natural);
+                database.Save();
+            }
+            else if (string.Equals(model.Type, "ST"))
+            {
+                executor.ExecutorType = ExecutorType.SoleTrader;
+                database.Executors.Create(executor);
+                database.Save();
+
+                var trader = new SoleTraderExecutor
+                {
+                    Id = executor.Id,
+                    PayerAccountNumber = model.PayerAccountNumber
+                };
+
+                database.SoleTraderExecutors.Create(trader);
+                database.Save();
+            }
+            else if (string.Equals(model.Type, "JP"))
+            {
+                executor.ExecutorType = ExecutorType.Juridical;
+                database.Executors.Create(executor);
+                database.Save();
+
+                var juridical = new JuridicalExecutor
+                {
+                    Id = executor.Id,
+                    PayerAccountNumber = model.PayerAccountNumber,
+                    FullJuredicalName = model.FullJuredicalName,
+                    ShortJuredicalName = model.ShortJuredicalName
+                };
+
+                database.JuridicalExecutors.Create(juridical);
+                database.Save();
+            }
         }
+
         public void UpdateExecutor(ExecutorTransport model)
         {
             var executor = Mapper.Map<ExecutorTransport, Executor>(model);
@@ -72,14 +131,17 @@ namespace Pawliner.Logic
             return Mapper.Map<Executor, ExecutorTransport>(executor);
         }
 
-        public IEnumerable<ExecutorTransport> GetExecutors(List<string> filter)
+        public IEnumerable<ExecutorTransport> GetExecutors(List<string> filter, int page)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Executor, ExecutorTransport>())
-                .CreateMapper();
+            int pageSize = 10; // dont forget change it
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Executor, ExecutorTransport>())
+            //    .CreateMapper();
 
-            var executors = mapper.Map<IEnumerable<Executor>, List<ExecutorTransport>>(database.Executors
+            var executors = Mapper.Map<IEnumerable<Executor>, List<ExecutorTransport>>(database.Executors
                 .GetList()
-                .OrderByDescending(o => o.Id));
+                .OrderByDescending(o => o.Id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize));
 
             var naturals = database.NaturalExecutors.GetList();
             var traders = database.SoleTraderExecutors.GetList();
@@ -97,7 +159,8 @@ namespace Pawliner.Logic
                 select new ExecutorTransport
                 {
                     Id = ex.Id,
-                    Description = ex.Description,
+                    UserId = ex.UserId,
+                    Description = ex.Description,   
                     FirstName = ex.FirstName,
                     LastName = ex.LastName,
                     Patronymic = ex.Patronymic,

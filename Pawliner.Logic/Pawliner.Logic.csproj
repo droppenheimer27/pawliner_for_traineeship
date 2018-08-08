@@ -73,6 +73,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,19 +85,24 @@
     <Compile Include="Interfaces\IApplicationUserManager.cs" />
     <Compile Include="Interfaces\IExecutorManager.cs" />
     <Compile Include="Interfaces\IOrderManager.cs" />
+    <Compile Include="Interfaces\IRespondManager.cs" />
     <Compile Include="Interfaces\IServiceManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\ExecutorManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
+    <Compile Include="Managers\RespondManager.cs" />
     <Compile Include="Managers\ServiceManager.cs" />
     <Compile Include="Models\DocumentTransport.cs" />
     <Compile Include="Models\Enums\ExecutorTypeTransport.cs" />
     <Compile Include="Models\Enums\OrderStatusTransport.cs" />
+    <Compile Include="Models\Enums\RespondStatusTransport.cs" />
     <Compile Include="Models\ExecutorTransport.cs" />
     <Compile Include="Models\JuridicalExecutorTransport.cs" />
     <Compile Include="Models\NaturalExecutorTransport.cs" />
     <Compile Include="Models\OrderTransport.cs" />
     <Compile Include="Models\PhotoTransport.cs" />
+    <Compile Include="Models\Responds\EditRespondTransport.cs" />
+    <Compile Include="Models\Responds\RespondTransport.cs" />
     <Compile Include="Models\ServiceClassiferTransport.cs" />
     <Compile Include="Models\ServiceTransport.cs" />
     <Compile Include="Models\SoleTraderExecutorTransport.cs" />

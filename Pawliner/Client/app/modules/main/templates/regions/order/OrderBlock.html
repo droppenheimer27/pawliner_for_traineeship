@@ -15,14 +15,21 @@
                 <div class="col">
                     <ul class="">
                         <li class=""><%= Price %> р.</li>
-                        <li class=""><small class="text-muted">Активный</small></li>
-                        <li class="">1 отклик</li>
+                        <!-- <li class=""><small class="text-muted">Активный</small></li> -->
+                        <!-- <li class="">1 отклик</li> -->
                     </ul>
                 </div>
             </div>
         </div>
         <div class="box-footer">
-            <p>Выполнить до <%= CompletedOn %></p>
+            <div class="row">
+                <div class="col">
+                    <p class="text-muted">Service - <%= ServiceClassiferDescription %></p>
+                </div>
+                <div class="col">
+                    <p>Выполнить до <%= CompletedOn %></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -19,9 +19,13 @@ define([
         onLogout: function (e) {;
             e.preventDefault();
 
-            var tokenInfo = {tokenInfo: ''};
-            window.app.model.set(tokenInfo);
-            window.app.model.save(tokenInfo);
+            var args = {
+                tokenInfo: '',
+                userId: '',
+                roles: ''
+            };
+            window.app.model.set(args);
+            window.app.model.save(args);
         }
     });
 });

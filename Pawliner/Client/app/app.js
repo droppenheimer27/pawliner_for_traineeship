@@ -23,8 +23,17 @@ define([
         onBeforeStart: function() {
             this.loadModel({});
 //            this.setupAjax401();
-//            this.setupToken(this.model.get("x-access-token"));
+            this.setupToken(this.model.get("tokenInfo"));
             this.contentViewLoader();
+        },
+        setupToken: function(token) {
+            var args = {};
+            if (!_.isUndefined(token) && !_.isEmpty(token)){
+                _.extend(args, {headers: {
+                    'Authorization' : 'Bearer '+ token,
+                }});
+            }
+            $.ajaxSetup(args);
         },
         loadModel: function(args) {
             var modelData = {};

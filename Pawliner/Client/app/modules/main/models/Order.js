@@ -7,7 +7,8 @@ define([
         idAttribute: 'Id',
         urlRoot : '/api/order',
         defaults: {
-            Id: '', 
+            Id: '',
+            UserId: '', 
             Header: '',
             Description: '',
             City: '',

@@ -256,8 +256,8 @@ namespace Pawliner
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.Id);
-                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
+               // AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.Id);
+                // Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
             {
@@ -372,6 +372,31 @@ namespace Pawliner
             user.FullName = model.FullName;
             user.Skype = model.Skype;
             user.PhoneNumber = model.PhoneNumber;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("SetUserRole")]
+        public async Task<IHttpActionResult> SetUserRole()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = UserManager.FindByName(User.Identity.Name);
+            if (!UserManager.GetRoles(user.Id).Contains("Executor"))
+            {
+                userManager.AddToRole(user.Id, "Executor");
+            }
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 

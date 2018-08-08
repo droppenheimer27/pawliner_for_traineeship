@@ -29,13 +29,21 @@ define([
                     password: $("#passwordLogin").val()
                 },
                 success: function (response) {
-                    var tokenInfo = {tokenInfo: response.access_token};
-                    var userId = {userId: response.id};
-                    window.app.model.set(userId);
-                    window.app.model.save(userId);
+                    var args = {
+                        tokenInfo: response.access_token,
+                        userId: response.id,
+                        roles: response.roles
+                    };
+                    
+                    window.app.model.set(args);
+                    window.app.model.save(args);
+                    
+                    // B.Radio.channel('main').trigger('showRespondBlock');
+                    // window.app.model.set(roles);
+                    // window.app.model.save(roles);
 
-                    window.app.model.set(tokenInfo);
-                    window.app.model.save(tokenInfo);
+                    // window.app.model.set(tokenInfo);
+                    // window.app.model.save(tokenInfo);
                 },
                 error: function (response) {
                     console.log(response);

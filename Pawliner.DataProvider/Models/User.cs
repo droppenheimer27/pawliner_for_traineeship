@@ -13,11 +13,13 @@ namespace Pawliner.DataProvider
     {
         public string FullName { get; set; }
         public string Skype { get; set; }
+        public ICollection<Executor> Executors { get; set; }
         public ICollection<Order> Orders { get; set; }
 
         public User()
         {
             Orders = new List<Order>();
+            Executors = new List<Executor>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)

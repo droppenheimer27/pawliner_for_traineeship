@@ -25,9 +25,9 @@ namespace Pawliner.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<ExecutorViewModel> Get([FromUri]List<string> filter)
+        public IEnumerable<ExecutorViewModel> Get([FromUri]List<string> filter, int page = 1)
         {
-            return Mapper.Map<IEnumerable<ExecutorTransport>, IEnumerable<ExecutorViewModel>>(ExecutorManager.GetExecutors(filter));
+            return Mapper.Map<IEnumerable<ExecutorTransport>, IEnumerable<ExecutorViewModel>>(ExecutorManager.GetExecutors(filter, page));
         }
 
         [AllowAnonymous]
@@ -44,6 +44,9 @@ namespace Pawliner.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            //ExecutorManager.CreateExecutor(Mapper.Map<ExecutorViewModel, ExecutorTransport>(model));
+            ExecutorManager.CreateExecutor(model);
 
             return Ok();
         }

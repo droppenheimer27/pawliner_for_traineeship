@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201807312131367_MigrateDB.cs" />
@@ -189,15 +190,45 @@
     <Compile Include="Migrations\201808031443458_MigrateDB10.Designer.cs">
       <DependentUpon>201808031443458_MigrateDB10.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808060006395_MigrateDB11.cs" />
+    <Compile Include="Migrations\201808060006395_MigrateDB11.Designer.cs">
+      <DependentUpon>201808060006395_MigrateDB11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808060056057_MigrateDB12.cs" />
+    <Compile Include="Migrations\201808060056057_MigrateDB12.Designer.cs">
+      <DependentUpon>201808060056057_MigrateDB12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808060128268_MigrateDB13.cs" />
+    <Compile Include="Migrations\201808060128268_MigrateDB13.Designer.cs">
+      <DependentUpon>201808060128268_MigrateDB13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808061649374_MigrateDB14.cs" />
+    <Compile Include="Migrations\201808061649374_MigrateDB14.Designer.cs">
+      <DependentUpon>201808061649374_MigrateDB14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808061700420_MigrateDB15.cs" />
+    <Compile Include="Migrations\201808061700420_MigrateDB15.Designer.cs">
+      <DependentUpon>201808061700420_MigrateDB15.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808062118294_MigrateDB16.cs" />
+    <Compile Include="Migrations\201808062118294_MigrateDB16.Designer.cs">
+      <DependentUpon>201808062118294_MigrateDB16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808070159171_MigrateDB17.cs" />
+    <Compile Include="Migrations\201808070159171_MigrateDB17.Designer.cs">
+      <DependentUpon>201808070159171_MigrateDB17.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Enums\ExecutorType.cs" />
     <Compile Include="Models\Enums\OrderStatus.cs" />
+    <Compile Include="Models\Enums\RespondStatus.cs" />
     <Compile Include="Models\Executor.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\JuridicalExecutor.cs" />
     <Compile Include="Models\NaturalExecutor.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\Respond.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceClassifer.cs" />
     <Compile Include="Models\SoleTraderExecutor.cs" />
@@ -206,11 +237,13 @@
     <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\ExecutorRepository.cs" />
     <Compile Include="Repositories\JuridicalExecutorRepository.cs" />
+    <Compile Include="Repositories\RespondRepository.cs" />
     <Compile Include="Repositories\SoleTraderExecutorRepository.cs" />
     <Compile Include="Repositories\NaturalExecutorRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ServiceClassiferRepository.cs" />
     <Compile Include="Repositories\ServiceRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +283,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808031443458_MigrateDB10.resx">
       <DependentUpon>201808031443458_MigrateDB10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808060006395_MigrateDB11.resx">
+      <DependentUpon>201808060006395_MigrateDB11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808060056057_MigrateDB12.resx">
+      <DependentUpon>201808060056057_MigrateDB12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808060128268_MigrateDB13.resx">
+      <DependentUpon>201808060128268_MigrateDB13.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808061649374_MigrateDB14.resx">
+      <DependentUpon>201808061649374_MigrateDB14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808061700420_MigrateDB15.resx">
+      <DependentUpon>201808061700420_MigrateDB15.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808062118294_MigrateDB16.resx">
+      <DependentUpon>201808062118294_MigrateDB16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808070159171_MigrateDB17.resx">
+      <DependentUpon>201808070159171_MigrateDB17.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

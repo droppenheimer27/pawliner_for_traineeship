@@ -20,5 +20,16 @@ namespace Pawliner.Logic
         public string CompletedOn { get; set; }
         public string CreatedAt { get; set; }
         public string UpdatedAt { get; set; }
+        public OrderStatusTransport Status { get; set; }
+        public virtual User User { get; set; }
+        public int ServiceClassiferId { get; set; }
+        public virtual ServiceClassifer ServiceClassifer { get; set; }
+        public ICollection<Respond> Responds { get; set; }
+        public ICollection<Photo> Photos { get; set; }
+
+        public OrderTransport()
+        {
+            Responds = new List<Respond>();
+        }
     }
 }

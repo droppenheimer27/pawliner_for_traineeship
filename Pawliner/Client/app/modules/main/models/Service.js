@@ -7,7 +7,7 @@ define([
         idAttribute: 'Id',
         urlRoot : '/api/services',
         defaults: {
-            Id: '', // remove
+            Id: '',
             Description: ''
         }
     });

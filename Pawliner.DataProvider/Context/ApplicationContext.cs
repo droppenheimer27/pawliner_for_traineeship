@@ -13,6 +13,7 @@ namespace Pawliner.DataProvider
         public DbSet<NaturalExecutor> NaturalExecutors { get; set; }
         public DbSet<SoleTraderExecutor> SoleTraderExecutors { get; set; }
         public DbSet<JuridicalExecutor> JuridicalExecutors { get; set; }
+        public DbSet<Respond> Responds { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceClassifer> ServiceClassifers { get; set; }
         public DbSet<Document> Documents { get; set; }
@@ -25,14 +26,6 @@ namespace Pawliner.DataProvider
         { }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Order>()
-            //.HasRequired(c => c.Service)
-            //.WithRequiredPrincipal(c => c.Order);
-
-            //modelBuilder.Entity<Executor>()
-            //.HasMany(p => p.Services)
-            //.WithRequired(p => p.Executor);
-
             base.OnModelCreating(modelBuilder);
         }
     }

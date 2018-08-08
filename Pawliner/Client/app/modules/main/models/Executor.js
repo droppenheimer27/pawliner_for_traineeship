@@ -7,12 +7,20 @@ define([
         idAttribute: 'Id',
         urlRoot : '/api/executors',
         defaults: {
-            Id: '', 
             Description: '',
             FirstName: '',
             LastName: '',
             Patronymic: '',
-            Services: []
+            NaturalExecutor: {},
+            SoleTraderExecutor: {},
+            JuridicalExecutor: {},
+            Photos: [],
+            ServiceClassifersIds: [],
+            Type: '',
+            PayerAccountNumber: '',
+            FullJuredicalName: '',
+            ShortJuredicalName: ''
+
         },
     });
 });

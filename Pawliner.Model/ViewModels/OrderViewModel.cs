@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Pawliner.Model
 {
@@ -18,5 +19,11 @@ namespace Pawliner.Model
         public string CompletedOn { get; set; }
         public string CreatedAt { get; set; }
         public string UpdatedAt { get; set; }
+        public ICollection<RespondViewModel> Responds {get; set;}
+
+        public OrderViewModel()
+        {
+            Responds = new List<RespondViewModel>();
+        }
     }
 }

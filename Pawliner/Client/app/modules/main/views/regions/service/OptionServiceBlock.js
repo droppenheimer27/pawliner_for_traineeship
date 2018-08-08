@@ -11,5 +11,10 @@ define([
         template: function (tplPrms) {
             return _.template(template)(tplPrms);
         },
+        attributes: function() {
+            return {
+                value: this.model.get("Id")
+            };
+        },
     });
 });

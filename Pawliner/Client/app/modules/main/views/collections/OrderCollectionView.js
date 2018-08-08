@@ -3,8 +3,10 @@ define([
     'underscore',
     'jquery',
     'marionette',
+    // 'backgrid',
     '../../collections/Orders',
-    '../regions/order/OrderBlock'
+    '../regions/order/OrderBlock',
+    // 'backgridpaginator',
 ], function (B, _, $, marionette, Orders, OrderBlock) {
     'use strict';
 
@@ -25,5 +27,11 @@ define([
 
             this.render();
         },
+        onRender: function () {
+            // var paginator = new Backgrid.Extension.Paginator({
+            //     collection: this.collection
+            //   });
+            // $("#paginator").append(paginator.render().$el);
+        }
     });
 });
