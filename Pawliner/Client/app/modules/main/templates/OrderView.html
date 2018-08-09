@@ -3,11 +3,11 @@
         <div class="box-header">
             <div class="row">
                 <div class="col">
-                    <h3 class="pull-left" style="margin-left: 50px"><b><%= Header %></b></h3>
+                    <h3 class="pull-left" style="margin-left: 50px"><b><%= Header %></b><small class="text-muted" style="margin-left: 30px"><%= OrderStatus %></small></h3>
                 </div>
                 <div class="col">
                     <!-- <a href="" class="text-muted pull-right" style="margin-right: 50px"><small>Edit</small></a> -->
-                    <div id="edit-order-block-region"></div>
+                    <div class="edit-order-block-region"></div>
                 </div>
             </div>
             <!-- <div class="row">
@@ -32,7 +32,6 @@
                         <li class="text-muted"><%= ServiceClassiferDescription %></li>
                         <li class="text-muted"><%= PhoneNumber %></li>
                         <li class="text-muted"><%= City %>, <%= Address %></li>
-                        <!-- <li class=""><small class="text-muted">Активный</small></li> -->
                         <!-- <li class="">1 отклик</li> -->
                     </ul>
                 </div>
@@ -41,15 +40,14 @@
         <div class="box-footer">
             <div class="row">
                 <div class="col">
-                    <p>Выполнить до <%= CompletedOn %> </p>
+                    <p>Complete on <%= CompletedOn %> </p>
                 </div>
                 <div class="pull-right" style="margin-right: 50px;">
-                    <div id="create-respond-block-region"/>
+                    <div class="create-respond-block-region"/>
                 </div>
             </div>
         </div>
-     
     </div>
 </div>
 
-<div class="container" id="respond-block-region"/>
+<div class="container respond-block-region"/>

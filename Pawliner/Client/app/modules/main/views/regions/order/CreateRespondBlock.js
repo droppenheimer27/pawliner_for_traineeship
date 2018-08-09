@@ -12,7 +12,6 @@ define([
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
         },
-        // collection: new Executors(),
         initialize: function () {
             var self = this;
 
@@ -30,23 +29,6 @@ define([
                     console.log(response);
                 }
             });
-
-            // var executor = new Executor();
-            // executor.fetch({
-            //     data: {
-            //         UserId: window.app.model.get('userId')
-            //     }
-            // })
-
-            // this.options.ExecutorId = _.find(executor, {UserId: window.app.model.get('userId')}).Id;
-            //console.log(this.options.ExecutorId)
-            // this.collection = new Executors();
-            // this.collection.fetch({
-            //     data: {
-            //         UserId: window.app.model.get('userId')
-            //     }
-            // });
-            // console.log(this.collection);
         },
         ui: {
             form: 'form[role="form"]'
@@ -61,7 +43,7 @@ define([
             data.UserId = window.app.model.get('userId');
             data.OrderId = parseInt(this.options.OrderId, 10);
             data.ExecutorId = this.options.ExecutorId;
-            data.Status = 2;
+            data.Status = 2; // Unsubmited respond
             console.log(data);
 
             this.model = new Respond();

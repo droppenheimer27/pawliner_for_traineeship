@@ -1,16 +1,16 @@
 define([
+    'syphon',
     'jquery',
     'marionette',
-    'text!../templates/UserProfileView.html',
-    'modules/main/models/User',
-], function ($, marionette, template, User) {
+    'text!../templates/UserProfileView.html'
+], function (syphon, $, marionette, template) {
     'use strict';
     return marionette.View.extend({
         template: function (args) {
             return _.template(template)(args);
         },
         initialize: function() {
-            let userInfo = '';
+            var self = this;
 
             $.ajax({
                 type: 'GET',
@@ -22,12 +22,7 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (response) {
-                    console.log(response);
-                    $('#profileLogin').val(response.UserName);
-                    $('#profileEmail').val(response.Email);
-                    $('#profileName').val(response.FullName);
-                    $('#profileNumber').val(response.PhoneNumber);
-                    $('#profileSkype').val(response.Skype);
+                    syphon.deserialize(self.ui.profileForm, response);
                 },
                 error: function (response) {
                     console.log(response);
@@ -43,19 +38,14 @@ define([
         onSubmitProfileForm: function (e) {
             e.preventDefault();
 
+            var data = syphon.serialize(this.ui.profileForm);
+
             $.ajax({
                 type: 'PUT',
                 url: '/api/account/UserInfo',
-                data: {
-                    username:  $('#profileLogin').val(),
-                    email:  $('#profileEmail').val(),
-                    fullName:  $('#profileName').val(),
-                    phoneNumber:  $('#profileNumber').val(),
-                    skype:  $('#profileSkype').val(),
-                },
+                data: data,
                 beforeSend: function (xhr) {
-
-                    var token = sessionStorage.getItem('tokenInfo');
+                    var token = window.app.model.get('tokenInfo');
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (response) {

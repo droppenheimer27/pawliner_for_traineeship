@@ -26,6 +26,6 @@ define([
             };
             window.app.model.set(args);
             window.app.model.save(args);
-        }
+        },
     });
 });

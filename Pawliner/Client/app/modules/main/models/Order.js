@@ -17,7 +17,23 @@ define([
             CompletedOn: '',
             Name: '',
             PhoneNumber: '',
-            ServiceClassiferDescription: ''
+            ServiceClassiferDescription: '',
+            OrderStatus: '',
+            Executor: {
+                Description: '',
+                FirstName: '',
+                LastName: '',
+                Patronymic: '',
+                NaturalExecutor: {},
+                SoleTraderExecutor: {},
+                JuridicalExecutor: {},
+                Photos: [],
+                ServiceClassifersIds: [],
+                Type: '',
+                PayerAccountNumber: '',
+                FullJuredicalName: '',
+                ShortJuredicalName: ''
+            }
         },
     });
 });

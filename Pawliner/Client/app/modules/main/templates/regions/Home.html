@@ -4,10 +4,10 @@
         <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Orders</a></li>
         <li><a href="#tab_2" data-toggle="tab" aria-expanded="false">Executors</a></li>
         <li class="pull-right" style="margin-left: 800px;">
-            <a href="#!/main/placeorder" class="check-login text-success">Place order</a>
+            <a href="#!/main/placeorder" class="check-login text-success" id="placeOrderView">Place order</a>
         </li>
         <li class="pull-right">
-            <a href="#!/main/becomeexecutor" class="check-login text-danger">Become executor</a>
+            <a href="#!/main/becomeexecutor" class="check-login text-danger" id="becomeExecutorView">Become executor</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -32,4 +32,48 @@
     <div class="tab footer">
         <div id="paginator"></div>
     </div>
+</div>
+
+<div class="modal modal-danger fade in" id="model-user-login">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sign in</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <p>Sign in, please</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-outline" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<div class="modal modal-danger fade in" id="model-executor">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h4 class="modal-title">Executor</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <p>You are already got executor account!</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-outline" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div> 
 </div>

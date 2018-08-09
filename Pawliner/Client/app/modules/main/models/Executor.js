@@ -19,8 +19,8 @@ define([
             Type: '',
             PayerAccountNumber: '',
             FullJuredicalName: '',
-            ShortJuredicalName: ''
-
+            ShortJuredicalName: '',
+            Comments: []
         },
     });
 });

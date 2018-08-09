@@ -3,8 +3,11 @@ define([
     'jquery',
     'marionette',
     'text!../templates/ExecutorView.html',
-    './collections/ExecutorServicesCollectionView'
-], function (B, $, marionette, template, ExecutorServicesCollectionView) {
+    './collections/ExecutorServicesCollectionView',
+    './collections/CommentCollectionView',
+    './regions/comment/CreateCommentBlock',
+    'modules/main/collections/Comments'
+], function (B, $, marionette, template, ExecutorServicesCollectionView, CommentCollectionView, CreateCommentBlock, Comments) {
     'use strict';
     return marionette.View.extend({
         template: function (args) {
@@ -16,11 +19,13 @@ define([
         },
         ui: {
             serviceBlock: '.executor-service-region',
-            commentsBlock: '#comments-block-region'
+            commentsBlock: '.comments-block-region',
+            createCommentBlock: '.create-comment-block-region'
         },
         regions: {
             serviceBlock: '@ui.serviceBlock',
-            commentsBlock: '@ui.commentsBlock'
+            commentsBlock: '@ui.commentsBlock',
+            createCommentBlock: '@ui.createCommentBlock'
         },
         onSync: function () {
             this.render();
@@ -29,6 +34,16 @@ define([
             this.showChildView('serviceBlock', new ExecutorServicesCollectionView({
                 collection: new B.Collection(this.model.get('ServiceClassifers'))
             }));
+            
+            if (this.model.get('Comments') !== null) {
+                this.showChildView('commentsBlock', new CommentCollectionView({
+                    collection: new Comments(this.model.get('Comments'))
+                }));
+            }
+
+            if (!_.isEmpty(window.app.model.get('userId'))) {
+                this.showChildView('createCommentBlock', new CreateCommentBlock({model: this.model}));
+            }
         }
     });
 });

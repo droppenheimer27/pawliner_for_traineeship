@@ -29,9 +29,7 @@ define([
         },
         ui: {
             userFormRegion: '#user-form-region',
-            homeRegion: '#home-region',
-            // registerLink: 'a[id="registerLink"]',
-            // loginLink: 'a[id="loginLink"]'
+            homeRegion: '#home-region'
         },
         regions: {
             content: '.content',
@@ -44,22 +42,6 @@ define([
                 replaceElement: true
             },
         },
-        // events: {
-        //     "click @ui.registerLink": "openRegisterBlock",
-        //     "click @ui.loginLink": "openLoginBlock"
-        // },
-        // openRegisterBlock: function (e) {
-        //     e.preventDefault();
-
-        //     $("#loginBlock").hide();
-        //     $("#registerBlock").show();
-        // },
-        // openLoginBlock: function (e) {
-        //     e.preventDefault();
-
-        //     $("#registerBlock").hide();
-        //     $("#loginBlock").show();
-        // },
         onRender: function() {
             this.showChildView('userFormRegion', new UserBlock());
             this.showChildView('homeRegion', new Home());

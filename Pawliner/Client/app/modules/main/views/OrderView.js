@@ -15,29 +15,29 @@ define([
         },
         initialize: function() {
             this.model.fetch();
-            this.options.Id = this.model.get('Id');
             this.model.on("sync", this.onSync, this);
         },
         ui: {
-            respondBlock: '#respond-block-region',
-            createRespondBlock: '#create-respond-block-region',
-            editOrderBlock: '#edit-order-block-region'
+            respondBlock: '.respond-block-region',
+            createRespondBlock: '.create-respond-block-region',
+            editOrderBlock: '.edit-order-block-region'
         },
         regions: {
             respondBlock: '@ui.respondBlock',
             createRespondBlock: '@ui.createRespondBlock',
             editOrderBlock: '@ui.editOrderBlock'
         },
-        onSync: function() {
+        onSync: function () {
             this.render();
         },
         onRender: function () {
+
             this.showChildView('respondBlock', new OrderRespondsCollectionView({
                 collection: new Orders(this.model.get('Responds'))
             }));
 
             if (window.app.model.get('roles') === 'Executor') {
-                this.showChildView('createRespondBlock', new CreateRespondBlock({OrderId: this.options.Id}));
+                this.showChildView('createRespondBlock', new CreateRespondBlock({OrderId: this.model.get('Id')}));
             }
 
             if (window.app.model.get('userId') === this.model.get('UserId')) {

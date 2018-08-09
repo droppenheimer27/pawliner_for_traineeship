@@ -5,15 +5,15 @@ define([
 
     return B.Model.extend({
         idAttribute: 'Id',
-        urlRoot : '/api/responds',
+        urlRoot : '/api/comments',
         defaults: {
+            Id: '',
             Content: '',
             CreatedAt: '',
-            Status: '',
-            OrderId: '',
+            UserId: '', 
+            User: null,
             ExecutorId: '',
-            UserId: '',
-            Executor: null
+            Executor: null,
         },
     });
 });

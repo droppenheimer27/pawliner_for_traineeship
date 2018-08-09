@@ -37,7 +37,6 @@ define([
                     
                     window.app.model.set(args);
                     window.app.model.save(args);
-                    
                     // B.Radio.channel('main').trigger('showRespondBlock');
                     // window.app.model.set(roles);
                     // window.app.model.save(roles);
@@ -49,6 +48,8 @@ define([
                     console.log(response);
                 }
             });
+
+            $('#model-login').modal('show');
         },
     });
 });

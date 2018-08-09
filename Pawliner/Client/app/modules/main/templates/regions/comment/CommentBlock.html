@@ -6,12 +6,10 @@
                     <img class="img-thumbnail img-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" width="150" height="150">
                 </div>
                 <div class="col">
-                    <h2 class="box-title"><a href="#!/main/executor/<%= Executor.Id %>"><b><%= Executor.FirstName %> <%= Executor.LastName %></b></a></h2>
+                    <h2 class="box-title"><b><%= User.UserName %></b></h2>
                 </div>
                 <div class="col">
-                    <!-- <a href="" data-toggle="modal" class="pull-right" data-target="#model-respond-put" style="margin-right: 80px;"><small class="text-muted">Edit a respond</small></a> -->
-                    <div class="edit-respond-block-region"></div>
-                    <div class="submit-respond-block-region"></div>
+                    <div class="edit-comment-block-region"></div>
                 </div>
             </div>
             <hr/>
@@ -25,9 +23,6 @@
             <div class="row">
                 <div class="col">
                     <p><small class="text-muted"><%= CreatedAt %></small></p>
-                </div>
-                <div class="col">
-                    <div class="submited-respond-region"></div>
                 </div>
             </div>
         </div>

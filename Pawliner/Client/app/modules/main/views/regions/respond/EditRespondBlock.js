@@ -29,6 +29,7 @@ define([
         onSubmitEditRespondForm: function (e) {
             e.preventDefault();
 
+            var self = this;
             var data = syphon.serialize(this.ui.editRespondForm);
             data.Id = this.model.get('Id');
 
@@ -36,7 +37,7 @@ define([
             respond.set(data);
             respond.save(data, {
                 success: function () {
-                    $('#model-respond-put').modal('hide');
+                    $('#model-respond-put' + self.model.get('Id')).modal('hide');
                 }
             });
 
@@ -46,7 +47,8 @@ define([
         },
         onClickRemoveRespondButton: function (e) {
             e.preventDefault();
-
+            
+            var self = this;
             var respond = new Respond();
             respond.fetch({data: {
                 Id: this.model.get('Id'),
@@ -60,7 +62,7 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function () {
-                    $('#model-respond-put').modal('hide');
+                    $('#model-respond-put' + self.model.get('Id')).modal('hide');
                 },
                 error: function (response) {
                     console.log(response);

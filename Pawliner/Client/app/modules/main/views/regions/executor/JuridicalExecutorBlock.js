@@ -55,6 +55,11 @@ define([
                     let token =  window.app.model.get('tokenInfo');
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
+                success: function () {
+                    var roles = {roles: 'Executor'};
+                    window.app.model.set(roles);
+                    window.app.model.save(roles);
+                }
             });
         },
         onRender: function () {
