@@ -61,5 +61,15 @@ namespace Pawliner.Logic
             database.Responds.Update(respond);
             database.Save();
         }
+
+        public void UpdateStatusRespond(StatusRespondTransport model)
+        {
+            var respond = database.Responds.Get(model.Id);
+            respond.Status = RespondStatus.Submited;
+
+            database.Responds.Update(respond);
+            database.Save();
+
+        }
     }
 }

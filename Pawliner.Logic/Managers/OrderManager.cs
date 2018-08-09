@@ -56,6 +56,22 @@ namespace Pawliner.Logic
             database.Save();
         }
 
+        public void UpdateStatusOrder(OrderEditStatusTransport model)
+        {
+            var order = database.Orders.Get(model.Id);
+            if (string.Equals(model.Status, "Submit"))
+            {
+                order.Status = OrderStatus.Submited;
+            }
+            else if (string.Equals(model.Status, "Done"))
+            {
+                order.Status = OrderStatus.Done;
+            }
+
+            database.Orders.Update(order);
+            database.Save();
+        }
+
         public void DeleteOrder(int id)
         {
             database.Orders.Delete(id);
@@ -71,7 +87,7 @@ namespace Pawliner.Logic
                 .Where(r => r.OrderId == id)
                 .ToList();
 
-            return new OrderTransport
+            var orderTransport = new OrderTransport
             {
                 Id = order.Id,
                 UserId = order.UserId,
@@ -87,6 +103,25 @@ namespace Pawliner.Logic
                 ServiceClassiferDescription = service.Description,
                 Responds = responds,
             };
+
+            if (order.Status == OrderStatus.Active)
+            {
+                orderTransport.OrderStatus = "Active";
+            }
+            else if (order.Status == OrderStatus.Submited)
+            {
+                orderTransport.OrderStatus = "Submited";
+            }
+            else if (order.Status == OrderStatus.UnSubmited)
+            {
+                orderTransport.OrderStatus = "Unsubmited";
+            }
+            else if (order.Status == OrderStatus.Done)
+            {
+                orderTransport.OrderStatus = "Done";
+            }
+
+            return orderTransport;
         }
 
         public IEnumerable<OrderTransport> GetOrders(List<string> filter, int page)

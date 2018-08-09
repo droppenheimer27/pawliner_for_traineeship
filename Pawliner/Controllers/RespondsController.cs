@@ -61,6 +61,19 @@ namespace Pawliner.Controllers
             var respond = Mapper.Map<EditRespondViewModel, EditRespondTransport>(model);
             RespondManager.UpdateRespond(respond);
         }
+
+        [Authorize]
+        [Route("api/responds/UpdateStatus")]
+        [HttpPut]
+        public void UpdateStatus([FromBody]StatusRespondViewModel model)
+        {
+            var respond = new StatusRespondTransport
+            {
+                Id = model.Id
+            };
+            RespondManager.UpdateStatusRespond(respond);
+        }
+
         [Authorize(Roles = "Executor")]
         [HttpDelete]
         public void Delete(int id)

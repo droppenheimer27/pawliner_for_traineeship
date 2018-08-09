@@ -20,7 +20,7 @@ namespace Pawliner.Logic
             var services = database.ServiceClassifers.GetList()
                 .Where(s => model.ServiceClassifersIds
                 .Contains(s.Id.ToString()))
-                .ToList();
+                .ToList(); 
 
             var executor = new Executor
             {
@@ -95,6 +95,12 @@ namespace Pawliner.Logic
         {
             var executor = database.Executors.GetList().FirstOrDefault(e => e.Id == id);
 
+            var comments = database.Comments
+               .GetList()
+               .Where(r => r.ExecutorId == id)
+               .ToList();
+
+            executor.Comments = comments;
             if (executor.ExecutorType == ExecutorType.Natural)
             {
                 executor.Type = "";

@@ -55,7 +55,6 @@ namespace Pawliner
 
             builder.RegisterType<ApplicationContext>().AsSelf().InstancePerRequest().WithParameter("connectionString", "DefaultConnection");
             builder.RegisterType<UserStore<User>>().As<IUserStore<User>>().InstancePerRequest();
-            //builder.RegisterType<UserManager<User>>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.Register(c => new UserStore<User>(c.Resolve<ApplicationContext>())).AsImplementedInterfaces().InstancePerRequest();
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
@@ -63,6 +62,7 @@ namespace Pawliner
             builder.RegisterType<ServiceManager>().As<IServiceManager>().InstancePerRequest();
             builder.RegisterType<ExecutorManager>().As<IExecutorManager>().InstancePerRequest();
             builder.RegisterType<RespondManager>().As<IRespondManager>().InstancePerRequest();
+            builder.RegisterType<CommentManager>().As<ICommentManager>().InstancePerRequest();
 
             builder.RegisterType<RoleStore<IdentityRole>>().As<IRoleStore<IdentityRole, string>>().InstancePerLifetimeScope();
             //builder.Register(c => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).AsSelf().InstancePerLifetimeScope();

@@ -71,8 +71,13 @@ namespace Pawliner.Controllers
         }
 
         [HttpPut]
-        public void Put(int id, [FromBody]OrderViewModel model)
+        public IHttpActionResult Put(int id, [FromBody]OrderViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var order = OrderManager.GetOrder(id);
 
             order.ServiceClassiferDescription = model.ServiceClassiferDescription;
@@ -88,6 +93,25 @@ namespace Pawliner.Controllers
 
             OrderManager.UpdateOrder(order);
 
+            return Ok();
+        }
+
+        [Route("api/order/UpdateStatus")]
+        [HttpPut]
+        public IHttpActionResult UpdateStatus([FromBody]OrderEditStatusViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            OrderManager.UpdateStatusOrder(new OrderEditStatusTransport
+            {
+                Id = model.Id,
+                Status = model.Status
+            });
+
+            return Ok();
         }
 
         [HttpDelete]

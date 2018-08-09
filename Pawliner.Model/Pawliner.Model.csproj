@@ -50,6 +50,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountBindingModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\Comments\CommentViewModel.cs" />
+    <Compile Include="ViewModels\Comments\EditCommentViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\Enums\ExecutorTypeViewModel.cs" />
     <Compile Include="ViewModels\Enums\OrderStatusViewModel.cs" />
@@ -57,10 +59,12 @@
     <Compile Include="ViewModels\ExecutorViewModel.cs" />
     <Compile Include="ViewModels\JuridicalExecutorViewModel.cs" />
     <Compile Include="ViewModels\NaturalExecutorViewModel.cs" />
-    <Compile Include="ViewModels\OrderViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderEditStatusViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderViewModel.cs" />
     <Compile Include="ViewModels\PhotoViewModel.cs" />
     <Compile Include="ViewModels\Responds\EditRespondViewModel.cs" />
     <Compile Include="ViewModels\Responds\RespondViewModel.cs" />
+    <Compile Include="ViewModels\Responds\StatusRespondViewModel.cs" />
     <Compile Include="ViewModels\ServiceClassiferViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\SoleTraderExecutorViewModel.cs" />

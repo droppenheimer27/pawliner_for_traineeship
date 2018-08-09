@@ -83,15 +83,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IApplicationUserManager.cs" />
+    <Compile Include="Interfaces\ICommentManager.cs" />
     <Compile Include="Interfaces\IExecutorManager.cs" />
     <Compile Include="Interfaces\IOrderManager.cs" />
     <Compile Include="Interfaces\IRespondManager.cs" />
     <Compile Include="Interfaces\IServiceManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
+    <Compile Include="Managers\CommentManager.cs" />
     <Compile Include="Managers\ExecutorManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Managers\RespondManager.cs" />
     <Compile Include="Managers\ServiceManager.cs" />
+    <Compile Include="Models\Comments\EditCommentTransport.cs" />
+    <Compile Include="Models\Comments\CommentTransport.cs" />
     <Compile Include="Models\DocumentTransport.cs" />
     <Compile Include="Models\Enums\ExecutorTypeTransport.cs" />
     <Compile Include="Models\Enums\OrderStatusTransport.cs" />
@@ -99,10 +103,12 @@
     <Compile Include="Models\ExecutorTransport.cs" />
     <Compile Include="Models\JuridicalExecutorTransport.cs" />
     <Compile Include="Models\NaturalExecutorTransport.cs" />
-    <Compile Include="Models\OrderTransport.cs" />
+    <Compile Include="Models\Orders\OrderEditStatusTransport.cs" />
+    <Compile Include="Models\Orders\OrderTransport.cs" />
     <Compile Include="Models\PhotoTransport.cs" />
     <Compile Include="Models\Responds\EditRespondTransport.cs" />
     <Compile Include="Models\Responds\RespondTransport.cs" />
+    <Compile Include="Models\Responds\StatusRespondTransport.cs" />
     <Compile Include="Models\ServiceClassiferTransport.cs" />
     <Compile Include="Models\ServiceTransport.cs" />
     <Compile Include="Models\SoleTraderExecutorTransport.cs" />

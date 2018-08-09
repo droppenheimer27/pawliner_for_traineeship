@@ -16,6 +16,7 @@ namespace Pawliner.DataProvider
         private ServiceRepository serviceRepository;
         private ServiceClassiferRepository serviceClassiferRepository;
         private DocumentRepository documentRepository;
+        private CommentRepository commentRepository;
 
         private bool disposed = false;
 
@@ -146,6 +147,19 @@ namespace Pawliner.DataProvider
                 }
 
                 return documentRepository;
+            }
+        }
+
+        public IRepository<Comment> Comments
+        {
+            get
+            {
+                if (commentRepository == null)
+                {
+                    commentRepository = new CommentRepository(database);
+                }
+
+                return commentRepository;
             }
         }
 

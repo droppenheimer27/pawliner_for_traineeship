@@ -27,5 +27,6 @@ namespace Pawliner.Logic
         public string ShortJuredicalName { get; set; }
         public ICollection<PhotoTransport> Photos { get; set; }
         public ICollection<RespondTransport> Responds { get; set; }
+        public ICollection<CommentTransport> Comments { get; set; }
     }
 }

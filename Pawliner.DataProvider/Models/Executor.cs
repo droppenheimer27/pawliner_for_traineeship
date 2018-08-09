@@ -8,7 +8,6 @@ namespace Pawliner.DataProvider
     public class Executor
     {
         [Key]
-        //[ForeignKey("User")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
@@ -18,6 +17,7 @@ namespace Pawliner.DataProvider
         [Required]
         public string LastName { get; set; } 
         [Required]
+        [MaxLength(1024, ErrorMessage = "Description cannot be more than 1024 characters")]
         public string Description { get; set; }
         public ExecutorType ExecutorType { get; set; }
         [NotMapped]
@@ -39,11 +39,13 @@ namespace Pawliner.DataProvider
         public ICollection<ServiceClassifer> ServiceClassifers { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Respond> Responds { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public Executor()
         {
             ServiceClassifers = new List<ServiceClassifer>();
             Photos = new List<Photo>();
             Responds = new List<Respond>();
+            Comments = new List<Comment>();
         }
     }
 }

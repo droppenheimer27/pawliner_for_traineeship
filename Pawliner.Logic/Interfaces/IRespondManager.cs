@@ -10,6 +10,7 @@ namespace Pawliner.Logic
     {
         void CreateRespond(RespondTransport respond);
         void UpdateRespond(EditRespondTransport respond);
+        void UpdateStatusRespond(StatusRespondTransport respond);
         void DeleteRespond(int id);
         RespondTransport GetRespond(int id);
         IEnumerable<RespondTransport> GetResponds();

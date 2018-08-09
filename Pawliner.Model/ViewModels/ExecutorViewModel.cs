@@ -25,6 +25,7 @@ namespace Pawliner.Model
         public string ShortJuredicalName { get; set; }
         public ICollection<PhotoViewModel> Photos { get; set; }
         public ICollection<RespondViewModel> Responds { get; set; }
+        public ICollection<CommentViewModel> Comments { get; set; }
         public virtual ICollection<ServiceClassiferViewModel> ServiceClassifers { get; set; }
     }
 }

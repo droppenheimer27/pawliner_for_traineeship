@@ -16,6 +16,7 @@ namespace Pawliner.DataProvider
         public DbSet<Respond> Responds { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceClassifer> ServiceClassifers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Photo> Photos { get; set; }
 
@@ -26,6 +27,11 @@ namespace Pawliner.DataProvider
         { }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .HasMany(p => p.Responds)
+                .WithRequired(p => p.Order)
+                .WillCascadeOnDelete(true);
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -26,9 +26,6 @@ namespace Pawliner
         private const string LocalLoginProvider = "Local";
         protected ApplicationUserManager userManager;
 
-        //public AccountController()
-        //{ }
-
         public AccountController(ApplicationUserManager userManager)//, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
