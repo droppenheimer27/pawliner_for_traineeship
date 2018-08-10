@@ -63,6 +63,7 @@ namespace Pawliner.Logic
             }
             else if (string.Equals(model.Type, "JP"))
             {
+
                 executor.ExecutorType = ExecutorType.Juridical;
                 database.Executors.Create(executor);
                 database.Save();
@@ -80,20 +81,77 @@ namespace Pawliner.Logic
             }
         }
 
-        public void UpdateExecutor(ExecutorTransport model)
+        public void UpdateExecutor(ExecutorViewModel model)
         {
-            var executor = Mapper.Map<ExecutorTransport, Executor>(model);
-            database.Executors.Update(executor);
+            var services = database.ServiceClassifers.GetList()
+                .Where(s => model.ServiceClassifersIds
+                .Contains(s.Id.ToString()))
+                .ToList();
+
+            var executor = database.Executors.GetList().FirstOrDefault(e => e.Id == model.Id);
+            executor.FirstName = model.FirstName;
+            executor.LastName = model.LastName;
+            executor.Patronymic = model.Patronymic;
+            executor.Description = model.Description;
+
+            executor.ServiceClassifers.Clear();
+            executor.ServiceClassifers = services;
+
+            if (string.Equals(model.Type, "NP"))
+            {
+                database.Executors.Update(executor);
+                database.Save();
+            }
+            else if (string.Equals(model.Type, "ST"))
+            {
+                database.Executors.Update(executor);
+                database.Save();
+
+                var trader = database.SoleTraderExecutors.Get(model.Id);
+                trader.PayerAccountNumber = model.PayerAccountNumber;
+
+                database.SoleTraderExecutors.Update(trader);
+                database.Save();
+            }
+            else if (string.Equals(model.Type, "JP"))
+            {
+                database.Executors.Update(executor);
+                database.Save();
+
+                var juridical = database.JuridicalExecutors.Get(model.Id);
+                juridical.PayerAccountNumber = model.PayerAccountNumber;
+                juridical.FullJuredicalName = model.FullJuredicalName;
+                juridical.ShortJuredicalName = model.ShortJuredicalName;
+
+                database.JuridicalExecutors.Update(juridical);
+                database.Save();
+            }
         }
 
         public void DeleteExecutor(int id)
         {
             database.Executors.Delete(id);
+
+            var executor = database.Executors.Get(id);
+            if (executor.ExecutorType == ExecutorType.Natural)
+            {
+                database.NaturalExecutors.Delete(id);
+            } 
+            else if (executor.ExecutorType == ExecutorType.SoleTrader)
+            {
+                database.SoleTraderExecutors.Delete(id);
+            }
+            else if (executor.ExecutorType == ExecutorType.Juridical)
+            {
+                database.JuridicalExecutors.Delete(id);
+            }
+
+            database.Save();
         }
 
         public ExecutorTransport GetExecutor(int id)
         {
-            var executor = database.Executors.GetList().FirstOrDefault(e => e.Id == id);
+            var executor = database.Executors.GetList().FirstOrDefault(e => e.Id == id); 
 
             var comments = database.Comments
                .GetList()
@@ -140,8 +198,6 @@ namespace Pawliner.Logic
         public IEnumerable<ExecutorTransport> GetExecutors(List<string> filter, int page)
         {
             int pageSize = 10; // dont forget change it
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Executor, ExecutorTransport>())
-            //    .CreateMapper();
 
             var executors = Mapper.Map<IEnumerable<Executor>, List<ExecutorTransport>>(database.Executors
                 .GetList()

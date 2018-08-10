@@ -17,8 +17,7 @@ define([
                 contentType: 'application/json; charset=utf-8',
                 url: '/api/account/UserInfo',
                 beforeSend: function (xhr) {
-
-                    let token =  window.app.model.get('tokenInfo');
+                    var token = window.app.model.get('tokenInfo');
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (response) {

@@ -45,7 +45,11 @@ define([
             console.log(this.model);
 
             this.model.set(data);
-            this.model.save(data);
+            this.model.save(data, {
+                success: function (response) {
+                    $('#model-create-executor').modal('show');
+                }
+            });
 
             $.ajax({
                 type: 'POST',

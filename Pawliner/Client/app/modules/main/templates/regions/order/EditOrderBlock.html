@@ -1,91 +1,83 @@
-<a href="" class="text-muted pull-right" data-toggle="modal" data-target="#model-order-put" style="margin-right: 50px"><small>Edit</small></a>
+<a href="" class="text-white pull-right" data-toggle="modal" data-target="#model-order-put" style="margin-right: 50px"><small>Edit</small></a>
 
 <div class="modal fade in" id="model-order-put">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Edit the order</h4>
+                    <h4 class="modal-title text-black">Edit the order</h4>
                 </div>
             <div class="modal-body">
                 <div class="input-group">
-                        <form class="form-horizontal" role="form">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <div class="select-service-region"></div>
-                                        </div>
+                    <form class="form-horizontal" role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <div class="select-service-region"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input placeholder="Header" name="Header" class="form-control" type="text" id="headerEditOrder" value="<%= Header %>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <textarea placeholder="Description" name="Description" class="form-control" type="text" style="height: 150px" id="descriptionEditOrder"><%= Description %></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input placeholder="City" name="City" class="form-control" type="text" id="cityEditOrder" value="<%= City %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input placeholder="Address" name="Address" class="form-control" type="text" id="addressEditOrder" value="<%= Address %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input placeholder="Name" name="Name" class="form-control" type="text" id="nameEditOrder" value="<%= Name %>"/>
+                                </div>
+                            </div>
+                            <div class="form-group date">
+                                <div class="col-sm-10">
+                                    <input type='text' class="datepicker-here form-control" name="CompletedOn" data-position="right top" placeholder="Complete date" value="<%= CompletedOn %>" id="completeEditDate"/>
+                                </div>
+                            </div>
+                            <div class="form-group date">
+                                <div class="col-sm-10">
+                                    <input type='text' class="form-control" data-position="right top" name="Price" placeholder="Price (rub)" id="priceEditOrder" value="<%= Price %>"/>
+                                    <input type="checkbox" name="fancy-checkbox-success" id="fancy-checkbox-success-edit" autocomplete="off" />
+                                    <div class="btn-group" style="margin-top: 20px">
+                                        <label for="fancy-checkbox-success" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            <span> </span>
+                                        </label>
+                                        <label for="fancy-checkbox-success" class="btn btn-default active">
+                                            Deal
+                                        </label>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <input placeholder="Header" name="Header" class="form-control" type="text" id="headerEditOrder" value="<%= Header %>">
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input placeholder="Phone number" name="PhoneNumber" class="form-control" type="text" value="<%= PhoneNumber %>" id="profileEditNumber"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <div class="">
+                                        <button type="submit" class="btn btn-success" id="profileEditSubmit" style="width: 100px">Edit</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 100px">Close</button>
+                                        <button type="button" class="btn btn-danger pull-right" id="removeOrder" style="width: 100px">Remove</button>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <textarea placeholder="Description" name="Description" class="form-control" type="text" style="height: 150px" id="descriptionEditOrder"><%= Description %></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <input placeholder="City" name="City" class="form-control" type="text" id="cityEditOrder" value="<%= City %>"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <input placeholder="Address" name="Address" class="form-control" type="text" id="addressEditOrder" value="<%= Address %>"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <input placeholder="Name" name="Name" class="form-control" type="text" id="nameEditOrder" value="<%= Name %>"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group date">
-                                        <div class="col-sm-10">
-                                            <input type='text' class="datepicker-here form-control" name="CompletedOn" data-position="right top" placeholder="Complete date" value="<%= CompletedOn %>" id="completeEditDate"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group date">
-                                        <div class="col-sm-10">
-                                            <input type='text' class="form-control" data-position="right top" name="Price" placeholder="Price (rub)" id="priceEditOrder" value="<%= Price %>"/>
-                                            <input type="checkbox" name="fancy-checkbox-success" id="fancy-checkbox-success-edit" autocomplete="off" />
-                                            <div class="btn-group" style="margin-top: 20px">
-                                                <label for="fancy-checkbox-success" class="btn btn-success">
-                                                    <span class="glyphicon glyphicon-ok"></span>
-                                                    <span> </span>
-                                                </label>
-                                                <label for="fancy-checkbox-success" class="btn btn-default active">
-                                                    Deal
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <input placeholder="Phone number" name="PhoneNumber" class="form-control" type="text" value="<%= PhoneNumber %>" id="profileEditNumber"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-10">
-                                            <div class="">
-                                                <button type="submit" class="btn btn-success" id="profileEditSubmit" style="width: 100px">Edit</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 100px">Close</button>
-                                                <button type="button" class="btn btn-danger pull-right" id="removeOrder" style="width: 100px">Remove</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                    <!-- <form role="form">
-                        <textarea type="text" name="Content" id="contentRespondEdit" placeholder="Edit the order..." class="form-control" style="height: 150px; margin-bottom: 10px;"></textarea>
-
-                        <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Edit</button>
-                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-
-                        <button type="button" class="btn btn-danger pull-left" id="removeRespond">Remove</button>
-                    </form> -->
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>
-    </div> 
-</div>
+    </div>
+</div> 

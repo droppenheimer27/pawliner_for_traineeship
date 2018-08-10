@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201808090058355_MigrateDB19.Designer.cs">
       <DependentUpon>201808090058355_MigrateDB19.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808100051165_MigrateDB20.cs" />
+    <Compile Include="Migrations\201808100051165_MigrateDB20.Designer.cs">
+      <DependentUpon>201808100051165_MigrateDB20.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Enums\ExecutorType.cs" />
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808090058355_MigrateDB19.resx">
       <DependentUpon>201808090058355_MigrateDB19.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808100051165_MigrateDB20.resx">
+      <DependentUpon>201808100051165_MigrateDB20.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

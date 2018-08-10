@@ -32,6 +32,17 @@ namespace Pawliner.DataProvider
                 .WithRequired(p => p.Order)
                 .WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<Executor>()
+                .HasMany(p => p.Responds)
+                .WithRequired(p => p.Executor)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Executor>()
+                .HasMany(p => p.Comments)
+                .WithRequired(p => p.Executor)
+                .WillCascadeOnDelete(true);
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

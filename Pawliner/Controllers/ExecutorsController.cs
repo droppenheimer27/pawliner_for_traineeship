@@ -40,22 +40,14 @@ namespace Pawliner.Controllers
         [HttpPost]
         public IHttpActionResult Post(ExecutorViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            //ExecutorManager.CreateExecutor(Mapper.Map<ExecutorViewModel, ExecutorTransport>(model));
             ExecutorManager.CreateExecutor(model);
-
             return Ok();
         }
 
         [HttpPut]
-        public void Put(int id, [FromBody]ExecutorViewModel model)
+        public void Put([FromBody]ExecutorViewModel model)
         {
-        
-
+            ExecutorManager.UpdateExecutor(model);
         }
 
         [HttpDelete]

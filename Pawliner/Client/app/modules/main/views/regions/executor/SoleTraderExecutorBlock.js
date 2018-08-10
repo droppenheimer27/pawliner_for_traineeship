@@ -43,7 +43,11 @@ define([
             data.UserId = window.app.model.get('userId');
 
             this.model.set(data);
-            this.model.save(data);
+            this.model.save(data, {
+                success: function (response) {
+                    $('#model-create-executor').modal('show');
+                }
+            });
 
             $.ajax({
                 type: 'POST',

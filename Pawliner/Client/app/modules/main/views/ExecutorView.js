@@ -6,8 +6,9 @@ define([
     './collections/ExecutorServicesCollectionView',
     './collections/CommentCollectionView',
     './regions/comment/CreateCommentBlock',
-    'modules/main/collections/Comments'
-], function (B, $, marionette, template, ExecutorServicesCollectionView, CommentCollectionView, CreateCommentBlock, Comments) {
+    './regions/executor/EditExecutorBlock',
+    'modules/main/collections/Executors'
+], function (B, $, marionette, template, ExecutorServicesCollectionView, CommentCollectionView, CreateCommentBlock, EditExecutorBlock, Executors) {
     'use strict';
     return marionette.View.extend({
         template: function (args) {
@@ -19,11 +20,13 @@ define([
         },
         ui: {
             serviceBlock: '.executor-service-region',
+            editExecutorBlock: '.edit-executor-block-region',
             commentsBlock: '.comments-block-region',
             createCommentBlock: '.create-comment-block-region'
         },
         regions: {
             serviceBlock: '@ui.serviceBlock',
+            editExecutorBlock: '@ui.editExecutorBlock',
             commentsBlock: '@ui.commentsBlock',
             createCommentBlock: '@ui.createCommentBlock'
         },
@@ -37,12 +40,16 @@ define([
             
             if (this.model.get('Comments') !== null) {
                 this.showChildView('commentsBlock', new CommentCollectionView({
-                    collection: new Comments(this.model.get('Comments'))
+                    collection: new Executors(this.model.get('Comments'))
                 }));
             }
 
             if (!_.isEmpty(window.app.model.get('userId'))) {
                 this.showChildView('createCommentBlock', new CreateCommentBlock({model: this.model}));
+            }
+
+            if (window.app.model.get('userId') === this.model.get('UserId')) {
+                this.showChildView('editExecutorBlock', new EditExecutorBlock({model: this.model}));
             }
         }
     });

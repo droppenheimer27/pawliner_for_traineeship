@@ -33,7 +33,7 @@ define([
                 PayerAccountNumber: '',
                 FullJuredicalName: '',
                 ShortJuredicalName: ''
-            }
+            },
         },
     });
 });

@@ -405,6 +405,31 @@ namespace Pawliner
             return Ok();
         }
 
+        [HttpPost]
+        [Route("RemoveUserRole")]
+        public async Task<IHttpActionResult> RemoveUserRole()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = UserManager.FindByName(User.Identity.Name);
+            if (UserManager.GetRoles(user.Id).Contains("Executor"))
+            {
+                userManager.RemoveFromRole(user.Id, "Executor");
+            }
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]

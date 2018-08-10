@@ -10,7 +10,7 @@ namespace Pawliner.Logic
     public interface IExecutorManager
     {
         void CreateExecutor(ExecutorViewModel executor);
-        void UpdateExecutor(ExecutorTransport executor);
+        void UpdateExecutor(ExecutorViewModel executor);
         void DeleteExecutor(int id);
         ExecutorTransport GetExecutor(int id);
         IEnumerable<ExecutorTransport> GetExecutors(List<string> filter, int page);
