@@ -13,6 +13,8 @@ namespace Pawliner.DataProvider
     {
         public string FullName { get; set; }
         public string Skype { get; set; }
+        public int? PhotoId { get; set; }
+        public virtual Photo Photo { get; set; }
         public ICollection<Executor> Executors { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Comment> Comments { get; set; }

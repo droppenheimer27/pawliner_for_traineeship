@@ -1,5 +1,5 @@
 <div class="box">
-    <div class="box-header jumbotron">
+    <!-- <div class="box-header jumbotron">
         <div class="row" >
             <div class="col-md-2">
                 <img class="img-thumbnail img-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" width="150" height="150">
@@ -9,7 +9,28 @@
             </div>
         </div>
         <hr/>
-    </div>
+    </div> -->
+    <div class="box box-widget widget-user-2">
+            <div class="widget-user-header"  style="background-color:#00a65a">
+                <div class="row">
+                    <div class="col text-white">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="User Avatar">
+                        </div>
+                        <% if (JuridicalExecutor.Id !== 0) { %>
+                            <h2 class="widget-user-username"><a class="text-yellow" href="#!/main/executor/<%= Id %>"><%= JuridicalExecutor.FullJuredicalName %></a></h2>
+                            <h5 class="widget-user-desc">PAN <%= JuridicalExecutor.PayerAccountNumber %></h5>
+                        <% } else if (SoleTraderExecutor.Id !== 0) { %> 
+                            <h2 class="widget-user-username">ST <a class="text-yellow" href="#!/main/executor/<%= Id %>"><%= FirstName %> <%= LastName %></a></h2>
+                            <h5 class="widget-user-desc">PAN <%= SoleTraderExecutor.PayerAccountNumber %></h5>
+                        <% } else { %> 
+                            <h2 class="widget-user-username"><a class="text-yellow" href="#!/main/executor/<%= Id %>"><%= FirstName %> <%= LastName %></a></h2>
+                            <h5 class="widget-user-desc">Natural person</h5 }
+                        <% } %> 
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="box-body">
         <div class="row">
             <div class="col">

@@ -19,6 +19,7 @@ define([
             PhoneNumber: '',
             ServiceClassiferDescription: '',
             OrderStatus: '',
+            Photos: [],
             Executor: {
                 Description: '',
                 FirstName: '',

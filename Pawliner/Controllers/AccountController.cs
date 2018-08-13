@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -13,9 +15,14 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using Pawliner.Common;
 using Pawliner.Logic;
 using Pawliner.Model;
 using Pawliner.Model.ViewModels;
+using System.Net;
+using System.Web.Hosting;
+using System.Collections.Specialized;
+using System.Reflection;
 
 namespace Pawliner
 {
@@ -342,7 +349,6 @@ namespace Pawliner
 
             var model = new UserViewModel
             {
-                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 FullName = user.FullName,
@@ -350,30 +356,50 @@ namespace Pawliner
                 PhoneNumber = user.PhoneNumber,
             };
 
+            if (user.PhotoId != null)
+            {
+                model.AvatarPath = user.Photo.Path;
+            }
+            else
+            {
+                model.AvatarPath = "";
+            }
+
             return model;
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("UserInfo")]
-        public async Task<IHttpActionResult> SetUserInfo(UserViewModel model)
+        public async Task<IHttpActionResult> SetUserInfo()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            NameValueCollection form = HttpContext.Current.Request.Form;
+            var model = Pawmapper<UserViewModel>.Map(form, new UserViewModel());
 
             var user = UserManager.FindByName(User.Identity.Name);
-
             user.UserName = model.UserName;
             user.Email = model.Email;
             user.FullName = model.FullName;
             user.Skype = model.Skype;
             user.PhoneNumber = model.PhoneNumber;
 
-            IdentityResult result = await UserManager.UpdateAsync(user);
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                model.Avatar = HttpContext.Current.Request.Files["Avatar"];
+                var photoId = Guid.NewGuid() + Path.GetExtension(model.Avatar.FileName);
+
+                user.Photo = new DataProvider.Photo
+                {
+                    FileName = model.Avatar.FileName,
+                    Path = "app/modules/main/img/users/" + photoId
+                };
+
+                model.Avatar.SaveAs(HttpContext.Current.Server.MapPath("~/Client/app/modules/main/img/users/" + photoId));
+            }
+
+            var result = await UserManager.UpdateAsync(user);
 
             if (!result.Succeeded)
-            {
+            {   
                 return GetErrorResult(result);
             }
 

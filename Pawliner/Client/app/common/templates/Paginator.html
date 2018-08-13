@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-sm-12 text-center">
+        <!--<div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">-->
+            <ul class="pagination">
+                <li class="paginate_button first<% if (currentPage <= 1){ %> disabled<% } %>"><a href="#" data-value="1" tabindex="0">1</a></li>
+                <li class="paginate_button previous<% if (currentPage <= 1){ %> disabled<% } %>"><a href="#" data-value="<% if (currentPage <= 1){ %>1<% } else { %><%= currentPage-1 %><% } %>" tabindex="0">←</a></li>
+                <% _.each(listpages, function(page) { %>
+                <li class="paginate_button<% if (currentPage == page){ %> active<% } %>"><a href="#" aria-controls="example1" data-value="<%= page %>" tabindex="0"><%= page %></a></li>
+                <% }); %>
+                <li class="paginate_button next<% if (currentPage == lastPage){ %> disabled<% } %>"><a href="#" data-value="<% if (currentPage == lastPage){ %><%= currentPage %><% } else { %><%= currentPage+1 %><% } %>" tabindex="0">→</a></li>
+                <li class="paginate_button last<% if (currentPage == lastPage){ %> disabled<% } %>"><a href="#" data-value="<%= lastPage %>" tabindex="0"> <%= lastPage %> </a></li>
+            </ul>
+        <!--</div>-->
+    </div>
+</div>

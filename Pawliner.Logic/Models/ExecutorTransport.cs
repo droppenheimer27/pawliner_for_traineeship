@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pawliner.DataProvider;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,7 +16,7 @@ namespace Pawliner.Logic
         [NotMapped]
         public string Type { get; set; }
         public string UserId { get; set; }
-        public UserTransport User { get; set; }
+        public virtual User User { get; set; }
         public DocumentTransport Document { get; set; }
         public NaturalExecutorTransport NaturalExecutor { get; set; }
         public JuridicalExecutorTransport JuridicalExecutor { get; set; }
@@ -25,8 +26,8 @@ namespace Pawliner.Logic
         public int PayerAccountNumber { get; set; }
         public string FullJuredicalName { get; set; }
         public string ShortJuredicalName { get; set; }
-        public ICollection<PhotoTransport> Photos { get; set; }
+        public ICollection<Photo> Photos { get; set; }
         public ICollection<RespondTransport> Responds { get; set; }
-        public ICollection<CommentTransport> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

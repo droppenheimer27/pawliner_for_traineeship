@@ -22,6 +22,11 @@ define([
                 },
                 success: function (response) {
                     syphon.deserialize(self.ui.profileForm, response);
+                    if (!response.AvatarPath) {
+                        $('#userProfileAvatar').attr('src', 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
+                    } else {
+                        $('#userProfileAvatar').attr('src', response.AvatarPath);
+                    }
                 },
                 error: function (response) {
                     console.log(response);
@@ -38,11 +43,25 @@ define([
             e.preventDefault();
 
             var data = syphon.serialize(this.ui.profileForm);
+            // console.log(data);
+
+            var file = $('#profileAvatar')[0];
+            data.Avatar = file.files[0];
+            var formData = new FormData();
+            formData.append('UserName', data.UserName);
+            formData.append('Email', data.Email);
+            formData.append('FullName', data.FullName);
+            formData.append('PhoneNumber', data.PhoneNumber);
+            formData.append('Skype', data.Skype);
+            formData.append('Avatar', file.files[0]);
+            // formData.append('file', file.files[0]);
 
             $.ajax({
-                type: 'PUT',
+                type: 'POST',
                 url: '/api/account/UserInfo',
-                data: data,
+                data: formData,
+                contentType: false,
+                processData: false,
                 beforeSend: function (xhr) {
                     var token = window.app.model.get('tokenInfo');
                     xhr.setRequestHeader("Authorization", "Bearer " + token);

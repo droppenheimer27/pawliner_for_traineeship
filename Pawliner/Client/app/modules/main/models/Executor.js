@@ -20,7 +20,14 @@ define([
             PayerAccountNumber: '',
             FullJuredicalName: '',
             ShortJuredicalName: '',
-            Comments: []
+            Comments: [],
+            UserId: '', 
+            User: {
+                AvatarPath: '',
+                Photo: {
+                    Path: ''
+                }
+            }
         },
     });
 });

@@ -12,9 +12,15 @@ define([
             return _.template(template)(tplPrms);
         },
         attributes: function() {
-            return {
-                value: this.model.get("Id")
+            var attrs = {
+                value: this.model.get("Id")   
             };
+            // console.log(this.options.selectedValue, 'this.options.selectedValue');
+            // console.log(this.model.get("Id"), 'this.model.get("Id")');
+            if (this.model.get("Id") == this.options.selectedValue){
+                _.extend(attrs, {selected: 'selected'})
+            }
+            return attrs;
         },
     });
 });

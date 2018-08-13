@@ -11,6 +11,10 @@ define([
         tagName: 'optgroup',
         template: false,
         childView: childView,
+        childViewOptions: function() {
+            // console.log(this.options.selectedValue, 'this.options.selectedValue000');
+            return {selectedValue: this.options.selectedValue};
+        },
         attributes: function() {
             return {
                 label: this.model.get("Description")

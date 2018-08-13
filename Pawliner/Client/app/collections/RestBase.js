@@ -32,7 +32,7 @@ define([
         },
         getListPages: function (resp) {
             var pagelinkssize = ((this.pagelinkssize < resp._meta.pageCount) ? this.pagelinkssize : resp._meta.pageCount);
-            var half = Math.floor(pagelinkssize/2);
+            var half = Math.floor(pagelinkssize / 2);
             var start = (((resp._meta.currentPage-half) >= 1) ? resp._meta.currentPage-half : 1);
             var end = ((start+pagelinkssize < resp._meta.pageCount+1) ? start+pagelinkssize : resp._meta.pageCount+1);
             if(end == resp._meta.pageCount+1) {

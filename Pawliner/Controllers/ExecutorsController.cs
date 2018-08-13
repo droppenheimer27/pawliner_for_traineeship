@@ -25,7 +25,7 @@ namespace Pawliner.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<ExecutorViewModel> Get([FromUri]List<string> filter, int page = 1)
+        public IEnumerable<ExecutorViewModel> Get([FromUri]List<string> filter, int page = 1, int perPage = 10)
         {
             return Mapper.Map<IEnumerable<ExecutorTransport>, IEnumerable<ExecutorViewModel>>(ExecutorManager.GetExecutors(filter, page));
         }

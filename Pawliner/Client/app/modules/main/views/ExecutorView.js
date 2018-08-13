@@ -7,8 +7,9 @@ define([
     './collections/CommentCollectionView',
     './regions/comment/CreateCommentBlock',
     './regions/executor/EditExecutorBlock',
-    'modules/main/collections/Executors'
-], function (B, $, marionette, template, ExecutorServicesCollectionView, CommentCollectionView, CreateCommentBlock, EditExecutorBlock, Executors) {
+    'modules/main/collections/Executors',
+    'modules/main/models/Comment'
+], function (B, $, marionette, template, ExecutorServicesCollectionView, CommentCollectionView, CreateCommentBlock, EditExecutorBlock, Executors, Comment) {
     'use strict';
     return marionette.View.extend({
         template: function (args) {
@@ -34,13 +35,18 @@ define([
             this.render();
         },
         onRender: function () {
+            var CommentCollection = B.Collection.extend({
+                model: Comment
+            });
+
             this.showChildView('serviceBlock', new ExecutorServicesCollectionView({
                 collection: new B.Collection(this.model.get('ServiceClassifers'))
             }));
             
+           
             if (this.model.get('Comments') !== null) {
                 this.showChildView('commentsBlock', new CommentCollectionView({
-                    collection: new Executors(this.model.get('Comments'))
+                    collection: new CommentCollection(this.model.get('Comments'))
                 }));
             }
 

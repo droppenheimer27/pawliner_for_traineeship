@@ -13,7 +13,8 @@ define([
             OrderId: '',
             ExecutorId: '',
             UserId: '',
-            Executor: null
+            Executor: null,
+            User: null
         },
     });
 });

@@ -5,8 +5,10 @@ define([
     'text!../../templates/regions/Home.html',
     '../collections/OrderCollectionView',
     '../collections/ServiceCollectionView',
-    '../collections/ExecutorCollectionView'
-], function (B, $, marionette, template, OrderCollectionView, ServiceCollectionView, ExecutorCollectionView) {
+    '../collections/ExecutorCollectionView',
+    '../../../../common/views/Paginator',
+    '../../../../common/models/Paginator'
+], function (B, $, marionette, template, OrderCollectionView, ServiceCollectionView, ExecutorCollectionView, Paginator, PaginatorModel) {
     'use strict';
 
     return marionette.View.extend({
@@ -16,6 +18,7 @@ define([
             serviceRegion: '.service-template-region',
             placeOrder: '#placeOrderView',
             becomeExecutorView: '#becomeExecutorView',
+            paginatorOrders: '#paginatorOrders'
         },
         initialize: function () {
         },
@@ -36,6 +39,9 @@ define([
             serviceRegion: {
                 el: '@ui.serviceRegion',
                 replaceElement: true
+            },
+            paginatorOrders: {
+                el: '@ui.paginatorOrders',
             },
         },
         isLogin: function (e) {
@@ -59,9 +65,18 @@ define([
             }
         },
         onRender: function() {
+            var settings = {
+                RadioName: 'OrdersEvent'
+            };
+
             this.showChildView('serviceRegion', new ServiceCollectionView());
-            this.showChildView('orderRegion', new OrderCollectionView());
+            this.showChildView('orderRegion', new OrderCollectionView(settings));
             this.showChildView('executorRegion', new ExecutorCollectionView());
+
+            var paginatorModel = new PaginatorModel();
+            _.extend(settings, {model: paginatorModel});
+
+            this.showChildView('paginatorOrders', new Paginator(settings));
         },
     });
 });

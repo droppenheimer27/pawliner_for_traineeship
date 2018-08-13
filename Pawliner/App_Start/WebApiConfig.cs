@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using Pawliner.Common;
 using Pawliner.DataProvider;
 using Pawliner.IoC;
 using Pawliner.Logic;
@@ -38,6 +39,8 @@ namespace Pawliner
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.MessageHandlers.Add(new LogRequestAndResponseHandler());
+//            config.Filters.Add(new ExceptionHandlerAttribute());
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
 
@@ -54,10 +57,10 @@ namespace Pawliner
             builder.RegisterWebApiModelBinderProvider();
 
             builder.RegisterType<ApplicationContext>().AsSelf().InstancePerRequest().WithParameter("connectionString", "DefaultConnection");
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<UserStore<User>>().As<IUserStore<User>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.Register(c => new UserStore<User>(c.Resolve<ApplicationContext>())).AsImplementedInterfaces().InstancePerRequest();
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<OrderManager>().As<IOrderManager>().InstancePerRequest();
             builder.RegisterType<ServiceManager>().As<IServiceManager>().InstancePerRequest();
             builder.RegisterType<ExecutorManager>().As<IExecutorManager>().InstancePerRequest();

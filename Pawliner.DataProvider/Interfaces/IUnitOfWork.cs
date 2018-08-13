@@ -14,6 +14,7 @@ namespace Pawliner.DataProvider
         IRepository<Service> Services { get;  }
         IRepository<ServiceClassifer> ServiceClassifers { get;  }
         IRepository<Document> Documents { get;  }
+        IPhotoRepository<Photo> Photos { get; }
         IRepository<Comment> Comments { get; }
         void Save();
     }

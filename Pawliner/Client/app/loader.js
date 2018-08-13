@@ -33,8 +33,10 @@ requirejs.config({
        // datetimepicker: '../vendor/js/AdminLTE/plugins/datepicker/bootstrap-datepicker',
         airdatepicker: '../vendor/js/air-datepicker/dist/js/datepicker.min',
         backgridpaginator: '../vendor/js/backgrid-paginator/backgrid-paginator.min',
-        backgrid: '../vendor/js/backgrid/backgrid'
-	},
+        backgrid: '../vendor/js/backgrid/backgrid',
+        jGallery: '../vendor/js/jgallery/dist/js/jgallery.min',
+        touchswipe: '../vendor/js/jgallery/dist/js/touchswipe.min'
+	},  
 	shim: {
         underscore: {
 			exports: '_'
@@ -97,6 +99,14 @@ requirejs.config({
         airdatepicker: {
             exports: 'airdatepicker',
             deps: ['jquery', 'moment']
+        },
+        jGallery: {
+            deps: ['jquery'],
+            exports: 'jGallery' 
+        },
+        touchswipe: {
+            deps: ['jquery', 'jGallery'],
+            exports: 'touchswipe' 
         },
         // icheck: {
 			// deps: ['jquery'],

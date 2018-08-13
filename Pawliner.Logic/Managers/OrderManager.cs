@@ -72,6 +72,17 @@ namespace Pawliner.Logic
             database.Save();
         }
 
+        public void AddPhotos(int id, List<PhotoTransport> models)
+        {
+            var photos = Mapper.Map<List<PhotoTransport>, List<Photo>>(models);
+
+            var order = database.Orders.Get(id);
+            order.Photos = photos;
+
+            database.Orders.Update(order);
+            database.Save();
+        }
+
         public void DeleteOrder(int id)
         {
             database.Orders.Delete(id);
@@ -80,7 +91,7 @@ namespace Pawliner.Logic
 
         public OrderTransport GetOrder(int id)
         {
-            var order = database.Orders.Get(id);
+            var order = database.Orders.GetList().FirstOrDefault(o => o.Id == id);
             var service = database.ServiceClassifers.Get(order.ServiceClassiferId);
             var responds = database.Responds
                 .GetList()
@@ -100,7 +111,8 @@ namespace Pawliner.Logic
                 PhoneNumber = order.PhoneNumber,
                 CompletedOn = order.CompletedOn,
                 CreatedAt = order.CreatedAt,
-                ServiceClassiferDescription = service.Description,
+                ServiceClassiferDescription = service.Id.ToString(),
+                Photos = order.Photos.ToList(),
                 Responds = responds,
             };
 
@@ -124,15 +136,11 @@ namespace Pawliner.Logic
             return orderTransport;
         }
 
-        public IEnumerable<OrderTransport> GetOrders(List<string> filter, int page)
+        public IEnumerable<OrderTransport> GetOrders(List<string> filter)
         {
-            int pageSize = 10; // dont forget change it
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderTransport>()).CreateMapper();
-
             var orders = mapper.Map<IEnumerable<Order>, List<OrderTransport>>(database.Orders.GetList()
-                .OrderByDescending(o => o.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize));
+                .OrderByDescending(o => o.Id));
 
             if (filter.Count == 0)
             {

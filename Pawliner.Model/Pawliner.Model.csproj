@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -60,7 +61,10 @@
     <Compile Include="ViewModels\JuridicalExecutorViewModel.cs" />
     <Compile Include="ViewModels\NaturalExecutorViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderEditStatusViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderIdentityViewModel.cs" />
+    <Compile Include="ViewModels\Orders\OrderPagebleViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderViewModel.cs" />
+    <Compile Include="ViewModels\PageInfo.cs" />
     <Compile Include="ViewModels\PhotoViewModel.cs" />
     <Compile Include="ViewModels\Responds\EditRespondViewModel.cs" />
     <Compile Include="ViewModels\Responds\RespondViewModel.cs" />

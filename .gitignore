@@ -6,3 +6,6 @@ packages
 .vs
 *.suo
 vendor
+img
+Logs
+*.mdf

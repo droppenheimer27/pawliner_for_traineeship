@@ -1,47 +1,158 @@
-<div class="row box">
-    <div class="col-lg-5">
-        <div class="box-header">
-            <h2>Profile</h2>
+<div class="box" style="padding-bottom: 130px">
+        <div class="box box-widget widget-user-2 text-white">
+            <div class="widget-user-header"  style="padding-bottom: 40px;background-color:#00a65a">
+                <div class="widget-user-image">
+                    <img class="img-circle" alt="User Avatar" id="userProfileAvatar">
+                </div>
+                <h2 class="widget-user-username"><b>Profile</b></h2> 
+            </div>
+            <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                      <li><a href="#">My orders <span class="pull-right badge bg-success">31</span></a></li>
+                      <li><a href="#">Executor profile <span class="pull-right badge bg-danger">5</span></a></li>
+                    </ul>
+                  </div>
         </div>
-        <hr/>
-        <div class="box-body">
-            <form class="form-horizontal" role="form">
+        <div class="box-body container">
+            <form class="form-horizontal" role="form" enctype="multipart/form-data">
                 <fieldset>
                     <div class="form-group">
-                        <div class="col-sm-10">
+                        <div class="col">
                             <input placeholder="Login" name="UserName" class="form-control" type="text" id="profileLogin">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-10">
+                        <div class="col">
                             <input placeholder=Email name="Email" class="form-control" type="text" id="profileEmail">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-10">
+                        <div class="col">
                             <input placeholder="Name" name="FullName" class="form-control" type="text" id="profileName">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-10">
-                            <input placeholder="Phone number" name="PhoneNubmer" class="form-control" type="text" id="profileNumber">
+                        <div class="col">
+                            <input placeholder="Phone number" name="PhoneNumber" class="form-control" type="text" id="profileNumber">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-10">
+                        <div class="col">
                             <input placeholder="Skype" name="Skype" class="form-control" type="text" id="profileSkype">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success" id="profileSubmit">Save</button>
+                        <div class="col">
+                            <div class="input-group image-preview">
+                                <input type="text" class="form-control image-preview-filename" disabled="disabled"> 
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                        <span class="glyphicon glyphicon-remove"></span> Clear
+                                    </button>
+                                    
+                                    <div class="btn btn-default image-preview-input">
+                                        <span class="glyphicon glyphicon-folder-open"></span>
+                                        <span class="image-preview-input-title">Browse profile picture</span>
+                                        <input type="file" name="Avatar" accept="image/png, image/jpeg, image/gif" id="profileAvatar"/> 
+                                    </div>
+                                </span>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-block btn-lg btn-success" id="profileSubmit">Save</button>
                         </div>
                     </div>
                 </fieldset>
             </form>
         </div>
-    </div>
 </div>
 
+<style>
+    .image-preview-input {
+    position: relative;
+	overflow: hidden;
+	margin: 0px;    
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;    
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+    margin-left:2px;
+}
+</style>
 
 
+
+<script>
+    $(document).on('click', '#close-preview', function(){ 
+    $('.image-preview').popover('hide');
+    // Hover befor close the preview
+    $('.image-preview').hover(
+        function () {
+           $('.image-preview').popover('show');
+        }, 
+         function () {
+           $('.image-preview').popover('hide');
+        }
+    );    
+});
+
+$(function() {
+    // Create the close button
+    var closebtn = $('<button/>', {
+        type:"button",
+        text: 'x',
+        id: 'close-preview',
+        style: 'font-size: initial;',
+    });
+    closebtn.attr("class","close pull-right");
+    // Set the popover default content
+    $('.image-preview').popover({
+        trigger:'manual',
+        html:true,
+        title: "<strong>Preview</strong>"+$(closebtn)[0].outerHTML,
+        content: "There's no image",
+        placement:'bottom'
+    });
+    // Clear event
+    $('.image-preview-clear').click(function(){
+        $('.image-preview').attr("data-content","").popover('hide');
+        $('.image-preview-filename').val("");
+        $('.image-preview-clear').hide();
+        $('.image-preview-input input:file').val("");
+        $(".image-preview-input-title").text("Browse"); 
+    }); 
+    // Create the preview image
+    $(".image-preview-input input:file").change(function (){     
+        var img = $('<img/>', {
+            id: 'dynamic',
+            width:250,
+            height:200
+        });      
+        var file = this.files[0];
+        var reader = new FileReader();
+        // Set preview image into the popover data-content
+        reader.onload = function (e) {
+            $(".image-preview-input-title").text("Change");
+            $(".image-preview-clear").show();
+            $(".image-preview-filename").val(file.name);            
+            img.attr('src', e.target.result);
+            $(".image-preview").attr("data-content",$(img)[0].outerHTML).popover("show");
+        }        
+        reader.readAsDataURL(file);
+    });  
+});
+</script>

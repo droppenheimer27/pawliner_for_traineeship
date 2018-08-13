@@ -16,6 +16,7 @@ namespace Pawliner.DataProvider
         private ServiceRepository serviceRepository;
         private ServiceClassiferRepository serviceClassiferRepository;
         private DocumentRepository documentRepository;
+        private PhotoRepository photoRepository;
         private CommentRepository commentRepository;
 
         private bool disposed = false;
@@ -134,6 +135,19 @@ namespace Pawliner.DataProvider
                 }
 
                 return serviceClassiferRepository;
+            }
+        }
+
+        public IPhotoRepository<Photo> Photos
+        {
+            get
+            {
+                if (photoRepository == null)
+                {
+                    photoRepository = new PhotoRepository(database);
+                }
+
+                return photoRepository;
             }
         }
 

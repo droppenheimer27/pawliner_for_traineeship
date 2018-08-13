@@ -1,20 +1,11 @@
 define([
-    'backbone',
-    '../models/Order',
-    'bpaginator'
-], function (B, Order) {
+    '../../../collections/RestBasePageble',
+    '../models/Order'
+], function (RestBasePageble, Order) {
     'use strict';
 
-    return B.PageableCollection.extend({
+    return RestBasePageble.extend({
         model: Order,
-        url : '/api/order',
-        state: {
-            firstPage: 1,
-            currentPage: 1
-          },
-          queryParams: {
-            currentPage: "current_page",
-            pageSize: "page_size"
-          }
+        url : '/api/order'
     });
 });

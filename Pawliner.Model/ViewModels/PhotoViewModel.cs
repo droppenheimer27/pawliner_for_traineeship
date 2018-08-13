@@ -7,13 +7,9 @@ namespace Pawliner.Model
     {
         public int Id { get; set; }
         public string Path { get; set; }
+        public string FileName { get; set; }
+        public ICollection<UserViewModel> Users { get; set; }
         public ICollection<OrderViewModel> Orders { get; set; }
         public ICollection<ExecutorViewModel> Executors { get; set; }
-
-        public PhotoViewModel()
-        {
-            Orders = new List<OrderViewModel>();
-            Executors = new List<ExecutorViewModel>();
-        }
     }
 }

@@ -12,15 +12,24 @@ define([
         tagName: 'select',
         className: 'form-control select2 paw-select',
         attributes: {
+            id: 'ServiceClassiferDescription',
             name: 'ServiceClassiferDescription'
         },
         childView: SelectServiceBlock,
+        childViewOptions: function() {
+            // console.log(this.selectedValue, 'this.selectedValue12');
+            // console.log(this.options.selectedValue, 'this.options.selectedValue12');
+            return {selectedValue: this.options.selectedValue};
+        },
         initialize: function () {
+            //console.log(this.selectedValue, '88888this.selectedValue');
             this.collection.fetch();
         },
         onAttach: function () {
-            $(this.el).select2({
+            this.$el.select2({
                 tags: true,
+                allowClear: true,
+                width: "100%"
             });
         }
         // onRender: function () {

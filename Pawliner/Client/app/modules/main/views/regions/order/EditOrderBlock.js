@@ -20,10 +20,15 @@ define([
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
         },
+        initialize: function () {
+            this.model.on('change', this.changeModel, this);
+        },
         ui: {
             selectServiceRegion: '.select-service-region',
             form: 'form[role="form"]',
-            removeOrder: '#removeOrder'
+            removeOrder: '#removeOrder',
+            profileEditClose: '#profileEditClose',
+            // modal: '#model-order-put'
         },
         regions: {
             selectServicesRegion: {
@@ -35,20 +40,34 @@ define([
             'submit @ui.form': 'onSubmitEditOrderForm',
             'click @ui.removeOrder': 'onClickRemoveOrder'
         },
+        changeModel: function () {
+            $('#model-order-put').modal('hide');
+        },
         onSubmitEditOrderForm: function (e) {
             e.preventDefault();
-            
+            var self = this;
             var data = syphon.serialize(this.ui.form);
-            data.Id = this.model.get('Id');
+            // data.Id = this.model.get('Id');
             console.log(data); 
 
-            var order = new Order();
-            order.set(data);
-            order.save(data, {
+            
+            this.model.set(data);
+            this.model.save(data, {
                 success: function () {
-                    $('#model-order-put').modal('hide');
+                    console.log("ddddd");
+                    // $(self.ui.profileEditClose).click();
+                    // $(self.ui.modal).modal('hide');
+                },
+                error: function (a1,a2,a3) {
+                    console.log(a1, "eeeee");
+                    console.log(a2, "eeeee");
+                    console.log(a3, "eeeee");
+                    // $(self.ui.profileEditClose).click();
+                    // $(self.ui.modal).modal('hide');
                 }
             });
+
+            
         },
         onClickRemoveOrder: function (e) {
             e.preventDefault();
@@ -69,8 +88,10 @@ define([
             });
         },
         onRender: function () {
+            // console.log(this.model.get("ServiceClassiferDescription"), '-----this.model.get("ServiceClassiferDescription")');
             this.showChildView('selectServicesRegion', new SelectServiceCollectionView({
-                collection: new Services()
+                collection: new Services(),
+                selectedValue: this.model.get("ServiceClassiferDescription")
             }));
         }
     });

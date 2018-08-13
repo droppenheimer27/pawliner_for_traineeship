@@ -4,9 +4,15 @@
                 <div class="widget-user-header"  style="background-color:#00a65a">
                     <div class="row text-white">
                         <div class="col">
-                            <div class="widget-user-image">
-                                <img class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="User Avatar">
-                            </div>
+                                <% if (User.Photo !== null) { %>
+                                    <div class="widget-user-image">
+                                        <img class="img-circle" src="<%= User.Photo.Path %>" alt="User Avatar">
+                                    </div>
+                                <% } else { %>
+                                    <div class="widget-user-image">
+                                        <img class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="User Avatar">
+                                    </div>
+                                <% } %>
                             <% if (JuridicalExecutor !== null) { %>
                             <h2 class="widget-user-username"><%= JuridicalExecutor.FullJuredicalName %></h2>
                             <h5 class="widget-user-desc">PAN <%= JuridicalExecutor.PayerAccountNumber %></h5>

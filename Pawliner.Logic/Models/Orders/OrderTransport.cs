@@ -26,7 +26,7 @@ namespace Pawliner.Logic
         public int ServiceClassiferId { get; set; }
         public virtual ServiceClassifer ServiceClassifer { get; set; }
         public ICollection<Respond> Responds { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        public List<Photo> Photos { get; set; }
 
         public OrderTransport()
         {

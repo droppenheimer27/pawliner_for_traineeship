@@ -21,10 +21,12 @@ namespace Pawliner.Model
         public string CreatedAt { get; set; }
         public string UpdatedAt { get; set; }
         public ICollection<RespondViewModel> Responds {get; set;}
+        public ICollection<PhotoViewModel> Photos { get; set; }
 
         public OrderViewModel()
         {
             Responds = new List<RespondViewModel>();
+            Photos = new List<PhotoViewModel>();
         }
     }
 }

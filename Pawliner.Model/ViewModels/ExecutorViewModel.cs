@@ -14,7 +14,7 @@ namespace Pawliner.Model
         public ExecutorTypeViewModel ExecutorType { get; set; }
         public string Type { get; set; }
         public string UserId { get; set; }
-        public UserViewModel User { get; set; }
+        public virtual UserViewModel User { get; set; }
         public DocumentViewModel Document { get; set; }
         public NaturalExecutorViewModel NaturalExecutor { get; set; }
         public JuridicalExecutorViewModel JuridicalExecutor { get; set; }

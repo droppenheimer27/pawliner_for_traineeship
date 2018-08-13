@@ -598,6 +598,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Pawliner.Common\Pawliner.Common.csproj">
+      <Project>{4733D191-AAD8-4DA4-A1E4-64DF7C3F02B2}</Project>
+      <Name>Pawliner.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pawliner.DataProvider\Pawliner.DataProvider.csproj">
       <Project>{2ee1aa92-7546-4e0e-a5dc-59d6ed369af2}</Project>
       <Name>Pawliner.DataProvider</Name>

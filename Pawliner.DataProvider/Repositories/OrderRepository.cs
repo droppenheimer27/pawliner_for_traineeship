@@ -35,7 +35,7 @@ namespace Pawliner.DataProvider
 
         public IEnumerable<Order> GetList()
         {
-            return database.Orders;
+            return database.Orders.Include(o => o.Photos);
         }
 
         public void Update(Order item)

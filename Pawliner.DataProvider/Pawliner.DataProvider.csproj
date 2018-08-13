@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Interfaces\IPhotoRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -230,6 +231,10 @@
     <Compile Include="Migrations\201808100051165_MigrateDB20.Designer.cs">
       <DependentUpon>201808100051165_MigrateDB20.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808101810070_MigrateDB21.cs" />
+    <Compile Include="Migrations\201808101810070_MigrateDB21.Designer.cs">
+      <DependentUpon>201808101810070_MigrateDB21.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Enums\ExecutorType.cs" />
@@ -251,6 +256,7 @@
     <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\ExecutorRepository.cs" />
     <Compile Include="Repositories\JuridicalExecutorRepository.cs" />
+    <Compile Include="Repositories\PhotoRepository.cs" />
     <Compile Include="Repositories\RespondRepository.cs" />
     <Compile Include="Repositories\SoleTraderExecutorRepository.cs" />
     <Compile Include="Repositories\NaturalExecutorRepository.cs" />
@@ -327,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808100051165_MigrateDB20.resx">
       <DependentUpon>201808100051165_MigrateDB20.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808101810070_MigrateDB21.resx">
+      <DependentUpon>201808101810070_MigrateDB21.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

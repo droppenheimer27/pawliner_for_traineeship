@@ -7,9 +7,6 @@ define([
     'use strict';
 
     return marionette.CollectionView.extend({
-        childView: CommentBlock,
-        initialize: function () {
-            this.collection.fetch();
-        },
+        childView: CommentBlock
     });
 });

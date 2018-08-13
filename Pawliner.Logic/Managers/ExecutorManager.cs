@@ -151,7 +151,7 @@ namespace Pawliner.Logic
 
         public ExecutorTransport GetExecutor(int id)
         {
-            var executor = database.Executors.GetList().FirstOrDefault(e => e.Id == id); 
+            var executor = database.Executors.GetList().FirstOrDefault(e => e.Id == id);
 
             var comments = database.Comments
                .GetList()
