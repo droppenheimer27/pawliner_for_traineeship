@@ -16,7 +16,6 @@ define([
             style: 'margin-top: 30px'
         },
         onAttach: function () {
-            console.log('onAttach2');
             this.$el.jGallery();
         },
     });

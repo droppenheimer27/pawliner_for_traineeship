@@ -57,9 +57,12 @@
     <Compile Include="ViewModels\Enums\ExecutorTypeViewModel.cs" />
     <Compile Include="ViewModels\Enums\OrderStatusViewModel.cs" />
     <Compile Include="ViewModels\Enums\RespondStatusViewModel.cs" />
-    <Compile Include="ViewModels\ExecutorViewModel.cs" />
-    <Compile Include="ViewModels\JuridicalExecutorViewModel.cs" />
-    <Compile Include="ViewModels\NaturalExecutorViewModel.cs" />
+    <Compile Include="ViewModels\ExceptionDetailViewModel.cs" />
+    <Compile Include="ViewModels\Executors\ExecutorIdentityViewModel.cs" />
+    <Compile Include="ViewModels\Executors\ExecutorPagebleViewModel.cs" />
+    <Compile Include="ViewModels\Executors\ExecutorViewModel.cs" />
+    <Compile Include="ViewModels\Executors\JuridicalExecutorViewModel.cs" />
+    <Compile Include="ViewModels\Executors\NaturalExecutorViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderEditStatusViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderIdentityViewModel.cs" />
     <Compile Include="ViewModels\Orders\OrderPagebleViewModel.cs" />
@@ -71,7 +74,7 @@
     <Compile Include="ViewModels\Responds\StatusRespondViewModel.cs" />
     <Compile Include="ViewModels\ServiceClassiferViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
-    <Compile Include="ViewModels\SoleTraderExecutorViewModel.cs" />
+    <Compile Include="ViewModels\Executors\SoleTraderExecutorViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

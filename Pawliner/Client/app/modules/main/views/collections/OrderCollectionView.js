@@ -4,8 +4,7 @@ define([
     'jquery',
     'marionette',
     '../../collections/Orders',
-    '../regions/order/OrderBlock',
-    // 'backgridpaginator',
+    '../regions/order/OrderBlock'
 ], function (B, _, $, marionette, Orders, OrderBlock) {
     'use strict';
 
@@ -52,11 +51,5 @@ define([
 
             this.render();
         },
-        onRender: function () {
-            // var paginator = new Backgrid.Extension.Paginator({
-            //     collection: this.collection
-            //   });
-            // $("#paginator").append(paginator.render().$el);
-        }
     });
 });

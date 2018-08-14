@@ -26,6 +26,7 @@ using System.Reflection;
 
 namespace Pawliner
 {
+    [ExceptionLogger]
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController

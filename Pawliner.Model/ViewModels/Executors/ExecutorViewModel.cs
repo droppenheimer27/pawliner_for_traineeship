@@ -11,6 +11,7 @@ namespace Pawliner.Model
         public string Patronymic { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
+        public string PhoneNumber { get; set; }
         public ExecutorTypeViewModel ExecutorType { get; set; }
         public string Type { get; set; }
         public string UserId { get; set; }
@@ -27,5 +28,9 @@ namespace Pawliner.Model
         public ICollection<RespondViewModel> Responds { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
         public virtual ICollection<ServiceClassiferViewModel> ServiceClassifers { get; set; }
+        public ExecutorViewModel()
+        {
+            Photos = new List<PhotoViewModel>();
+        }
     }
 }

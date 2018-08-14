@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace Pawliner.Controllers
 {
+    [ExceptionLogger]
     [Authorize]
     public class OrderController : ApiController
     {

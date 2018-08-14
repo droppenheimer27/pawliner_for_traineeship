@@ -7,6 +7,7 @@ using System.Web.Http;
 
 namespace Pawliner.Controllers
 {
+    [ExceptionLogger]
     public class ServicesController : ApiController
     {
         protected IServiceManager serviceManager;

@@ -22,6 +22,9 @@ define([
             submitBlock: '@ui.submitBlock',
             submitedRespond: '@ui.submitedRespond'
         },
+        modelEvents: {
+            'change': 'render'
+        },
         onRender: function () {
             if (this.model.get('Executor').UserId === window.app.model.get('userId')) {
                 this.showChildView('editBlock', new EditRespondBlock({model: this.model}));

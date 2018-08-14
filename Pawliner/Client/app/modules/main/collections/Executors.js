@@ -1,11 +1,11 @@
 define([
-    'backbone',
+    '../../../collections/RestBasePageble',
     '../models/Executor',
     'bpaginator'
-], function (B, Executor) {
+], function (RestBasePageble, Executor) {
     'use strict';
 
-    return B.Collection.extend({
+    return RestBasePageble.extend({
         model: Executor,
         url : '/api/executors'
     });

@@ -18,7 +18,8 @@ define([
             serviceRegion: '.service-template-region',
             placeOrder: '#placeOrderView',
             becomeExecutorView: '#becomeExecutorView',
-            paginatorOrders: '#paginatorOrders'
+            paginatorOrders: '#paginatorOrders',
+            paginatorExecutors: '#paginatorExecutors'
         },
         initialize: function () {
         },
@@ -43,6 +44,9 @@ define([
             paginatorOrders: {
                 el: '@ui.paginatorOrders',
             },
+            paginatorExecutors: {
+                el: '@ui.paginatorExecutors',
+            }
         },
         isLogin: function (e) {
             e.preventDefault();
@@ -71,12 +75,13 @@ define([
 
             this.showChildView('serviceRegion', new ServiceCollectionView());
             this.showChildView('orderRegion', new OrderCollectionView(settings));
-            this.showChildView('executorRegion', new ExecutorCollectionView());
+            this.showChildView('executorRegion', new ExecutorCollectionView(settings));
 
             var paginatorModel = new PaginatorModel();
             _.extend(settings, {model: paginatorModel});
 
             this.showChildView('paginatorOrders', new Paginator(settings));
+            this.showChildView('paginatorExecutors', new Paginator(settings));
         },
     });
 });

@@ -5,11 +5,26 @@ define([
     'text!../templates/ExecutorView.html',
     './collections/ExecutorServicesCollectionView',
     './collections/CommentCollectionView',
+    './collections/ExecutorPhotosCollectionView',
     './regions/comment/CreateCommentBlock',
     './regions/executor/EditExecutorBlock',
+    './regions/photos/AddExecutorPhotosBlock',
     'modules/main/collections/Executors',
-    'modules/main/models/Comment'
-], function (B, $, marionette, template, ExecutorServicesCollectionView, CommentCollectionView, CreateCommentBlock, EditExecutorBlock, Executors, Comment) {
+    'modules/main/models/Comment',
+    'modules/main/models/Photo'
+], function (B, 
+    $, 
+    marionette, 
+    template, 
+    ExecutorServicesCollectionView, 
+    CommentCollectionView, 
+    ExecutorPhotosCollectionView, 
+    CreateCommentBlock, 
+    EditExecutorBlock,
+    AddExecutorPhotosBlock, 
+    Executors, 
+    Comment, 
+    Photo) {
     'use strict';
     return marionette.View.extend({
         template: function (args) {
@@ -23,18 +38,34 @@ define([
             serviceBlock: '.executor-service-region',
             editExecutorBlock: '.edit-executor-block-region',
             commentsBlock: '.comments-block-region',
-            createCommentBlock: '.create-comment-block-region'
+            createCommentBlock: '.create-comment-block-region',
+            photosRegion: '#gallery-executor',
+            addPhotosBlock: '.add-photos-region'
         },
         regions: {
             serviceBlock: '@ui.serviceBlock',
             editExecutorBlock: '@ui.editExecutorBlock',
             commentsBlock: '@ui.commentsBlock',
-            createCommentBlock: '@ui.createCommentBlock'
+            createCommentBlock: '@ui.createCommentBlock',
+            photosRegion: {
+                el: '@ui.photosRegion',
+                replaceElement: true
+            },
+            addPhotosBlock: '@ui.addPhotosBlock'
         },
         onSync: function () {
             this.render();
         },
         onRender: function () {
+
+            var PhotoCollection = B.Collection.extend({
+                model: Photo
+            });
+
+            this.showChildView('photosRegion', new ExecutorPhotosCollectionView({
+                collection: new PhotoCollection(this.model.get('Photos')) //this.model.get('Photos')
+            }));
+
             var CommentCollection = B.Collection.extend({
                 model: Comment
             });
@@ -56,7 +87,13 @@ define([
 
             if (window.app.model.get('userId') === this.model.get('UserId')) {
                 this.showChildView('editExecutorBlock', new EditExecutorBlock({model: this.model}));
+                this.showChildView('addPhotosBlock', new AddExecutorPhotosBlock({model: this.model}));
             }
+
+            $('#gallery-executor' ).jGallery({
+                backgroundColor: 'black', 
+                textColor: 'black'
+            });
         }
     });
 });

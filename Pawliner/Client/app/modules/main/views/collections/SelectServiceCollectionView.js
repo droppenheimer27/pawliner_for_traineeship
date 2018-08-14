@@ -22,7 +22,6 @@ define([
             return {selectedValue: this.options.selectedValue};
         },
         initialize: function () {
-            //console.log(this.selectedValue, '88888this.selectedValue');
             this.collection.fetch();
         },
         onAttach: function () {
@@ -32,12 +31,5 @@ define([
                 width: "100%"
             });
         }
-        // onRender: function () {
-        //     $(this.el).select2({
-        //         theme: "bootstrap",
-        //         allowClear: true,
-        //         width: "200"
-        //     });
-        // }
     });
 });

@@ -18,8 +18,10 @@ define([
             Name: '',
             PhoneNumber: '',
             ServiceClassiferDescription: '',
+            ServiceDescription: '',
             OrderStatus: '',
             Photos: [],
+            Responds: [],
             Executor: {
                 Description: '',
                 FirstName: '',

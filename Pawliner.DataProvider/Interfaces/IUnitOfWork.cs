@@ -16,6 +16,7 @@ namespace Pawliner.DataProvider
         IRepository<Document> Documents { get;  }
         IPhotoRepository<Photo> Photos { get; }
         IRepository<Comment> Comments { get; }
+        IRepository<ExceptionDetail> ExceptionDetails { get; }
         void Save();
     }
 }

@@ -22,16 +22,11 @@ define([
             this.collection.fetch();
         },
         onAttach: function () {
-            $(this.el).select2({
-                tags: true
+            this.$el.select2({
+                tags: true,
+                allowClear: true,
+                width: '100%'
             });
         },
-        onRender: function () {
-            // $(this.el).select2({
-            //     theme: "bootstrap",
-            //     allowClear: true,
-            //     width: "200"
-            // });
-        }
     });
 });

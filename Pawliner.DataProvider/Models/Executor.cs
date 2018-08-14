@@ -17,8 +17,8 @@ namespace Pawliner.DataProvider
         [Required]
         public string LastName { get; set; } 
         [Required]
-        [MaxLength(1024, ErrorMessage = "Description cannot be more than 1024 characters")]
         public string Description { get; set; }
+        public string PhoneNumber { get; set; }
         public ExecutorType ExecutorType { get; set; }
         [NotMapped]
         public string Type { get; set; }

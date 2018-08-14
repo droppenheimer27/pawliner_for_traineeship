@@ -19,6 +19,7 @@ namespace Pawliner.DataProvider
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<ExceptionDetail> ExceptionDetails { get; set; }
 
         public ApplicationContext() : base() 
         { }

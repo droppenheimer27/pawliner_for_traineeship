@@ -35,18 +35,69 @@ define([
         events: {
             'submit @ui.juridicalExecutorForm': 'onSubmitJuridicalExecutorForm'
         },
+        validateForm: function () {
+            this.ui.juridicalExecutorForm.validate({
+               ignore: ':hidden',
+               rules: {
+                    FirstName: {
+                       required: true,
+                       maxlength: 128
+                    },
+                    LastName: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    Patronymic: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    Description: {
+                        required: true
+                    },
+                    PayerAccountNumber: {
+                        required: true,
+                        digits: true
+                    },
+                    FullJuredicalName: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    ShortJuredicalName: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    PhoneNumber: {
+                        required: true,
+                        maxlength: 32
+                    },
+               },
+               highlight: function (element) {
+                   $(element).closest('.form-group').addClass('has-error');
+               },
+               unhighlight: function (element) {
+                   $(element).closest('.form-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function (error, element) {
+                   if (element.parent('.form-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitJuridicalExecutorForm: function (e) {
             e.preventDefault();
             
             var data = syphon.serialize(this.ui.juridicalExecutorForm);
             data.Type = this.options.type;
             data.UserId = window.app.model.get('userId');
-            console.log(data);
-            console.log(this.model);
 
             this.model.set(data);
             this.model.save(data, {
-                success: function (response) {
+                success: function () {
                     $('#model-create-executor').modal('show');
                 }
             });
@@ -70,6 +121,8 @@ define([
             this.showChildView('selectServicesRegion', new SelectExecutorServiceCollectionView({
                 collection: new Services()
             }));
+
+            this.validateForm();
         }
     });
 });

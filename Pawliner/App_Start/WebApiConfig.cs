@@ -29,6 +29,7 @@ namespace Pawliner
             // Web API configuration and services
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new ExceptionLoggerAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -39,8 +40,6 @@ namespace Pawliner
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.MessageHandlers.Add(new LogRequestAndResponseHandler());
-//            config.Filters.Add(new ExceptionHandlerAttribute());
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
 
@@ -66,6 +65,7 @@ namespace Pawliner
             builder.RegisterType<ExecutorManager>().As<IExecutorManager>().InstancePerRequest();
             builder.RegisterType<RespondManager>().As<IRespondManager>().InstancePerRequest();
             builder.RegisterType<CommentManager>().As<ICommentManager>().InstancePerRequest();
+            builder.RegisterType<ExceptionDetailManager>().As<IExceptionDetailManager>().InstancePerRequest();
 
             builder.RegisterType<RoleStore<IdentityRole>>().As<IRoleStore<IdentityRole, string>>().InstancePerLifetimeScope();
             //builder.Register(c => HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).AsSelf().InstancePerLifetimeScope();

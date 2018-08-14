@@ -12,6 +12,7 @@ namespace Pawliner.Logic
         public string Patronymic { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
+        public string PhoneNumber { get; set; }
         public ExecutorTypeTransport ExecutorType { get; set; }
         [NotMapped]
         public string Type { get; set; }
@@ -26,7 +27,7 @@ namespace Pawliner.Logic
         public int PayerAccountNumber { get; set; }
         public string FullJuredicalName { get; set; }
         public string ShortJuredicalName { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        public List<Photo> Photos { get; set; }
         public ICollection<RespondTransport> Responds { get; set; }
         public ICollection<Comment> Comments { get; set; }
     }

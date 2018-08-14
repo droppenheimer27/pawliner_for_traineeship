@@ -27,10 +27,12 @@
                     <ul class="">
                         <li class="text-muted"><%= Name %></li>
                         <li class="text-muted"><%= Price %> р.</li>
-                        <li class="text-muted"><%= ServiceClassiferDescription %></li>
+                        <li class="text-muted"><%= ServiceDescription %></li>
                         <li class="text-muted"><%= PhoneNumber %></li>
                         <li class="text-muted"><%= City %>, <%= Address %></li>
-                        <!-- <li class="">1 отклик</li> -->
+                        <% if (Responds.length > 0) { %>
+                        <li class="text-muted"><%= Responds.length %> откликов</li>
+                        <% } %>
                     </ul>
                 </div>
             </div>

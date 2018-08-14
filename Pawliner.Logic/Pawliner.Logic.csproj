@@ -84,12 +84,14 @@
   <ItemGroup>
     <Compile Include="Interfaces\IApplicationUserManager.cs" />
     <Compile Include="Interfaces\ICommentManager.cs" />
+    <Compile Include="Interfaces\IExceptionDetailManager.cs" />
     <Compile Include="Interfaces\IExecutorManager.cs" />
     <Compile Include="Interfaces\IOrderManager.cs" />
     <Compile Include="Interfaces\IRespondManager.cs" />
     <Compile Include="Interfaces\IServiceManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\CommentManager.cs" />
+    <Compile Include="Managers\ExceptionDetailManager.cs" />
     <Compile Include="Managers\ExecutorManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Managers\RespondManager.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Models\Enums\ExecutorTypeTransport.cs" />
     <Compile Include="Models\Enums\OrderStatusTransport.cs" />
     <Compile Include="Models\Enums\RespondStatusTransport.cs" />
+    <Compile Include="Models\ExceptionDetailTransport.cs" />
     <Compile Include="Models\ExecutorTransport.cs" />
     <Compile Include="Models\JuridicalExecutorTransport.cs" />
     <Compile Include="Models\NaturalExecutorTransport.cs" />

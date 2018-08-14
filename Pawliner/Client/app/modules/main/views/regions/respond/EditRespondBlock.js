@@ -5,18 +5,16 @@ define([
     'underscore',
     'marionette',
     'text!../../../templates/regions/respond/EditRespondBlock.html',
-    'modules/main/models/Respond'
-], function (B, syphon, $, _, marionette, template, Respond) {
+    'jqueryvalidate'
+], function (B, syphon, $, _, marionette, template) {
     'use strict';
 
     return marionette.View.extend({
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
         },
-        // collection: new Executors,
         initialize: function () {
-            // this.collection.fetch();
-            // console.log(this.model);
+            this.model.on('change', this.changeModel, this);
         },
         ui: {
             editRespondForm: 'form[role="form"]',
@@ -26,51 +24,48 @@ define([
             'submit @ui.editRespondForm': 'onSubmitEditRespondForm',
             'click @ui.removeRespondButton': 'onClickRemoveRespondButton'
         },
+        changeModel: function () {
+            $('#model-respond-put' + this.model.get('Id')).modal('hide');
+        },
+        validateForm: function () {
+            this.ui.editRespondForm.validate({
+               ignore: ':hidden',
+               rules: {
+                   Content: {
+                       required: true
+                   },
+               },
+               highlight: function(element) {
+                   $(element).closest('.input-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.input-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.input-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitEditRespondForm: function (e) {
             e.preventDefault();
-
-            var self = this;
             var data = syphon.serialize(this.ui.editRespondForm);
-            data.Id = this.model.get('Id');
 
-            var respond = new Respond();
-            respond.set(data);
-            respond.save(data, {
-                success: function () {
-                    $('#model-respond-put' + self.model.get('Id')).modal('hide');
-                }
-            });
-
-            // this.render();
-            //B.Radio.channel('main').trigger('refreshData');
-            // console.log(this.model);
+            this.model.set(data);
+            this.model.save(data);  
         },
         onClickRemoveRespondButton: function (e) {
             e.preventDefault();
-            
-            var self = this;
-            var respond = new Respond();
-            respond.fetch({data: {
-                Id: this.model.get('Id'),
-            }});
-            
-            $.ajax({
-                type: 'DELETE',
-                url: '/api/responds/' + this.model.get('Id'),
-                beforeSend: function (xhr) {
-                    let token =  window.app.model.get('tokenInfo');
-                    xhr.setRequestHeader("Authorization", "Bearer " + token);
-                },
-                success: function () {
-                    $('#model-respond-put' + self.model.get('Id')).modal('hide');
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
 
-            // respond.destroy();
-           
+            this.model.destroy();
+        },
+        onRender: function () {
+            this.validateForm();
         }
     });
 });

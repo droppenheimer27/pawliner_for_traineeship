@@ -1,11 +1,13 @@
 define([
+    'backbone',
     'syphon',
     'underscore',
     'marionette',
     'text!../../../templates/regions/order/CreateRespondBlock.html',
     'modules/main/models/Executor',
-    'modules/main/models/Respond'
-], function (syphon, _, marionette, template, Executor, Respond) {
+    'modules/main/models/Respond',
+    'jqueryvalidate'
+], function (B, syphon, _, marionette, template, Executor, Respond) {
     'use strict';
 
     return marionette.View.extend({
@@ -13,6 +15,8 @@ define([
             return _.template(template)(tplPrms);
         },
         initialize: function () {
+            this.model.on('change', this.changeModel, this);
+
             var self = this;
 
             $.ajax({
@@ -23,7 +27,7 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (response) {
-                    self.options.ExecutorId = _.find(response, {UserId: window.app.model.get('userId')}).Id;
+                    self.options.ExecutorId = _.find(response.items, {UserId: window.app.model.get('userId')}).Id;
                 },
                 error: function (response) {
                     console.log(response);
@@ -36,25 +40,52 @@ define([
         events: {
             'submit @ui.form': 'onSubmitForm'
         },
+        changeModel: function () {
+            $('#model-default').modal('hide');
+        },
+        validateForm: function () {
+            this.ui.form.validate({
+               ignore: ':hidden',
+               rules: {
+                   Content: {
+                       required: true
+                   },
+               },
+               highlight: function(element) {
+                   $(element).closest('.input-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.input-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.input-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitForm: function (e) {
             e.preventDefault();
-            
+
             var data = syphon.serialize(this.ui.form);
             data.UserId = window.app.model.get('userId');
-            data.OrderId = parseInt(this.options.OrderId, 10);
+            data.OrderId = parseInt(this.model.get('Id'), 10);
             data.ExecutorId = this.options.ExecutorId;
             data.Status = 2; // Unsubmited respond
             console.log(data);
-
+            
             this.model = new Respond();
             this.model.set(data);
-            this.model.save(data, {
-                success: function () {
-                    $('#modal-default').modal('hide');
-                }
-            });
+            this.model.save(data);
 
-            //B.Radio.channel('main').trigger('refreshData');
+            B.Radio.channel('main').trigger('refreshOrderView');
+        },
+        onRender: function () {
+            this.validateForm();
         }
     });
 });

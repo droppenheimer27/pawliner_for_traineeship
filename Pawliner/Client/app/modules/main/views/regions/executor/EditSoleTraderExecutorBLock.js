@@ -28,6 +28,51 @@ define([
             'submit @ui.form': 'onSubmitEditSoleTraderExecutorForm',
             'click @ui.removeSoleTraderExecutor': 'onClickRemoveSoleTraderExecutor'
         },
+        validateForm: function () {
+            this.ui.form.validate({
+               ignore: ':hidden',
+               rules: {
+                    FirstName: {
+                       required: true,
+                       maxlength: 128
+                    },
+                    LastName: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    Patronymic: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    Description: {
+                        required: true
+                    },
+                    PayerAccountNumber: {
+                        required: true,
+                        digits: true
+                    },
+                    PhoneNumber: {
+                        required: true,
+                        maxlength: 32
+                    },
+               },
+               highlight: function (element) {
+                   $(element).closest('.form-group').addClass('has-error');
+               },
+               unhighlight: function (element) {
+                   $(element).closest('.form-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function (error, element) {
+                   if (element.parent('.form-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitEditSoleTraderExecutorForm: function (e) {
             e.preventDefault();
             
@@ -72,6 +117,8 @@ define([
                     var roles = {roles: ''};
                     window.app.model.set(roles);
                     window.app.model.save(roles);
+
+                    window.router.navigate('', { trigger: true });
                 }
             });
         },
@@ -79,6 +126,8 @@ define([
             this.showChildView('selectServicesRegion', new SelectExecutorServiceCollectionView({
                 collection: new Services()
             }));
+
+            this.validateForm();
         }
     });
 });

@@ -9,6 +9,7 @@ using Pawliner.Model;
 
 namespace Pawliner.Controllers
 {
+    [ExceptionLogger]
     [Authorize]
     public class RespondsController : ApiController
     {

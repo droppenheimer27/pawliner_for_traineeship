@@ -13,6 +13,7 @@ define([
     'css!../../../../../../vendor/css/pawliner',
     'airdatepicker',
     'select2',
+    'jqueryvalidate'
 ], function (B, syphon, _, $, marionette, template, Services, Order, SelectServiceCollectionView) {
     'use strict';
 
@@ -28,7 +29,6 @@ define([
             form: 'form[role="form"]',
             removeOrder: '#removeOrder',
             profileEditClose: '#profileEditClose',
-            // modal: '#model-order-put'
         },
         regions: {
             selectServicesRegion: {
@@ -45,29 +45,68 @@ define([
         },
         onSubmitEditOrderForm: function (e) {
             e.preventDefault();
-            var self = this;
             var data = syphon.serialize(this.ui.form);
-            // data.Id = this.model.get('Id');
-            console.log(data); 
 
-            
             this.model.set(data);
-            this.model.save(data, {
-                success: function () {
-                    console.log("ddddd");
-                    // $(self.ui.profileEditClose).click();
-                    // $(self.ui.modal).modal('hide');
-                },
-                error: function (a1,a2,a3) {
-                    console.log(a1, "eeeee");
-                    console.log(a2, "eeeee");
-                    console.log(a3, "eeeee");
-                    // $(self.ui.profileEditClose).click();
-                    // $(self.ui.modal).modal('hide');
-                }
-            });
-
-            
+            this.model.save(data);            
+        },
+        validateForm: function () {
+            this.ui.form.validate({
+               ignore: ':hidden',
+               rules: {
+                   Header: {
+                       required: true,
+                       maxlength: 256
+                   },
+                   Description: {
+                        required: true
+                    },
+                    City: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    Address: {
+                        required: false,
+                        maxlength: 128
+                    },
+                    Name: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    CompletedOn: {
+                        required: true,
+                        date: true
+                    },
+                    Price: {
+                        required: true,
+                        maxlength: 64,
+                        digits: true
+                    },
+                    PhoneNumber: {
+                        required: true,
+                        maxlength: 32
+                    },
+                    ServiceClassiferDescription: {
+                        required: true,
+                        maxlength: 128
+                    },
+               },
+               highlight: function(element) {
+                   $(element).closest('.form-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.form-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.form-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
         },
         onClickRemoveOrder: function (e) {
             e.preventDefault();
@@ -81,6 +120,8 @@ define([
                 },
                 success: function () {
                     $('#model-order-put').modal('hide');
+                    
+                    window.router.navigate('', { trigger: true });
                 },
                 error: function (response) {
                     console.log(response);
@@ -88,11 +129,12 @@ define([
             });
         },
         onRender: function () {
-            // console.log(this.model.get("ServiceClassiferDescription"), '-----this.model.get("ServiceClassiferDescription")');
             this.showChildView('selectServicesRegion', new SelectServiceCollectionView({
                 collection: new Services(),
                 selectedValue: this.model.get("ServiceClassiferDescription")
             }));
+
+            this.validateForm();
         }
     });
 });

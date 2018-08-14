@@ -12,6 +12,7 @@ define([
     'css!../../../../vendor/css/pawliner',
     'airdatepicker',
     'select2',
+    'jqueryvalidate'
 ], function (syphon, _, $, Mn, template, Order, Services, SelectServiceCollectionView) {
     'use strict';
 
@@ -36,48 +37,80 @@ define([
         events: {
             'submit @ui.orderForm': 'onSubmitOrderForm'
         },
-        // onSync: function() {
-
-        //     $(this.el).select2({
-        //         theme: "bootstrap",
-        //         allowClear: true,
-        //         placeholder: "All "+ this.options.label,
-        //         width: "200"
-        //     });
-        // },
+        validateForm: function () {
+            this.ui.orderForm.validate({
+               ignore: ':hidden',
+               rules: {
+                   Header: {
+                       required: true,
+                       maxlength: 256
+                   },
+                   Description: {
+                        required: true
+                    },
+                    City: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    Address: {
+                        required: false,
+                        maxlength: 128
+                    },
+                    Name: {
+                        required: true,
+                        maxlength: 128
+                    },
+                    CompletedOn: {
+                        required: true,
+                        date: true
+                    },
+                    Price: {
+                        required: true,
+                        maxlength: 64,
+                        digits: true
+                    },
+                    PhoneNumber: {
+                        required: true,
+                        maxlength: 32
+                    },
+                    ServiceClassiferDescription: {
+                        required: true,
+                        maxlength: 128
+                    },
+               },
+               highlight: function(element) {
+                   $(element).closest('.form-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.form-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.form-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitOrderForm: function (e) {
             e.preventDefault();
 
             var data = syphon.serialize(this.ui.orderForm);
             data.UserId = window.app.model.get('userId');
 
-            console.log(data);
-
-            // this.model.set(data);
-            // this.model.save(data);
-
-            // console.log(this.model);
             $.ajax({
                 type: 'POST',
                 url: '/api/order',
-                data: {
-                    UserId:  window.app.model.get('userId'),
-                    serviceClassiferDescription: $('.paw-select').val(),
-                    Header: $('#headerCreateOrder').val(),
-                    description: $('#descriptionCreateOrder').val(),
-                    city: $('#cityCreateOrder').val(),
-                    address: $('#addressCreateOrder').val(),
-                    name: $('#nameCreateOrder').val(),
-                    CompletedOn: $('#completeDate').val(),
-                    price: $('#priceCreateOrder').val(),
-                    PhoneNumber: $('#profileNumber').val(),
-                },
+                data: data,
                 beforeSend: function (xhr) {
                     let token =  window.app.model.get('tokenInfo');
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
-                success: function (response) {
-                    console.log(response);
+                success: function () {
+                    $('#modal-order-success').modal('show');
                 },
                 error: function (response) {
                     console.log(response);
@@ -85,10 +118,11 @@ define([
             });
         },
         onRender: function () {
-
             this.showChildView('selectServicesRegion', new SelectServiceCollectionView({
                 collection: new Services()
             }));
+
+            this.validateForm();
         }
     });
 });

@@ -1,13 +1,11 @@
 define([
-    'backbone',
-    'syphon',
     'jquery',
     'underscore',
     'marionette',
-    'text!../../../templates/regions/photos/AddPhotosBlock.html',
+    'text!../../../templates/regions/photos/AddOrderPhotosBlock.html',
     '../../collections/OrderPhotosCollectionView',
     'modules/main/collections/Orders'
-], function (B, syphon, $, _, marionette, template, OrderPhotosCollectionView, Orders) {
+], function ($, _, marionette, template, OrderPhotosCollectionView, Orders) {
     'use strict';
 
     return marionette.View.extend({
@@ -15,18 +13,38 @@ define([
             return _.template(template)(tplPrms);
         },
         initialize: function () {
-            // this.collection.fetch();
-            console.log(this.model, 'add-photos-block');
         },
         ui: {
-            photosRegion: '.photos-region-add',
             addPhotosForm: 'form[role="form"]'
         },
         events: {
             'submit @ui.addPhotosForm': 'onSubmitAddPhotosForm'
         },
-        regions: {
-            photosRegion: '@ui.photosRegion',
+        validateForm: function () {
+            this.ui.addPhotosForm.validate({
+               ignore: ':hidden',
+               rules: {
+                    Photos: {
+                       required: true,
+                       extension: 'jpeg|png|gif'
+                   },
+               },
+               highlight: function(element) {
+                   $(element).closest('.input-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.input-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.input-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
         },
         onSubmitAddPhotosForm: function (e) {
             e.preventDefault();
@@ -35,7 +53,7 @@ define([
             var formData = new FormData();
 
             formData.append('Id', this.model.get('Id'));
-            for (var i = 0, len = document.getElementById('orderPhotos').files.length; i < len; i++) { // rewrite with something beutiful
+            for (var i = 0, len = document.getElementById('orderPhotos').files.length; i < len; i++) { 
                 formData.append('file' + i, document.getElementById('orderPhotos').files[i]);
             }
 
@@ -49,22 +67,16 @@ define([
                     var token = window.app.model.get('tokenInfo');
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
-                success: function (response) {
-                    alert("Successfully add photos!");
+                success: function () {
+                    $('#modal-order-pictures-success').modal('show');
                 },
-                error: function (response) {
+                error: function () {
                     alert('Error');
                 }
             });  
         },
         onRender: function () {
-            this.showChildView('photosRegion', new OrderPhotosCollectionView({
-                collection: new Orders(this.model.get('Photos'))
-            }));
-
-            $(function() {
-                $( '#gallery-add' ).jGallery();
-            });
+            this.validateForm();
         }
     });
 });

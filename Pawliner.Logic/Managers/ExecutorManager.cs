@@ -159,6 +159,7 @@ namespace Pawliner.Logic
                .ToList();
 
             executor.Comments = comments;
+            
             if (executor.ExecutorType == ExecutorType.Natural)
             {
                 executor.Type = "";
@@ -195,15 +196,11 @@ namespace Pawliner.Logic
             return Mapper.Map<Executor, ExecutorTransport>(executor);
         }
 
-        public IEnumerable<ExecutorTransport> GetExecutors(List<string> filter, int page)
+        public IEnumerable<ExecutorTransport> GetExecutors(List<string> filter)
         {
-            int pageSize = 10; // dont forget change it
-
             var executors = Mapper.Map<IEnumerable<Executor>, List<ExecutorTransport>>(database.Executors
                 .GetList()
-                .OrderByDescending(o => o.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize));
+                .OrderByDescending(o => o.Id));
 
             var naturals = database.NaturalExecutors.GetList();
             var traders = database.SoleTraderExecutors.GetList();
@@ -255,6 +252,17 @@ namespace Pawliner.Logic
             }
 
             return result.Where(s => s.ServiceClassifers.Any(sr => filterServices.Contains(sr))); 
+        }
+
+        public void AddPhotos(int id, List<PhotoTransport> models)
+        {
+            var photos = Mapper.Map<List<PhotoTransport>, List<Photo>>(models);
+
+            var executor = database.Executors.Get(id);
+            executor.Photos = photos;
+
+            database.Executors.Update(executor);
+            database.Save();
         }
     }
 }

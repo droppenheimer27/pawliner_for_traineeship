@@ -12,7 +12,8 @@ namespace Pawliner.Logic
         void CreateExecutor(ExecutorViewModel executor);
         void UpdateExecutor(ExecutorViewModel executor);
         void DeleteExecutor(int id);
+        void AddPhotos(int id, List<PhotoTransport> models);
         ExecutorTransport GetExecutor(int id);
-        IEnumerable<ExecutorTransport> GetExecutors(List<string> filter, int page);
+        IEnumerable<ExecutorTransport> GetExecutors(List<string> filter);
     }
 }

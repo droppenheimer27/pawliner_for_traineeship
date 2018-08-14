@@ -16,6 +16,34 @@ define([
         events: {
             "submit @ui.loginForm": "onSubmitLoginForm",
         },
+        validateForm: function () {
+            this.ui.loginForm.validate({
+               ignore: ':hidden',
+               rules: {
+                    UserName: {
+                       required: true
+                   },
+                   Password: {
+                    required: true
+                },
+               },
+               highlight: function(element) {
+                   $(element).closest('.form-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.form-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.form-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitLoginForm: function (e) {
             e.preventDefault();
 
@@ -37,12 +65,6 @@ define([
                     
                     window.app.model.set(args);
                     window.app.model.save(args);
-                    // B.Radio.channel('main').trigger('showRespondBlock');
-                    // window.app.model.set(roles);
-                    // window.app.model.save(roles);
-
-                    // window.app.model.set(tokenInfo);
-                    // window.app.model.save(tokenInfo);
                 },
                 error: function (response) {
                     console.log(response);
@@ -51,5 +73,8 @@ define([
 
             $('#model-login').modal('show');
         },
+        onRender: function () {
+            this.validateForm();
+        }
     });
 });

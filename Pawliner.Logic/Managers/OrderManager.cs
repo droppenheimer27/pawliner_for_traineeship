@@ -21,6 +21,7 @@ namespace Pawliner.Logic
 
             database.Orders.Create(new Order
             {
+                UserId = orderTransport.UserId,
                 Header = orderTransport.Header,
                 Description = orderTransport.Description,
                 City = orderTransport.City,
@@ -112,6 +113,7 @@ namespace Pawliner.Logic
                 CompletedOn = order.CompletedOn,
                 CreatedAt = order.CreatedAt,
                 ServiceClassiferDescription = service.Id.ToString(),
+                ServiceDescription = service.Description,
                 Photos = order.Photos.ToList(),
                 Responds = responds,
             };

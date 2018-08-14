@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\LogRequestAndResponseHandler.cs" />
     <Compile Include="Helpers\Pawmapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

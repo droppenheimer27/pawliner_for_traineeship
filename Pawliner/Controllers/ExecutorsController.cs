@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
 using System.Web.Http;
 using AutoMapper;
+using Pawliner.Common;
 using Pawliner.Logic;
 using Pawliner.Model;
 
 namespace Pawliner.Controllers
 {
+    [ExceptionLogger]
     [Authorize]
     public class ExecutorsController : ApiController
     {
@@ -25,9 +30,23 @@ namespace Pawliner.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IEnumerable<ExecutorViewModel> Get([FromUri]List<string> filter, int page = 1, int perPage = 10)
+        public ExecutorPagebleViewModel Get([FromUri]List<string> filter, int page = 1, int perPage = 10)
         {
-            return Mapper.Map<IEnumerable<ExecutorTransport>, IEnumerable<ExecutorViewModel>>(ExecutorManager.GetExecutors(filter, page));
+            var executors = Mapper.Map<IEnumerable<ExecutorTransport>, List<ExecutorViewModel>>(ExecutorManager.GetExecutors(filter));
+            var pageInfo = new PageInfo
+            {
+                currentPage = page,
+                perPage = perPage,
+                totalCount = executors.Count
+            };
+
+            var result = new ExecutorPagebleViewModel
+            {
+                _meta = pageInfo,
+                items = executors.Skip((page - 1) * perPage).Take(perPage)
+            };
+
+            return result;
         }
 
         [AllowAnonymous]
@@ -35,6 +54,39 @@ namespace Pawliner.Controllers
         public ExecutorViewModel Get(int id)
         {
             return Mapper.Map<ExecutorTransport, ExecutorViewModel>(ExecutorManager.GetExecutor(id));
+        }
+
+        [Route("api/executors/Gallery")]
+        [HttpPost]
+        public IHttpActionResult AddPhotos()
+        {
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                var photos = new List<PhotoViewModel>();
+                foreach (string fileName in HttpContext.Current.Request.Files)
+                {
+                    var file = HttpContext.Current.Request.Files[fileName];
+                    var photoId = Guid.NewGuid() + System.IO.Path.GetExtension(file.FileName);
+                    photos.Add(new PhotoViewModel
+                    {
+                        FileName = file.FileName,
+                        Path = "app/modules/main/img/executors/" + photoId,
+                        Users = null,
+                        Orders = null,
+                        Executors = null
+                    });
+
+                    file.SaveAs(HttpContext.Current.Server.MapPath("~/Client/app/modules/main/img/executors/" + photoId));
+                }
+
+                NameValueCollection form = HttpContext.Current.Request.Form;
+
+                var model = Pawmapper<ExecutorIdentityViewModel>.Map(form, new ExecutorIdentityViewModel());
+                var transportPhotos = Mapper.Map<List<PhotoViewModel>, List<PhotoTransport>>(photos);
+                ExecutorManager.AddPhotos(int.Parse(model.Id), transportPhotos);
+            }
+
+            return Ok();
         }
 
         [HttpPost]

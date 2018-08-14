@@ -18,6 +18,7 @@ namespace Pawliner.DataProvider
         private DocumentRepository documentRepository;
         private PhotoRepository photoRepository;
         private CommentRepository commentRepository;
+        private ExceptionDetailRepository exceptionDetailRepository;
 
         private bool disposed = false;
 
@@ -174,6 +175,19 @@ namespace Pawliner.DataProvider
                 }
 
                 return commentRepository;
+            }
+        }
+
+        public IRepository<ExceptionDetail> ExceptionDetails
+        {
+            get
+            {
+                if (exceptionDetailRepository == null)
+                {
+                    exceptionDetailRepository = new ExceptionDetailRepository(database);
+                }
+
+                return exceptionDetailRepository;
             }
         }
 
