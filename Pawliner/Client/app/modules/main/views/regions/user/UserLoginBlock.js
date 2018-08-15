@@ -23,8 +23,8 @@ define([
                     UserName: {
                        required: true
                    },
-                   Password: {
-                    required: true
+                    Password: {
+                        required: true
                 },
                },
                highlight: function(element) {
@@ -65,13 +65,13 @@ define([
                     
                     window.app.model.set(args);
                     window.app.model.save(args);
+                    
+                    $('#model-login').modal('show'); 
                 },
                 error: function (response) {
                     console.log(response);
                 }
             });
-
-            $('#model-login').modal('show');
         },
         onRender: function () {
             this.validateForm();

@@ -1,15 +1,13 @@
 define([
     'underscore',
+    'syphon',
     'jquery',
     'marionette',
     'text!../templates/RegisterView.html',
-], function (_, $, marionette, template) {
+], function (_, syphon, $, marionette, template) {
     'use strict';
 
     return marionette.View.extend({
-        initialize: function() {
-            console.log('initialize Register');
-        },
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
         },
@@ -22,32 +20,64 @@ define([
         events: {
             "submit @ui.registerForm": "onSubmitRegisterForm",
         },
+        validateForm: function () {
+            this.ui.registerForm.validate({
+               ignore: ':hidden',
+               rules: {
+                    UserName: {
+                       required: true,
+                       minlength: 6,
+                       maxlength: 256
+                   },
+                   Email: {
+                        required: true,
+                        email: true
+                    },
+                    Password: {
+                        minlength: 6,
+                    },
+                    ConfirmPassword: {
+                        minlength: 6,
+                        equalTo: '#registerPassword'
+                    },
+                    
+               },
+               highlight: function(element) {
+                   $(element).closest('.form-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.form-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.form-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitRegisterForm: function (e) {
             e.preventDefault();
+
+            var data = syphon.serialize(this.ui.registerForm);
 
             $.ajax({
                 type: 'POST',
                 url: '/api/account/Register',
-                data: {
-                    UserName:  $('#login').val(),
-                    Email:  $('#email').val(),
-                    Password: $('#password').val(),
-                    ConfirmPassword: $('#confirmPassword').val()
-                },
-                success: function (response) {
-                    // var tokenInfo = {tokenInfo: response.access_token};
-                    // var userId = {userId: response.id};
-                    // window.app.model.set(userId);
-                    // window.app.model.save(userId);
-
-                    // window.app.model.set(tokenInfo);
-                    // window.app.model.save(tokenInfo);
-                    console.log(response);
+                data: data,
+                success: function () {
+                    $('#model-register').modal('show');
                 },
                 error: function (response) {
                     console.log(response);
                 }
             });
         },
+        onRender: function () {
+            this.validateForm();
+        }
     });
 });

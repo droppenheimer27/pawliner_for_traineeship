@@ -39,6 +39,52 @@ define([
         events: {
             'submit @ui.profileForm': 'onSubmitProfileForm'
         },
+        validateForm: function () {
+            this.ui.profileForm.validate({
+               ignore: ':hidden',
+               rules: {
+                    UserName: {
+                       required: false,
+                       minlength: 6,
+                       maxlength: 256
+                   },
+                   Email: {
+                        required: false,
+                        email: true
+                    },
+                    FullName: {
+                        required: false,
+                        minlength: 2,
+                        maxlength: 128
+                    },
+                    PhoneNumber: {
+                        required: false,
+                        minlength: 2,
+                        maxlength: 128
+                    },
+                    Skype: {
+                        required: false,
+                        minlength: 2,
+                        maxlength: 128
+                    },
+               },
+               highlight: function(element) {
+                   $(element).closest('.form-group').addClass('has-error');
+               },
+               unhighlight: function(element) {
+                   $(element).closest('.form-group').removeClass('has-error');
+               },
+               errorElement: 'span',
+               errorClass: 'help-block',
+               errorPlacement: function(error, element) {
+                   if(element.parent('.form-group').length) {
+                       error.insertAfter(element.parent());
+                   } else {
+                       error.insertAfter(element);
+                   }
+               }
+           });
+        },
         onSubmitProfileForm: function (e) {
             e.preventDefault();
 
@@ -54,7 +100,6 @@ define([
             formData.append('PhoneNumber', data.PhoneNumber);
             formData.append('Skype', data.Skype);
             formData.append('Avatar', file.files[0]);
-            // formData.append('file', file.files[0]);
 
             $.ajax({
                 type: 'POST',
@@ -73,6 +118,9 @@ define([
                     alert('Error');
                 }
             });
+        },
+        onRender: function () {
+            this.validateForm();
         }
     });
 });

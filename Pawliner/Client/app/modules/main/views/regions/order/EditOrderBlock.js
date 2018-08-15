@@ -40,16 +40,6 @@ define([
             'submit @ui.form': 'onSubmitEditOrderForm',
             'click @ui.removeOrder': 'onClickRemoveOrder'
         },
-        changeModel: function () {
-            $('#model-order-put').modal('hide');
-        },
-        onSubmitEditOrderForm: function (e) {
-            e.preventDefault();
-            var data = syphon.serialize(this.ui.form);
-
-            this.model.set(data);
-            this.model.save(data);            
-        },
         validateForm: function () {
             this.ui.form.validate({
                ignore: ':hidden',
@@ -78,7 +68,6 @@ define([
                         date: true
                     },
                     Price: {
-                        required: true,
                         maxlength: 64,
                         digits: true
                     },
@@ -107,6 +96,19 @@ define([
                    }
                }
            });
+        },
+        changeModel: function () {
+            $('#model-order-put').modal('hide');
+        },
+        onSubmitEditOrderForm: function (e) {
+            e.preventDefault();
+            var data = syphon.serialize(this.ui.form);
+            
+            if ($('#fancy-checkbox-success-edit:checked').val() === 'on') {
+                data.Price = 'Deal';
+            }
+            this.model.set(data);
+            this.model.save(data);            
         },
         onClickRemoveOrder: function (e) {
             e.preventDefault();

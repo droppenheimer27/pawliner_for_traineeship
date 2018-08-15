@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pawliner.DataProvider;
-using Pawliner.Model;
 
 namespace Pawliner.Logic
 {

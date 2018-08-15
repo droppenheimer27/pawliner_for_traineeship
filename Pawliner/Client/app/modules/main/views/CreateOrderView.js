@@ -65,7 +65,6 @@ define([
                         date: true
                     },
                     Price: {
-                        required: true,
                         maxlength: 64,
                         digits: true
                     },
@@ -100,6 +99,10 @@ define([
 
             var data = syphon.serialize(this.ui.orderForm);
             data.UserId = window.app.model.get('userId');
+
+            if ($('#fancy-checkbox-success:checked').val() === 'on') {
+                data.Price = 'Deal';
+            }
 
             $.ajax({
                 type: 'POST',

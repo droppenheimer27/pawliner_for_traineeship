@@ -1,4 +1,6 @@
-﻿using Pawliner.Logic;
+﻿using AutoMapper;
+using Pawliner.Logic;
+using Pawliner.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,15 +26,47 @@ namespace Pawliner.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ServiceTransport> Get()
+        public IEnumerable<ServiceViewModel> Get()
         {
-            return ServiceManager.GetServices();
+            var services = Mapper.Map<IEnumerable<ServiceTransport>, IEnumerable<ServiceViewModel>>(ServiceManager.GetServices());
+            return services;
         }
 
         [HttpGet]
-        public ServiceTransport Get(int id)
+        public ServiceViewModel Get(int id)
         {
-            return ServiceManager.GetService(id);
+            var service = Mapper.Map<ServiceTransport, ServiceViewModel>(ServiceManager.GetService(id));
+            return service;
+        }
+
+        [HttpPost]
+        public IHttpActionResult Post(CreateServiceViewModel model)
+        {
+            var service = new CreateServiceTransport
+            {
+                Description = model.Description
+            };
+
+            ServiceManager.CreateService(service);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(EditServiceViewModel model)
+        {
+
+            var service = Mapper.Map<EditServiceViewModel, EditServiceTransport>(model);
+            ServiceManager.UpdateService(service);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            ServiceManager.DeleteService(id);
+            return Ok();
         }
     }
 }

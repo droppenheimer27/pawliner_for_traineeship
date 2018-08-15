@@ -4,8 +4,8 @@ namespace Pawliner.Logic
 {
     public interface IServiceManager
     {
-        void CreateService(ServiceTransport service);
-        void UpdateService(ServiceTransport service);
+        void CreateService(CreateServiceTransport service);
+        void UpdateService(EditServiceTransport service);
         void DeleteService(int id);
         ServiceTransport GetService(int id);
         IEnumerable<ServiceTransport> GetServices();

@@ -73,7 +73,9 @@
     <Compile Include="ViewModels\Responds\RespondViewModel.cs" />
     <Compile Include="ViewModels\Responds\StatusRespondViewModel.cs" />
     <Compile Include="ViewModels\ServiceClassiferViewModel.cs" />
-    <Compile Include="ViewModels\ServiceViewModel.cs" />
+    <Compile Include="ViewModels\Services\CreateServiceViewModel.cs" />
+    <Compile Include="ViewModels\Services\EditServiceViewModel.cs" />
+    <Compile Include="ViewModels\Services\ServiceViewModel.cs" />
     <Compile Include="ViewModels\Executors\SoleTraderExecutorViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>

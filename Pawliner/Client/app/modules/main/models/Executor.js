@@ -20,6 +20,7 @@ define([
             PayerAccountNumber: '',
             FullJuredicalName: '',
             ShortJuredicalName: '',
+            PhoneNumber: '',
             Comments: [],
             UserId: '', 
             User: {

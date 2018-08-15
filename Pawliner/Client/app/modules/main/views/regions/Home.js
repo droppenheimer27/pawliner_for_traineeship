@@ -19,7 +19,8 @@ define([
             placeOrder: '#placeOrderView',
             becomeExecutorView: '#becomeExecutorView',
             paginatorOrders: '#paginatorOrders',
-            paginatorExecutors: '#paginatorExecutors'
+            paginatorExecutors: '#paginatorExecutors',
+            myOrders: '#my-orders'
         },
         initialize: function () {
         },
@@ -28,7 +29,8 @@ define([
         },
         events: {
             'click @ui.placeOrder': 'isLogin',
-            'click @ui.becomeExecutorView': 'isExecutor'
+            'click @ui.becomeExecutorView': 'isExecutor',
+            'clicl @ui.myOrders': 'showMyOrders'
         },
         regions: {
             orderRegion: {
@@ -67,6 +69,11 @@ define([
             } else {
                 window.router.navigate('#!/main/becomeexecutor', { trigger: true });
             }
+        },
+        showMyOrders: function (e) {
+            e.preventDefault();
+
+            
         },
         onRender: function() {
             var settings = {

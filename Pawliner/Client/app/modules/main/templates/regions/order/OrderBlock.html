@@ -2,6 +2,9 @@
     <div class="box">
         <div class="box-header">
             <h2 class="box-title"><a href="#!/main/order/<%= Id %>"><b><%= Header %></b></a></h2>
+            <% if (window.app.model.get('userId') === UserId) { %>
+            <span class="pull-right text-muted">You</span>
+            <% } %>
             <hr/>
         </div>
         <div class="box-body">
@@ -17,8 +20,12 @@
                     <p id="description" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%= Description %></p>
                 </div>
                 <div class="col">
-                    <ul class="">
-                        <li class=""><%= Price %> р.</li>
+                    <ul>
+                        <% if (Price === 'Deal') { %>
+                        <li class="text-muted">Price <%= Price %></li>
+                        <% } else { %>
+                        <li class="text-muted"><%= Price %> р.</li>
+                        <% } %>
                         <!-- <li class="">1 отклик</li> -->
                     </ul>
                 </div>

@@ -93,6 +93,7 @@ namespace Pawliner.Logic
             executor.LastName = model.LastName;
             executor.Patronymic = model.Patronymic;
             executor.Description = model.Description;
+            executor.PhoneNumber = model.PhoneNumber;
 
             executor.ServiceClassifers.Clear();
             executor.ServiceClassifers = services;

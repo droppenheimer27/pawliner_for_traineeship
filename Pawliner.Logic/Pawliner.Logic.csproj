@@ -113,7 +113,9 @@
     <Compile Include="Models\Responds\RespondTransport.cs" />
     <Compile Include="Models\Responds\StatusRespondTransport.cs" />
     <Compile Include="Models\ServiceClassiferTransport.cs" />
-    <Compile Include="Models\ServiceTransport.cs" />
+    <Compile Include="Models\Services\CreateServiceTransport.cs" />
+    <Compile Include="Models\Services\EditServiceTransport.cs" />
+    <Compile Include="Models\Services\ServiceTransport.cs" />
     <Compile Include="Models\SoleTraderExecutorTransport.cs" />
     <Compile Include="Models\UserTransport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

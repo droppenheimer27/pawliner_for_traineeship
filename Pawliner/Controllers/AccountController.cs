@@ -23,6 +23,7 @@ using System.Net;
 using System.Web.Hosting;
 using System.Collections.Specialized;
 using System.Reflection;
+using AutoMapper;
 
 namespace Pawliner
 {

@@ -4,6 +4,7 @@ define([], function () {
     return {
         "": "index",
         "index": "index",
+        "!/main/adminpanel": "adminpanel",
         "!/main/profile": "profile",
         "!/main/register": "register",
         "!/main/placeorder": "placeorder",

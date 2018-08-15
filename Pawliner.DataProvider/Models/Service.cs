@@ -13,8 +13,6 @@ namespace Pawliner.DataProvider
         public string Description { get; set; }
         public ICollection<ServiceClassifer> ServiceClassifers { get; set; }
 
-        //public virtual ICollection<Order> Orders { get; set; }
-
         public Service()
         {
             ServiceClassifers = new List<ServiceClassifer>();

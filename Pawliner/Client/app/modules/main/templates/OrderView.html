@@ -26,7 +26,11 @@
                 <div class="col col-lg-2">
                     <ul class="">
                         <li class="text-muted"><%= Name %></li>
+                        <% if (Price === 'Deal') { %>
+                        <li class="text-muted">Price <%= Price %></li>
+                        <% } else { %>
                         <li class="text-muted"><%= Price %> р.</li>
+                        <% } %>
                         <li class="text-muted"><%= ServiceDescription %></li>
                         <li class="text-muted"><%= PhoneNumber %></li>
                         <li class="text-muted"><%= City %>, <%= Address %></li>

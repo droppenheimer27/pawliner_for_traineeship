@@ -22,7 +22,7 @@ namespace Pawliner.DataProvider
         public string City { get; set; }
         public string Address { get; set; }
         [Required]
-        public int Price { get; set; }
+        public string Price { get; set; }
         [Required]
         [MaxLength(32, ErrorMessage = "The name should be less than 32 characters")]
         public string Name { get; set; }

@@ -15,14 +15,19 @@ namespace Pawliner.Logic
             this.database = database;
         }
 
-        public void CreateService(ServiceTransport service)
+        public void CreateService(CreateServiceTransport model)
         {
-            throw new NotImplementedException();
+            database.Services.Create(new Service
+            {
+                Description = model.Description
+            });
+            database.Save();
         }
 
         public void DeleteService(int id)
         {
-            throw new NotImplementedException();
+            database.Services.Delete(id);
+            database.Save();
         }
 
         public ServiceTransport GetService(int id)
@@ -40,9 +45,28 @@ namespace Pawliner.Logic
             return Mapper.Map<IEnumerable<Service>, IEnumerable<ServiceTransport>>(database.Services.GetList());
         }
 
-        public void UpdateService(ServiceTransport service)
+        public void UpdateService(EditServiceTransport model)
         {
-            throw new NotImplementedException();
+            var serviceClassifers = database.ServiceClassifers
+                .GetList()
+                .Where(sr => model.ServiceClassifersDescriptions.Contains(sr.Description)).ToList();
+
+            var newServiceClassifers = model.ServiceClassifersDescriptions.Except(serviceClassifers.Select(sr => sr.Description));
+
+            foreach (var description in newServiceClassifers)
+            {
+                serviceClassifers.Add(new ServiceClassifer
+                {
+                    Description = description
+                });
+            }
+
+            var service = database.Services.Get(model.Id);
+            service.Description = model.Description;
+            service.ServiceClassifers = serviceClassifers;
+
+            database.Services.Update(service);
+            database.Save();
         }
     }
 }
