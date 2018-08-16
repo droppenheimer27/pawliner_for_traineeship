@@ -9,6 +9,10 @@ define([
     './regions/comment/CreateCommentBlock',
     './regions/executor/EditExecutorBlock',
     './regions/photos/AddExecutorPhotosBlock',
+    './regions/executor/AddNaturalExecutorDocumentBlock',
+    './regions/executor/AddJuridicalExecutorDocumentBlock',
+    './regions/executor/AddSoleTraderExecutorDocumentBlock',
+    './regions/executor/WaitingSubmitExecutorStatusBlock',
     'modules/main/collections/Executors',
     'modules/main/models/Comment',
     'modules/main/models/Photo'
@@ -21,7 +25,11 @@ define([
     ExecutorPhotosCollectionView, 
     CreateCommentBlock, 
     EditExecutorBlock,
-    AddExecutorPhotosBlock, 
+    AddExecutorPhotosBlock,
+    AddNaturalExecutorDocumentBlock, 
+    AddJuridicalExecutorDocumentBlock,
+    AddSoleTraderExecutorDocumentBlock,
+    WaitingSubmitExecutorStatusBlock,
     Executors, 
     Comment, 
     Photo) {
@@ -31,6 +39,8 @@ define([
             return _.template(template)(args);
         },
         initialize: function() {
+            this.listenTo(B.Radio.channel('main'),'refreshExecutorView', this.refreshExecutorView);
+
             this.model.fetch();
             this.model.on("sync", this.onSync, this);
         },
@@ -40,7 +50,8 @@ define([
             commentsBlock: '.comments-block-region',
             createCommentBlock: '.create-comment-block-region',
             photosRegion: '#gallery-executor',
-            addPhotosBlock: '.add-photos-region'
+            addPhotosBlock: '.add-photos-region',
+            addDocumentBlock: '.add-document-region'
         },
         regions: {
             serviceBlock: '@ui.serviceBlock',
@@ -51,9 +62,13 @@ define([
                 el: '@ui.photosRegion',
                 replaceElement: true
             },
-            addPhotosBlock: '@ui.addPhotosBlock'
+            addPhotosBlock: '@ui.addPhotosBlock',
+            addDocumentBlock: '@ui.addDocumentBlock'
         },
         onSync: function () {
+            this.render();
+        },
+        refreshExecutorView: function () {
             this.render();
         },
         onRender: function () {
@@ -88,6 +103,18 @@ define([
             if (window.app.model.get('userId') === this.model.get('UserId')) {
                 this.showChildView('editExecutorBlock', new EditExecutorBlock({model: this.model}));
                 this.showChildView('addPhotosBlock', new AddExecutorPhotosBlock({model: this.model}));
+
+                if (this.model.get('Status') === 2 && this.model.get('NaturalExecutor') !== null) {
+                    this.showChildView('addDocumentBlock', new AddNaturalExecutorDocumentBlock({model: this.model}));
+                } else if (this.model.get('Status') === 2 && this.model.get('JuridicalExecutor') !== null) {
+                    this.showChildView('addDocumentBlock', new AddJuridicalExecutorDocumentBlock({model: this.model}));
+                } else if (this.model.get('Status') === 2 && this.model.get('SoleTraderExecutor') !== null) {
+                    this.showChildView('addDocumentBlock', new AddSoleTraderExecutorDocumentBlock({model: this.model}));
+                }
+
+                if (this.model.get('Status') === 3) {
+                    this.showChildView('addDocumentBlock', new WaitingSubmitExecutorStatusBlock());
+                }
             }
 
             $('#gallery-executor' ).jGallery({

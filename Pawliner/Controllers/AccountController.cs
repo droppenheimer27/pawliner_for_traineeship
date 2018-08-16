@@ -348,6 +348,8 @@ namespace Pawliner
         public UserViewModel GetUserInfo()
         {
             var user = UserManager.FindByName(User.Identity.Name);
+            var database = new DataProvider.ApplicationContext("DefaultConnection");
+            var executor = database.Executors.FirstOrDefault(e => string.Equals(e.UserId, user.Id));
 
             var model = new UserViewModel
             {
@@ -357,6 +359,15 @@ namespace Pawliner
                 Skype = user.Skype,
                 PhoneNumber = user.PhoneNumber,
             };
+
+            if (user.Executors != null && executor != null)
+            {
+                model.ExecutorId = executor.Id;
+            }
+            else
+            {
+                model.ExecutorId = 0;
+            }
 
             if (user.PhotoId != null)
             {

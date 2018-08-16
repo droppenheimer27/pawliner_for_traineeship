@@ -12,6 +12,7 @@ namespace Pawliner.Model
         public string LastName { get; set; }
         public string Description { get; set; }
         public string PhoneNumber { get; set; }
+        public ExecutorStatusViewModel Status { get; set; }
         public ExecutorTypeViewModel ExecutorType { get; set; }
         public string Type { get; set; }
         public string UserId { get; set; }

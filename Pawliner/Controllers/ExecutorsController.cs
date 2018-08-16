@@ -89,9 +89,41 @@ namespace Pawliner.Controllers
             return Ok();
         }
 
+        [Route("api/executors/Document")]
+        [HttpPost]
+        public IHttpActionResult AddDocument()
+        {
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                var file = HttpContext.Current.Request.Files[0];
+                var documentId = Guid.NewGuid() + System.IO.Path.GetExtension(file.FileName);
+
+                var document = new DocumentViewModel
+                {
+                    FileName = file.FileName,
+                    Path = "app/modules/main/img/documents/" + documentId
+                };
+
+                file.SaveAs(HttpContext.Current.Server.MapPath("~/Client/app/modules/main/img/documents/" + documentId));
+
+                NameValueCollection form = HttpContext.Current.Request.Form;
+
+                var model = Pawmapper<ExecutorIdentityViewModel>.Map(form, new ExecutorIdentityViewModel());
+                //var transportDocument = Mapper.Map<DocumentViewModel, DocumentTransport>(document);
+                var transportDocument = new DocumentTransport
+                {
+                    FileName = document.FileName,
+                    Path = document.Path
+                };
+                ExecutorManager.AddDocument(int.Parse(model.Id), transportDocument);
+            }
+
+            return Ok();
+        }
+
         [HttpPost]
         public IHttpActionResult Post(ExecutorViewModel model)
-        {
+        {   
             ExecutorManager.CreateExecutor(model);
             return Ok();
         }
@@ -100,6 +132,24 @@ namespace Pawliner.Controllers
         public void Put([FromBody]ExecutorViewModel model)
         {
             ExecutorManager.UpdateExecutor(model);
+        }
+
+        [Route("api/executors/UpdateStatus")]
+        [HttpPut]
+        public IHttpActionResult UpdateStatus([FromBody]UpdateExecutorStatusViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ExecutorManager.UpdateStatus(new UpdateExecutorStatusTransport
+            {
+                Id = model.Id,
+                Status = model.Status
+            });
+
+            return Ok();
         }
 
         [HttpDelete]

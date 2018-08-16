@@ -4,12 +4,14 @@ define([
     'jquery',
     'marionette',
     '../../collections/Orders',
-    '../regions/order/OrderBlock'
-], function (B, _, $, marionette, Orders, OrderBlock) {
+    '../regions/order/OrderBlock',
+    '../regions/order/EmptyOrderBlock'
+], function (B, _, $, marionette, Orders, OrderBlock, EmptyOrderBlock) {
     'use strict';
 
     return marionette.CollectionView.extend({
         childView: OrderBlock,
+        emptyView: EmptyOrderBlock,
         RadioName: '',
         initialize: function () {
             this.collection = new Orders(),

@@ -6,6 +6,7 @@ namespace Pawliner.Model
     {
         public int Id { get; set; }
         public string Path { get; set; }
+        public string FileName { get; set; }
         public ExecutorViewModel ExecutorViewModel { get; set; }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Pawliner.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pawliner.Logic
 {
@@ -12,7 +8,9 @@ namespace Pawliner.Logic
         void CreateExecutor(ExecutorViewModel executor);
         void UpdateExecutor(ExecutorViewModel executor);
         void DeleteExecutor(int id);
-        void AddPhotos(int id, List<PhotoTransport> models);
+        void AddPhotos(int id, List<PhotoTransport> model);
+        void AddDocument(int id, DocumentTransport model);
+        void UpdateStatus(UpdateExecutorStatusTransport model);
         ExecutorTransport GetExecutor(int id);
         IEnumerable<ExecutorTransport> GetExecutors(List<string> filter);
     }

@@ -1,0 +1,30 @@
+<div class="alert alert-warning alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-warning"></i> Attention!</h4>
+    To make your profile open you need to send us document's photo of registration you as juridical person
+</div>
+<form role="form" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="row">
+            <div class="col">
+                <div class="input-group image-preview">
+                    <input type="text" class="form-control image-preview-filename" disabled="disabled"> 
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                            <span class="glyphicon glyphicon-remove"></span> Clear
+                        </button>
+                        
+                        <div class="btn btn-default image-preview-input">
+                            <span class="glyphicon glyphicon-folder-open"></span>
+                            <span class="image-preview-input-title">Browse document</span>
+                            <input type="file" name="Document" accept="image/png, image/jpeg, image/gif, application/pdf" id="documentJuridicalExecutor"/> 
+                        </div>
+                    </span>
+                </div>  
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-block btn-success">Send</button>
+            </div>
+        </div>
+    </div>
+</form>

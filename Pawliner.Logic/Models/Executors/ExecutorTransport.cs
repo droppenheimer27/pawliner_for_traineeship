@@ -13,6 +13,7 @@ namespace Pawliner.Logic
         public string LastName { get; set; }
         public string Description { get; set; }
         public string PhoneNumber { get; set; }
+        public ExecutorStatusTransport Status { get; set; }
         public ExecutorTypeTransport ExecutorType { get; set; }
         [NotMapped]
         public string Type { get; set; }

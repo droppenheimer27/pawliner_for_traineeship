@@ -86,6 +86,7 @@ define([
             var data = syphon.serialize(this.ui.soleTraderForm);
             data.Type = this.options.type;
             data.UserId = window.app.model.get('userId');
+            data.Status = 2;
 
             this.model.set(data);
             this.model.save(data, {

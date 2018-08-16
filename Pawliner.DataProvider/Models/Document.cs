@@ -9,6 +9,7 @@ namespace Pawliner.DataProvider
         [ForeignKey("Executor")]
         public int Id { get; set; }
         public string Path { get; set; }
-        public Executor Executor { get; set; }
+        public string FileName { get; set; }
+        public virtual Executor Executor { get; set; }
     }
 }

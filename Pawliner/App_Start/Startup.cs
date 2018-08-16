@@ -25,6 +25,7 @@ namespace Pawliner
             // Configure the db context and user manager to use a single instance per request
             //app.CreatePerOwinContext(ApplicationUserManager.CreateContext);
             //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            //app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<DataProvider.UnitOfWork>());
             app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());
 
             // Enable the application to use a cookie to store information for the signed in user

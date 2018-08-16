@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Collections.Generic;
+using System.Web;
 
 namespace Pawliner.Model
 {
@@ -11,6 +12,7 @@ namespace Pawliner.Model
         public string PhoneNumber { get; set; }
         public string AvatarPath { get; set; }
         public string PhotoId { get; set; }
+        public int ExecutorId { get; set; }
         public virtual PhotoViewModel Photo { get; set; }
         public HttpPostedFile Avatar { get; set; }
     }

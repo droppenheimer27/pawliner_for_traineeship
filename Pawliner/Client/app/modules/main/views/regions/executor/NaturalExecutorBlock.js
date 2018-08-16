@@ -83,7 +83,7 @@ define([
             var data = syphon.serialize(this.ui.naturalExecutorForm);
             data.Type = this.options.type;
             data.UserId = window.app.model.get('userId');
-            console.log(data);
+            data.Status = 2;
 
             this.model.set(data);
             this.model.save(data, {

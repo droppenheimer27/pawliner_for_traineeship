@@ -259,8 +259,17 @@
     <Compile Include="Migrations\201808150145100_MigrateDB27.Designer.cs">
       <DependentUpon>201808150145100_MigrateDB27.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808160007333_MigrateDB28.cs" />
+    <Compile Include="Migrations\201808160007333_MigrateDB28.Designer.cs">
+      <DependentUpon>201808160007333_MigrateDB28.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808160009541_MigrateDB29.cs" />
+    <Compile Include="Migrations\201808160009541_MigrateDB29.Designer.cs">
+      <DependentUpon>201808160009541_MigrateDB29.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Enums\ExecutorStatus.cs" />
     <Compile Include="Models\Enums\ExecutorType.cs" />
     <Compile Include="Models\Enums\OrderStatus.cs" />
     <Compile Include="Models\Enums\RespondStatus.cs" />
@@ -380,6 +389,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808150145100_MigrateDB27.resx">
       <DependentUpon>201808150145100_MigrateDB27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808160007333_MigrateDB28.resx">
+      <DependentUpon>201808160007333_MigrateDB28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808160009541_MigrateDB29.resx">
+      <DependentUpon>201808160009541_MigrateDB29.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

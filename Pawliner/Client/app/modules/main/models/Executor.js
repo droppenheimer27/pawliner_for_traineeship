@@ -11,6 +11,7 @@ define([
             FirstName: '',
             LastName: '',
             Patronymic: '',
+            Status: '',
             NaturalExecutor: {},
             SoleTraderExecutor: {},
             JuridicalExecutor: {},
@@ -28,6 +29,9 @@ define([
                 Photo: {
                     Path: ''
                 }
+            },
+            Document: {
+                Path: ''
             }
         },
     });

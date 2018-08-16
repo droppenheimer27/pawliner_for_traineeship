@@ -11,20 +11,25 @@ namespace Pawliner.DataProvider
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
+        [MaxLength(128)]
         public string FirstName { get; set; }
         [Required]
+        [MaxLength(128)]
         public string Patronymic { get; set; }
         [Required]
+        [MaxLength(128)]
         public string LastName { get; set; } 
         [Required]
         public string Description { get; set; }
+        [MaxLength(32)]
         public string PhoneNumber { get; set; }
+        public ExecutorStatus Status { get; set; }
         public ExecutorType ExecutorType { get; set; }
         [NotMapped]
         public string Type { get; set; }
         public string UserId { get; set; }
         public virtual User User { get; set; }
-        public Document Document { get; set; }
+        public virtual Document Document { get; set; }
         public NaturalExecutor NaturalExecutor { get; set; }
         public JuridicalExecutor JuridicalExecutor { get; set; }
         public SoleTraderExecutor SoleTraderExecutor { get; set; }

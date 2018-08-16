@@ -29,7 +29,8 @@ namespace Pawliner.Logic
                 LastName = model.LastName,
                 Patronymic = model.Patronymic,
                 Description = model.Description,
-                ServiceClassifers = services
+                ServiceClassifers = services,
+                Status = ExecutorStatus.Unsubmited
             };
 
             if (string.Equals(model.Type, "NP"))
@@ -160,7 +161,7 @@ namespace Pawliner.Logic
                .ToList();
 
             executor.Comments = comments;
-            
+            executor.Status = executor.Status;
             if (executor.ExecutorType == ExecutorType.Natural)
             {
                 executor.Type = "";
@@ -226,6 +227,8 @@ namespace Pawliner.Logic
                     Patronymic = ex.Patronymic,
                     ExecutorType = ex.ExecutorType,
                     ServiceClassifers = ex.ServiceClassifers,
+                    Document = ex.Document,
+                    Photos = ex.Photos,
                     NaturalExecutor = new NaturalExecutorTransport
                     {
                         Id = subn?.Id ?? 0
@@ -261,6 +264,42 @@ namespace Pawliner.Logic
 
             var executor = database.Executors.Get(id);
             executor.Photos = photos;
+
+            database.Executors.Update(executor);
+            database.Save();
+        }
+
+        public void AddDocument(int id, DocumentTransport model)
+        {
+            //var document = Mapper.Map<DocumentTransport, Document>(model);
+            var document = new Document
+            {
+                FileName = model.FileName,
+                Path = model.Path
+            };
+
+            var executor = database.Executors.Get(id);
+            executor.Document = document;
+
+            database.Executors.Update(executor);
+            database.Save();
+        }
+
+        public void UpdateStatus(UpdateExecutorStatusTransport model)
+        {
+            var executor = database.Executors.Get(model.Id);
+            if (string.Equals(model.Status, "Submited"))
+            {
+                executor.Status = ExecutorStatus.Submited;
+            }
+            else if (string.Equals(model.Status, "Unsubmited")) 
+            {
+                executor.Status = ExecutorStatus.Unsubmited;
+            }
+            else if (string.Equals(model.Status, "InWaiting"))
+            {
+                executor.Status = ExecutorStatus.InWaiting;
+            }
 
             database.Executors.Update(executor);
             database.Save();

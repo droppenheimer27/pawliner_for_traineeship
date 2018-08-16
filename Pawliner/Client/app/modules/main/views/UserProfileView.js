@@ -22,6 +22,13 @@ define([
                 },
                 success: function (response) {
                     syphon.deserialize(self.ui.profileForm, response);
+
+                    if (!response.ExecutorId) {
+                        $('#executorProfile').remove();                        
+                    } else {
+                        $('#executorProfile').attr('href', '#!/main/executor/' + response.ExecutorId);
+                    }
+                
                     if (!response.AvatarPath) {
                         $('#userProfileAvatar').attr('src', 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png');
                     } else {

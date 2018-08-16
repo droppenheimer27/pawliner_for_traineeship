@@ -3,9 +3,6 @@ define([
     'jquery',
 	'marionette',
     'text!../templates/IndexView.html',
-    'modules/main/models/Login',
-    'modules/main/models/Register',
-    'modules/main/models/Order',
     './regions/user/UserBlock',
     './regions/Home',
     'css!../../../../vendor/js/bootstrap/dist/css/bootstrap',
@@ -18,7 +15,7 @@ define([
     'slimScroll',
     'AdminLTE',
     'jqueryvalidate'
-], function (_, $, Mn, tpl, Login, Register, Order, UserBlock, Home) {
+], function (_, $, Mn, tpl, UserBlock, Home) {
 	'use strict';
 
 	return Mn.View.extend({

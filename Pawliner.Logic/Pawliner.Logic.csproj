@@ -99,11 +99,13 @@
     <Compile Include="Models\Comments\EditCommentTransport.cs" />
     <Compile Include="Models\Comments\CommentTransport.cs" />
     <Compile Include="Models\DocumentTransport.cs" />
+    <Compile Include="Models\Enums\ExecutorStatusTransport.cs" />
     <Compile Include="Models\Enums\ExecutorTypeTransport.cs" />
     <Compile Include="Models\Enums\OrderStatusTransport.cs" />
     <Compile Include="Models\Enums\RespondStatusTransport.cs" />
     <Compile Include="Models\ExceptionDetailTransport.cs" />
-    <Compile Include="Models\ExecutorTransport.cs" />
+    <Compile Include="Models\Executors\ExecutorTransport.cs" />
+    <Compile Include="Models\Executors\UpdateExecutorStatusTransport.cs" />
     <Compile Include="Models\JuridicalExecutorTransport.cs" />
     <Compile Include="Models\NaturalExecutorTransport.cs" />
     <Compile Include="Models\Orders\OrderEditStatusTransport.cs" />

@@ -1,0 +1,12 @@
+<td><%= Id %></td>
+<td><%= FirstName %></td>
+<td><%= LastName %></td>
+<td><%= Patronymic %></td>
+<td><%= Description %></td>
+<td><%= ExecutorType %></td>
+<% if (Document != null) { %>
+<td><img class="img-thumbnail" src="<%= Document.Path %>" alt="user document"></td>
+<% } else { %>
+<td></td>
+<% } %>
+<td><div class="submit-executor-region"></div></td>
