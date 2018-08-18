@@ -12,6 +12,6 @@ namespace Pawliner.Logic
         void AddDocument(int id, DocumentTransport model);
         void UpdateStatus(UpdateExecutorStatusTransport model);
         ExecutorTransport GetExecutor(int id);
-        IEnumerable<ExecutorTransport> GetExecutors(List<string> filter);
+        IEnumerable<ExecutorTransport> GetExecutors(List<string> filter, int status, string search);
     }
 }

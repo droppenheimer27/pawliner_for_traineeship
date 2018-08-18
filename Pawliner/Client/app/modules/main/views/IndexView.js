@@ -3,8 +3,10 @@ define([
     'jquery',
 	'marionette',
     'text!../templates/IndexView.html',
+    './ModalView',
     './regions/user/UserBlock',
     './regions/Home',
+    './regions/Search',
     'css!../../../../vendor/js/bootstrap/dist/css/bootstrap',
     'css!../../../../vendor/js/AdminLTE/bower_components/bootstrap/dist/css/bootstrap',
     'css!../../../../vendor/js/AdminLTE/dist/css/AdminLTE.min',
@@ -15,7 +17,7 @@ define([
     'slimScroll',
     'AdminLTE',
     'jqueryvalidate'
-], function (_, $, Mn, tpl, UserBlock, Home) {
+], function (_, $, Mn, tpl, ModalView, UserBlock, Home, Search) {
 	'use strict';
 
 	return Mn.View.extend({
@@ -26,10 +28,12 @@ define([
         },
         ui: {
             userFormRegion: '#user-form-region',
-            homeRegion: '#home-region'
+            homeRegion: '#home-region',
+            searchRegion: '#search-region' 
         },
         regions: {
             content: '.content',
+            modalui: '#modalui',
             userFormRegion: {
                 el: '#user-form-region',
                 replaceElement: true
@@ -38,10 +42,16 @@ define([
                 el: '#home-region',
                 replaceElement: true
             },
+            searchRegion: {
+                el: '@ui.searchRegion',
+                replaceElement: true
+            },
         },
         onRender: function() {
             this.showChildView('userFormRegion', new UserBlock());
             this.showChildView('homeRegion', new Home());
+            this.showChildView('searchRegion', new Search());
+            this.showChildView('modalui', new ModalView());
         }
 	});
 });

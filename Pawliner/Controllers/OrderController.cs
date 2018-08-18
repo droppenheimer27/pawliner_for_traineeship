@@ -31,9 +31,9 @@ namespace Pawliner.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public OrderPagebleViewModel Get([FromUri]List<string> filter, int page = 1, int perPage = 10)
+        public OrderPagebleViewModel Get([FromUri]List<string> filter, string search = "", int page = 1, int perPage = 10)
         {
-            var orders = Mapper.Map<IEnumerable<OrderTransport>, List<OrderViewModel>>(OrderManager.GetOrders(filter));
+            var orders = Mapper.Map<IEnumerable<OrderTransport>, List<OrderViewModel>>(OrderManager.GetOrders(filter, search));
             var pageInfo = new PageInfo
             {
                 currentPage = page,

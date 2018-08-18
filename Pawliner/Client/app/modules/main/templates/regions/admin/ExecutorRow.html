@@ -2,11 +2,29 @@
 <td><%= FirstName %></td>
 <td><%= LastName %></td>
 <td><%= Patronymic %></td>
-<td><%= Description %></td>
-<td><%= ExecutorType %></td>
+<td>
+    <div class="container" style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><%= Description %></div>
+</td>
+<% if (ExecutorType == 1) { %>
+<td>Natural</td>
+<% } else if (ExecutorType == 2) { %>
+<td>Juridical</td>
+<% } else if (ExecutorType == 3) { %>
+<td>Sole trader</td>
+<% } %>
 <% if (Document != null) { %>
 <td><img class="img-thumbnail" src="<%= Document.Path %>" alt="user document"></td>
 <% } else { %>
 <td></td>
 <% } %>
+<% if (Status == 1) { %>
+<td>Submited</td>
 <td><div class="submit-executor-region"></div></td>
+<% } else if (Status == 2) { %>
+<td>Unsubmited</td>
+<td><div class="submit-executor-region"></div></td>
+<% } else if (Status == 3) { %>
+<td>In waiting</td>
+<td><div class="submit-executor-region"></div></td>
+<% } %>
+

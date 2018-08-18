@@ -7,13 +7,17 @@
                     <img class="img-circle" src="<%= User.Photo.Path %>" alt="User Avatar">
                 </div>
                 <h1 class="widget-user-username" style="margin-bottom: 30px;"><b><%= User.UserName %></b></h1>
-                <h5 class="widget-user-desc"><div class="edit-comment-block-region"></div></h5>
+                    <% if (UserId === window.app.model.get('userId')) { %>
+                    <a class="text-white edit-comment" href="#">Edit</a>
+                    <% } %>
                 <% } else { %>
                     <div class="widget-user-image">
                         <img class="img-circle" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" alt="User Avatar">
                     </div>
                     <h1 class="widget-user-username" style="margin-bottom: 30px;"><b><%= User.UserName %></b></h1>
-                    <h5 class="widget-user-desc"><div class="edit-comment-block-region"></div></h5>
+                    <% if (UserId === window.app.model.get('userId')) { %>
+                    <a class="text-white edit-comment" href="#">Edit</a>
+                    <% } %>
                 <% } %>
             </div>
         </div>

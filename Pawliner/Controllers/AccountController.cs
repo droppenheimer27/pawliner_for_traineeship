@@ -34,10 +34,14 @@ namespace Pawliner
     {
         private const string LocalLoginProvider = "Local";
         protected ApplicationUserManager userManager;
+        protected IExecutorManager executorManager;
+        protected IOrderManager orderManager;
 
-        public AccountController(ApplicationUserManager userManager)//, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public AccountController(ApplicationUserManager userManager, IExecutorManager executorManager, IOrderManager orderManager)//, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
+            ExecutorManager = executorManager;
+            OrderManager = orderManager;
             //AccessTokenFormat = accessTokenFormat;
         }
 
@@ -45,6 +49,18 @@ namespace Pawliner
         {
             get { return userManager; }
             set { userManager = value; }
+        }
+
+        public IExecutorManager ExecutorManager
+        {
+            get { return executorManager; }
+            set { executorManager = value; }
+        }
+
+        public IOrderManager OrderManager
+        {
+            get { return orderManager; }
+            set { orderManager = value; }
         }
 
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
@@ -348,8 +364,10 @@ namespace Pawliner
         public UserViewModel GetUserInfo()
         {
             var user = UserManager.FindByName(User.Identity.Name);
-            var database = new DataProvider.ApplicationContext("DefaultConnection");
-            var executor = database.Executors.FirstOrDefault(e => string.Equals(e.UserId, user.Id));
+            var executor = ExecutorManager.GetExecutors(new List<string>(), 0, "").FirstOrDefault(e => string.Equals(e.UserId, user.Id));
+            //var orders = Mapper.Map<IEnumerable<OrderTransport>, ICollection<OrderViewModel>>(OrderManager
+            //    .GetOrders(new List<string>())
+            //    .Where(o => string.Equals(o.UserId, user.Id)));
 
             var model = new UserViewModel
             {
@@ -368,6 +386,15 @@ namespace Pawliner
             {
                 model.ExecutorId = 0;
             }
+
+            //if (user.Orders != null && orders != null)
+            //{
+            //    model.Orders = orders;
+            //}
+            //else
+            //{
+            //    model.ExecutorId = 0;
+            //}
 
             if (user.PhotoId != null)
             {

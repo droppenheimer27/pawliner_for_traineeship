@@ -24,23 +24,20 @@ define([
         onSubmitEditCommentForm: function (e) {
             e.preventDefault();
 
-            var self = this;
             var data = syphon.serialize(this.ui.editCommentForm);
-            data.Id = this.model.get('Id');
+            _.extend(data, {Id: this.model.get('Id')})
 
-            console.log(data);
-            var comment = new Comment();
-            comment.set(data);
-            comment.save(data, {
+            this.model = new Comment();
+            this.model.set(data);
+            this.model.save(data, {
                 success: function () {
-                    $('#model-comment-put' + self.model.get('Id')).modal('hide');
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
                 }
             });
         },
         onClickRemoveCommentButton: function (e) {
             e.preventDefault();
-
-            var self = this;
 
             $.ajax({
                 type: 'DELETE',
@@ -50,7 +47,8 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function () {
-                    $('#model-comment-put' + self.model.get('Id')).modal('hide');
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
                 },
                 error: function (response) {
                     console.log(response);

@@ -13,13 +13,5 @@ define([
         initialize: function () {
             this.collection.fetch();
         },
-        onChildviewClickChild (childView) {
-            console.log(childView.model.id);
-            // B.Radio.channel('main').trigger('messageui', {
-            //     typeHeader: 'success',
-            //     headerText: 'Exception #' + childView.model.id,
-            //     bodyText: new ExceptionBlock({model: childView.model})
-            // });
-        }
     });
 });

@@ -51,7 +51,6 @@ define([
             
             var data = syphon.serialize(this.ui.form);
             data.grant_type = 'password';
-            console.log(data);
 
             $.ajax({
                 type: 'POST',
@@ -68,10 +67,22 @@ define([
                     window.app.model.set(args);
                     window.app.model.save(args);
 
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'success',
+                        headerText: 'Success',
+                        bodyText: 'Successfuly log in!'
+                    });
+
                     B.Radio.channel('main').trigger('hasLogin');
+                    B.Radio.channel('main').trigger('refresh');
                 },
                 error: function (response) {
-                    console.log(response);
+                    var error = ((_.has(response, 'responseText')) ? response.responseJSON.error_description : 'Unknown error');
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'danger',
+                        headerText: 'Error',
+                        bodyText: error
+                    });
                 }
             });
         },

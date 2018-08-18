@@ -1,9 +1,10 @@
 define([
+    'backbone',
     'underscore',
     'jquery',
     'marionette',
     'text!../../../templates/regions/user/UserInfoBlock.html'
-], function (_, $, marionette, template) {
+], function (B, _, $, marionette, template) {
     'use strict';
 
     return marionette.View.extend({
@@ -26,6 +27,8 @@ define([
             };
             window.app.model.set(args);
             window.app.model.save(args);
+
+            B.Radio.channel('main').trigger('refresh');
         },
     });
 });

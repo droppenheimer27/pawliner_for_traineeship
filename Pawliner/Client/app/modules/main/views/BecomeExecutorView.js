@@ -1,4 +1,5 @@
 define([
+    'backbone',
     'underscore',
     'jquery',
     'marionette',
@@ -7,12 +8,15 @@ define([
     './regions/executor/NaturalExecutorBlock',
     './regions/executor/SoleTraderExecutorBlock',
     './regions/executor/JuridicalExecutorBlock'
-], function (_, $, Mn, template, ExecutorTypeBlock, NaturalExecutorBlock, SoleTraderExecutorBlock, JuridicalExecutorBlock) {
+], function (B, _, $, Mn, template, ExecutorTypeBlock, NaturalExecutorBlock, SoleTraderExecutorBlock, JuridicalExecutorBlock) {
     'use strict';
 
     return Mn.View.extend({
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
+        },
+        initialize: function () {
+            this.listenTo(B.Radio.channel('main'),'refresh', this.render);
         },
         ui: {
             executorBlockRegion: '#executor-block-region',
@@ -44,6 +48,10 @@ define([
             this.showChildView('executorBlockRegion', new JuridicalExecutorBlock({type: 'JP'}));
         },
         onRender: function () {
+            if (_.isEmpty(window.app.model.get('userId'))) {
+                window.router.navigate('', { trigger: true });
+            }
+
             this.showChildView('executorBlockRegion', new ExecutorTypeBlock());
         }
     });

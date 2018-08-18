@@ -20,6 +20,7 @@ namespace Pawliner.Model
         public string CompletedOn { get; set; }
         public string CreatedAt { get; set; }
         public string UpdatedAt { get; set; }
+        public OrderStatusViewModel Status { get; set; }
         public ICollection<RespondViewModel> Responds {get; set;}
         public ICollection<PhotoViewModel> Photos { get; set; }
 

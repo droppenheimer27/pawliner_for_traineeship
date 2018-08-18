@@ -1,9 +1,10 @@
 define([
+    'backbone',
     'underscore',
     'marionette',
     'text!../../../templates/regions/comment/CommentBlock.html',
     './EditCommentBlock',
-], function (_, marionette, template, EditCommentBlock) {
+], function (B, _, marionette, template, EditCommentBlock) {
     'use strict';
 
     return marionette.View.extend({
@@ -11,15 +12,28 @@ define([
             return _.template(template)(tplPrms);
         },
         ui: {
-            editBlock: '.edit-comment-block-region',
+            edit: '.edit-comment',
+            // editBlock: '.edit-comment-block-region',
         },
-        regions: {
-            editBlock: '@ui.editBlock',
+        events: {
+            'click @ui.edit': 'onClickEditButton'
+        },
+        // regions: {
+        //     editBlock: '@ui.editBlock',
+        // },
+        onClickEditButton: function (e) {
+            e.preventDefault();
+            
+            B.Radio.channel('main').trigger('messageview', {
+                typeHeader: 'success',
+                headerText: 'Edit the comment',
+                bodyText: new EditCommentBlock({model: this.model})
+            });
         },
         onRender: function () {
-            if (this.model.get('UserId') === window.app.model.get('userId')) {
-                this.showChildView('editBlock', new EditCommentBlock({model: this.model}));
-            }
+            // if (this.model.get('UserId') === window.app.model.get('userId')) {
+            //     this.showChildView('editBlock', new EditCommentBlock({model: this.model}));
+            // }
         }
     });
 });

@@ -23,6 +23,7 @@ define([
             myOrders: '#my-orders'
         },
         initialize: function () {
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.render);
         },
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
@@ -75,20 +76,30 @@ define([
 
             
         },
-        onRender: function() {
+        onRender: function () {
             var settings = {
                 RadioName: 'OrdersEvent'
             };
 
+            var executorSettings = {
+                RadioName: 'ExecutorsEvent',
+                Status: 1
+            };
+
             this.showChildView('serviceRegion', new ServiceCollectionView());
             this.showChildView('orderRegion', new OrderCollectionView(settings));
-            this.showChildView('executorRegion', new ExecutorCollectionView(settings));
+            this.showChildView('executorRegion', new ExecutorCollectionView(executorSettings));
 
-            var paginatorModel = new PaginatorModel();
-            _.extend(settings, {model: paginatorModel});
+            // var paginatorModel = new PaginatorModel();
+            // _.extend(settings, {model: paginatorModel});
+
+            var ordersPaginatorModel = new PaginatorModel();
+            _.extend(settings, {model: ordersPaginatorModel});
+            var executorsPaginatorModel = new PaginatorModel();
+            _.extend(executorSettings, {model: executorsPaginatorModel});
 
             this.showChildView('paginatorOrders', new Paginator(settings));
-            this.showChildView('paginatorExecutors', new Paginator(settings));
+            this.showChildView('paginatorExecutors', new Paginator(executorSettings));
         },
     });
 });

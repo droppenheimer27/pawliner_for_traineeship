@@ -19,10 +19,9 @@ define([
 
     return {
         index: function () {
-
+            // channel.trigger('routeChange', new Index());
         },
         register: function () {
-            console.log("register");
             channel.trigger('routeChange', new RegisterView());
         },
         profile: function () {

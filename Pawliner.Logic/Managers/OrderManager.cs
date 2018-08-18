@@ -138,11 +138,16 @@ namespace Pawliner.Logic
             return orderTransport;
         }
 
-        public IEnumerable<OrderTransport> GetOrders(List<string> filter)
+        public IEnumerable<OrderTransport> GetOrders(List<string> filter, string search)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Order, OrderTransport>()).CreateMapper();
             var orders = mapper.Map<IEnumerable<Order>, List<OrderTransport>>(database.Orders.GetList()
                 .OrderByDescending(o => o.Id));
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                orders = orders.Where(o => o.Header.Contains(search)).ToList();
+            }
 
             if (filter.Count == 0)
             {

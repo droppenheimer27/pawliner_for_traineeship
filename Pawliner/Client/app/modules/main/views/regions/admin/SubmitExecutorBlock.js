@@ -1,9 +1,10 @@
 define([
     'backbone',
     'underscore',
+    'jquery',
     'marionette',
     'text!../../../templates/regions/admin/SubmitExecutorBlock.html'
-], function (B, _, marionette, template) {
+], function (B, _, $, marionette, template) {
     'use strict';
 
     return marionette.View.extend({
@@ -18,9 +19,8 @@ define([
         },
         onSubmitForm: function (e) {
             e.preventDefault();
+            var self = this;
             
-            console.log('asd');
-
             $.ajax({
                 type: 'PUT',
                 url: '/api/executors/UpdateStatus',
@@ -29,7 +29,9 @@ define([
                     Status: 'Submited'
                 },
                 success: function () {
+                    $('#model-admin-executor' + self.model.get('Id')).modal('hide');
                     B.Radio.channel('main').trigger('refreshExecutorView');
+                    B.Radio.channel('main').trigger('refreshCollection');
                 },
                 beforeSend: function (xhr) {
                     var token = window.app.model.get('tokenInfo');

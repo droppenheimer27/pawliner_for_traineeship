@@ -1,10 +1,11 @@
 define([
+    'backbone',
     'syphon',
     'underscore',
     'marionette',
     'text!../../../templates/regions/comment/CreateCommentBlock.html',
     'modules/main/models/Comment'
-], function (syphon, _, marionette, template, Comment) {
+], function (B, syphon, _, marionette, template, Comment) {
     'use strict';
 
     return marionette.View.extend({
@@ -28,11 +29,10 @@ define([
             this.model.set(data);
             this.model.save(data, {type: 'POST'}, {
                 success: function () {
-                    $('#modal-comment').modal('hide');
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
                 }
             });
-
-            //B.Radio.channel('main').trigger('refreshData');
         }
     });
 });

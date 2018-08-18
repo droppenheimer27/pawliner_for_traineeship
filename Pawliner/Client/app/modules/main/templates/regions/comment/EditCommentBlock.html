@@ -1,23 +1,8 @@
-<a class="text-white" href="" data-toggle="modal" data-target="#model-comment-put<%= Id %>">Edit</a>
+<div class="input-group">
+    <form role="form">
+        <textarea type="text" name="Content" id="contentCommentEdit" placeholder="Edit the comment..." class="form-control" style="height: 150px; margin-bottom: 10px;"><%= Content %></textarea>
 
-<div class="modal fade in" id="model-comment-put<%= Id %>">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit the comment</h4>
-                </div>
-            <div class="modal-body">
-                <div class="input-group">
-                    <form role="form">
-                        <textarea type="text" name="Content" id="contentCommentEdit" placeholder="Edit the comment..." class="form-control" style="height: 150px; margin-bottom: 10px;"><%= Content %></textarea>
-
-                        <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Edit</button>
-                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-
-                        <button type="button" class="btn btn-danger pull-left" id="removeComment">Remove</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> 
+        <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Edit</button>
+        <button type="button" class="btn btn-danger pull-left" id="removeComment">Remove</button>
+    </form>
 </div>

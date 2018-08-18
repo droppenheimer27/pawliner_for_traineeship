@@ -18,7 +18,6 @@ define([
             this.model = new AppModel();
             this.model.fetch();
             this.timeoutLoader();
-            this.listenTo(B.Radio.channel('main'), 'logout', this.logout);
         },
         onBeforeStart: function() {
             this.loadModel({});
@@ -48,8 +47,7 @@ define([
             if (_.has(args, 'reset') && true === args.reset){
                 _.extend(modelPrev, modelData);
                 modelNew = modelPrev;
-            }
-            else{
+            } else {
                 _.extend(modelData, modelPrev);
                 modelNew = modelData;
             }

@@ -30,9 +30,9 @@ namespace Pawliner.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ExecutorPagebleViewModel Get([FromUri]List<string> filter, int page = 1, int perPage = 10)
+        public ExecutorPagebleViewModel Get([FromUri]List<string> filter, string search = "", int status = 2, int page = 1, int perPage = 10)
         {
-            var executors = Mapper.Map<IEnumerable<ExecutorTransport>, List<ExecutorViewModel>>(ExecutorManager.GetExecutors(filter));
+            var executors = Mapper.Map<IEnumerable<ExecutorTransport>, List<ExecutorViewModel>>(ExecutorManager.GetExecutors(filter, status, search));
             var pageInfo = new PageInfo
             {
                 currentPage = page,

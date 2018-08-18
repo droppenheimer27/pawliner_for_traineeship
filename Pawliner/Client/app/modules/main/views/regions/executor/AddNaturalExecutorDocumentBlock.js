@@ -26,16 +26,16 @@ define([
                        extension: 'jpeg|png|gif|pdf'
                    },
                },
-               highlight: function(element) {
+               highlight: function (element) {
                    $(element).closest('.input-group').addClass('has-error');
                },
-               unhighlight: function(element) {
+               unhighlight: function (element) {
                    $(element).closest('.input-group').removeClass('has-error');
                },
                errorElement: 'span',
                errorClass: 'help-block',
-               errorPlacement: function(error, element) {
-                   if(element.parent('.input-group').length) {
+               errorPlacement: function (error, element) {
+                   if (element.parent('.input-group').length) {
                        error.insertAfter(element.parent());
                    } else {
                        error.insertAfter(element);
@@ -45,6 +45,7 @@ define([
         },
         onSubmitForm: function (e) {
             e.preventDefault();
+            var self = this;
             
             var file = $('#documentNaturalExecutor')[0];
             var formData = new FormData();
@@ -62,27 +63,25 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (response) {
-                    alert("Successfully added document!");
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/executors/UpdateStatus',
+                        data: {
+                            Id: self.model.get('Id'),
+                            Status: 'InWaiting'
+                        },
+                        success: function () {
+                            B.Radio.channel('main').trigger('refreshExecutorView');
+                        },
+                        beforeSend: function (xhr) {
+                            var token = window.app.model.get('tokenInfo');
+                            xhr.setRequestHeader("Authorization", "Bearer " + token);
+                        },
+                    });
                 },
                 error: function (response) {
                     alert('Error');
                 }
-            });
-
-            $.ajax({
-                type: 'PUT',
-                url: '/api/executors/UpdateStatus',
-                data: {
-                    Id: this.model.get('Id'),
-                    Status: 'InWaiting'
-                },
-                success: function () {
-                    B.Radio.channel('main').trigger('refreshExecutorView');
-                },
-                beforeSend: function (xhr) {
-                    var token = window.app.model.get('tokenInfo');
-                    xhr.setRequestHeader("Authorization", "Bearer " + token);
-                },
             });
         },
         onRender: function () {

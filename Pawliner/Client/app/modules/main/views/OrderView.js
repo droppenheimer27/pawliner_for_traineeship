@@ -29,7 +29,7 @@ define([
             return _.template(template)(args);
         },
         initialize: function() {
-            this.listenTo(B.Radio.channel('main'),'refreshOrderView', this.render);
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.refreshOrderView);
 
             this.model.on("sync", this.onSync, this);
             this.model.fetch();
@@ -52,6 +52,9 @@ define([
             addPhotosBlock: '@ui.addPhotosBlock'
         },
         onSync: function () {
+            this.render();
+        },
+        refreshOrderView: function () {
             this.render();
         },
         onRender: function () {

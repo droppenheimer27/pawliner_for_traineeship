@@ -14,15 +14,22 @@
                                     </div>
                                 <% } %>
                             <% if (JuridicalExecutor !== null) { %>
-                            <h2 class="widget-user-username"><%= JuridicalExecutor.FullJuredicalName %></h2>
-                            <h5 class="widget-user-desc">PAN <%= JuridicalExecutor.PayerAccountNumber %></h5>
+                                <h2 class="widget-user-username"><%= JuridicalExecutor.FullJuredicalName %></h2>
+                                <h5 class="widget-user-desc">PAN <%= JuridicalExecutor.PayerAccountNumber %></h5>
                             <% } else if (SoleTraderExecutor !== null) { %> 
                                 <h2 class="widget-user-username">ST <%= FirstName %> <%= LastName %></h2>
                                 <h5 class="widget-user-desc">PAN <%= SoleTraderExecutor.PayerAccountNumber %></h5>
                             <% } else { %> 
                                 <h2 class="widget-user-username"><%= FirstName %> <%= LastName %></h2>
-                                <h5 class="widget-user-desc">Natural person</h5 }
-                            <% } %> 
+                                <h5 class="widget-user-desc">Natural person</h5>
+                            <% } %>
+                            <% if (Status == 1) { %>
+                            <h5 class="widget-user-desc">Submited executor</h5>
+                            <% } else if (Status == 2) { %>  
+                            <h5 class="widget-user-desc">Unsubmited executor</h5>
+                            <% } else if (Status == 3) { %>  
+                            <h5 class="widget-user-desc">In waiting validation</h5>
+                            <% } %>
                         </div>
                         <div class="col">
                             <div class="edit-executor-block-region"></div>
@@ -32,9 +39,9 @@
             </div>
         <div class="box-body">
             <div class="row" style="margin-left: 100px; margin-bottom: 100px;">
-                <div class="col">
+                <div class="col container">
                     <div class="add-document-region"></div> 
-                    <p><%= Description %></p>
+                    <p style="word-wrap: break-word;"><%= Description %></p>
                     <div id="gallery-executor" style="margin-top: 30px;"></div>
                     <div class="add-photos-region"></div>
                 </div>
@@ -46,7 +53,9 @@
             </div>
         </div>
         <div class="box-footer">
-            <div class="pull-right create-comment-block-region"/>
+            <% if (!_.isEmpty(window.app.model.get('userId'))) { %>
+                <button type="button" id="createComment" class="pull-right btn btn-success">Leave the comment</button>
+            <% } %>
         </div>
     </div>
 </div>

@@ -1,42 +1,27 @@
-<a class="glyphicon glyphicon-cog" href="" data-toggle="modal" data-target="#model-exception<%= Id %>"></a>
-
-<div class="modal fade in" id="model-exception<%= Id %>">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Exception #<%= Id %></h4>
-            </div>
-            <div class="modal-body">
-                <label class="text-muted">ID</label>
-                <div class="row container">
-                    <p><%= Id %></p>
-                </div>
-                <hr class="divider"/>
-                <label class="text-muted">Controller</label>
-                <div class="row container">
-                    <p><%= ControllerName %></p>
-                </div>
-                <hr class="divider"/>
-                <label class="text-muted">Message</label>
-                <div class="row container">
-                    <p><%= ExceptionMessage %></p> 
-                </div>
-                <hr class="divider"/>
-                <label class="text-muted">Stack trace</label>
-                <div class="row container">
-                    <div class="col-sm-5" style="float: left; word-wrap: break-word;">
-                        <p><%= StackTrace %></p>
-                    </div>
-                </div>
-                <hr class="divider"/>
-                <label class="text-muted">Date</label>
-                <div class="row container">
-                    <p><%= Date %></p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">OK</button>
-            </div>
+<label class="text-muted">ID</label>
+    <div class="row container">
+        <p><%= Id %></p>
+    </div>
+    <hr class="divider"/>
+    <label class="text-muted">Controller</label>
+    <div class="row container">
+        <p><%= ControllerName %></p>
+    </div>
+    <hr class="divider"/>
+    <label class="text-muted">Message</label>
+    <div class="row container">
+        <p><%= ExceptionMessage %></p> 
+    </div>
+    <hr class="divider"/>
+    <label class="text-muted">Stack trace</label>
+    <div class="row container">
+        <div class="col-sm-5" style="float: left; word-wrap: break-word;">
+            <p><%= StackTrace %></p>
         </div>
-    </div> 
+    </div>
+    <hr class="divider"/>
+    <label class="text-muted">Date</label>
+    <div class="row container">
+        <p><%= Date %></p>
+    </div>
 </div>

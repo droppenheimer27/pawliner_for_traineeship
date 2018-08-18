@@ -1,4 +1,5 @@
 define([
+    'backbone',
     'syphon',
     'underscore',
     'jquery',
@@ -13,7 +14,7 @@ define([
     'airdatepicker',
     'select2',
     'jqueryvalidate'
-], function (syphon, _, $, Mn, template, Order, Services, SelectServiceCollectionView) {
+], function (B, syphon, _, $, Mn, template, Order, Services, SelectServiceCollectionView) {
     'use strict';
 
     return Mn.View.extend({
@@ -21,6 +22,7 @@ define([
             return _.template(template)(tplPrms);
         },
         initialize: function () {
+            this.listenTo(B.Radio.channel('main'),'refresh', this.render);
             this.model = new Order();
         },
         ui: {
@@ -124,6 +126,10 @@ define([
             this.showChildView('selectServicesRegion', new SelectServiceCollectionView({
                 collection: new Services()
             }));
+
+            if (_.isEmpty(window.app.model.get('userId'))) {
+                window.router.navigate('', { trigger: true });
+            }
 
             this.validateForm();
         }

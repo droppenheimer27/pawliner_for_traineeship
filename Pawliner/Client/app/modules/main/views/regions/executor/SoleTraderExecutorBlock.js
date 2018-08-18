@@ -1,4 +1,5 @@
 define([
+    'backbone',
     'syphon',
     'underscore',
     'marionette',
@@ -6,7 +7,7 @@ define([
     '../../collections/SelectExecutorServiceCollectionView',
     'modules/main/collections/Services',
     'modules/main/models/Executor'
-], function (syphon, _, marionette, template, SelectExecutorServiceCollectionView, Services, Executor) {
+], function (B, syphon, _, marionette, template, SelectExecutorServiceCollectionView, Services, Executor) {
     'use strict';
 
     return marionette.View.extend({
@@ -89,11 +90,7 @@ define([
             data.Status = 2;
 
             this.model.set(data);
-            this.model.save(data, {
-                success: function () {
-                    $('#model-create-executor').modal('show');
-                }
-            });
+            this.model.save(data);
 
             $.ajax({
                 type: 'POST',
@@ -107,6 +104,12 @@ define([
                     var roles = {roles: 'Executor'};
                     window.app.model.set(roles);
                     window.app.model.save(roles);
+
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'success',
+                        headerText: 'Success',
+                        bodyText: 'Successfuly created executor profile!'
+                    });
                 }
             });
         },

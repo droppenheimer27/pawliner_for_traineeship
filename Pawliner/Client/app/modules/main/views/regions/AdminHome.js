@@ -9,8 +9,18 @@ define([
     './admin/ExecutorTable',
     './admin/ExceptionTable',
     'modules/main/collections/Executors',
-    'modules/main/collections/ExceptionsDetails'
-], function (B, $, marionette, template, ModalView, ServiceCollectionView, AddNewServiceBlock, ExecutorTable, ExceptionTable, Executors, ExceptionsDetails) {
+    'modules/main/collections/ExceptionsDetails',
+], function (B, 
+    $, 
+    marionette, 
+    template, 
+    ModalView, 
+    ServiceCollectionView, 
+    AddNewServiceBlock, 
+    ExecutorTable, 
+    ExceptionTable, 
+    Executors, 
+    ExceptionsDetails) {
     'use strict';
 
     return marionette.View.extend({
@@ -18,18 +28,15 @@ define([
             return _.template(template)(tplPrms);
         },
         initialize: function () {
-            this.listenTo(B.Radio.channel('main'), 'refreshAdminView', this.refreshAdminView);
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.refreshAdminView);
         },
         ui: {
             serviceRegion: '.service-template-region',
             addNewService: '.add-new-service-region',
             executorTableRegion: '.executor-table-region',
-            exceptionTableRegion: '.exception-table-region'
+            exceptionTableRegion: '.exception-table-region',
         },
         regions: {
-            modalui: {
-                el: '#modalui'
-            },
             serviceRegion: {
                 el: '@ui.serviceRegion',
                 replaceElement: true
@@ -42,7 +49,7 @@ define([
             },
             exceptionTableRegion: {
                 el: '@ui.exceptionTableRegion'
-            }
+            },
         },
         refreshAdminView: function () {
             this.render();
@@ -56,8 +63,6 @@ define([
                 collection: new ExceptionsDetails()
             }));
             this.showChildView('addNewService', new AddNewServiceBlock());
-
-            this.showChildView('modalui', new ModalView());
         },
     });
 });

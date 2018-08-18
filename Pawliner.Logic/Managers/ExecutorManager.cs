@@ -133,6 +133,7 @@ namespace Pawliner.Logic
         public void DeleteExecutor(int id)
         {
             database.Executors.Delete(id);
+            database.Documents.Delete(id);
 
             var executor = database.Executors.Get(id);
             if (executor.ExecutorType == ExecutorType.Natural)
@@ -198,11 +199,16 @@ namespace Pawliner.Logic
             return Mapper.Map<Executor, ExecutorTransport>(executor);
         }
 
-        public IEnumerable<ExecutorTransport> GetExecutors(List<string> filter)
+        public IEnumerable<ExecutorTransport> GetExecutors(List<string> filter, int status, string search)
         {
             var executors = Mapper.Map<IEnumerable<Executor>, List<ExecutorTransport>>(database.Executors
                 .GetList()
                 .OrderByDescending(o => o.Id));
+
+            if (status == 1)
+            {
+                executors = executors.Where(ex => ex.Status == ExecutorStatusTransport.Submited).ToList();
+            }
 
             var naturals = database.NaturalExecutors.GetList();
             var traders = database.SoleTraderExecutors.GetList();
@@ -229,6 +235,7 @@ namespace Pawliner.Logic
                     ServiceClassifers = ex.ServiceClassifers,
                     Document = ex.Document,
                     Photos = ex.Photos,
+                    Status = ex.Status,
                     NaturalExecutor = new NaturalExecutorTransport
                     {
                         Id = subn?.Id ?? 0
@@ -249,6 +256,15 @@ namespace Pawliner.Logic
 
             var filterServices = (result.SelectMany(e => e.ServiceClassifers))
                 .Where(sr => filter.Contains(sr.Description)).ToList();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Where(o => o.FirstName.Contains(search) ||
+                                            o.LastName.Contains(search) ||
+                                            o.JuridicalExecutor.ShortJuredicalName.Contains(search) ||
+                                            o.JuridicalExecutor.FullJuredicalName.Contains(search))
+                                            .ToList();
+            }
 
             if (filter.Count == 0)
             {
@@ -271,7 +287,6 @@ namespace Pawliner.Logic
 
         public void AddDocument(int id, DocumentTransport model)
         {
-            //var document = Mapper.Map<DocumentTransport, Document>(model);
             var document = new Document
             {
                 FileName = model.FileName,

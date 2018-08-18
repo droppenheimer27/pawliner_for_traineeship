@@ -13,6 +13,7 @@ namespace Pawliner.Model
         public string AvatarPath { get; set; }
         public string PhotoId { get; set; }
         public int ExecutorId { get; set; }
+        public ICollection<OrderViewModel> Orders { get; set; }
         public virtual PhotoViewModel Photo { get; set; }
         public HttpPostedFile Avatar { get; set; }
     }

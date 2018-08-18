@@ -12,17 +12,17 @@ define([
             return _.template(template)(tplPrms);
         },
         tagName: 'tr',
-        // triggers: {
-        //     click: 'click:child'
-        // },
-        ui: {
-            exceptionRegion: '.edit-exception-region'
+        events: {
+            'click': 'onClickRow'
         },
-        regions: {
-            exceptionRegion: '@ui.exceptionRegion'
+        onClickRow: function (e) {
+            e.preventDefault();
+            
+            B.Radio.channel('main').trigger('messageview', {
+                typeHeader: 'success',
+                headerText: 'Exception #' + this.model.id,
+                bodyText: new ExceptionBlock({model: this.model})
+            });
         },
-        onRender: function () {
-            this.showChildView('exceptionRegion', new ExceptionBlock({model: this.model}));
-        }
     });
 });

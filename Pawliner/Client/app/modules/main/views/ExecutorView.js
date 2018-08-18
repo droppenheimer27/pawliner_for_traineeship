@@ -39,25 +39,27 @@ define([
             return _.template(template)(args);
         },
         initialize: function() {
-            this.listenTo(B.Radio.channel('main'),'refreshExecutorView', this.refreshExecutorView);
-
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.render);
+            
             this.model.fetch();
             this.model.on("sync", this.onSync, this);
         },
         ui: {
+            createComment: '#createComment',
             serviceBlock: '.executor-service-region',
             editExecutorBlock: '.edit-executor-block-region',
             commentsBlock: '.comments-block-region',
-            createCommentBlock: '.create-comment-block-region',
             photosRegion: '#gallery-executor',
             addPhotosBlock: '.add-photos-region',
             addDocumentBlock: '.add-document-region'
+        },
+        events: {
+            'click @ui.createComment': 'onClickLeaveCommentButton'
         },
         regions: {
             serviceBlock: '@ui.serviceBlock',
             editExecutorBlock: '@ui.editExecutorBlock',
             commentsBlock: '@ui.commentsBlock',
-            createCommentBlock: '@ui.createCommentBlock',
             photosRegion: {
                 el: '@ui.photosRegion',
                 replaceElement: true
@@ -68,8 +70,14 @@ define([
         onSync: function () {
             this.render();
         },
-        refreshExecutorView: function () {
-            this.render();
+        onClickLeaveCommentButton: function (e) {
+            e.preventDefault();
+            
+            B.Radio.channel('main').trigger('messageview', {
+                typeHeader: 'success',
+                headerText: 'Leave the comment',
+                bodyText: new CreateCommentBlock({model: this.model})
+            });
         },
         onRender: function () {
 
@@ -94,10 +102,6 @@ define([
                 this.showChildView('commentsBlock', new CommentCollectionView({
                     collection: new CommentCollection(this.model.get('Comments'))
                 }));
-            }
-
-            if (!_.isEmpty(window.app.model.get('userId'))) {
-                this.showChildView('createCommentBlock', new CreateCommentBlock({model: this.model}));
             }
 
             if (window.app.model.get('userId') === this.model.get('UserId')) {

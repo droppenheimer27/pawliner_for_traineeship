@@ -20,7 +20,8 @@ namespace Pawliner
                 Date = DateTime.Now
             };
 
-            IExceptionDetailManager exceptionDetailManager = new ExceptionDetailManager(new UnitOfWork(new ApplicationContext("DefaultConnection")));
+            //IExceptionDetailManager exceptionDetailManager = new ExceptionDetailManager(new UnitOfWork(new ApplicationContext("DefaultConnection")));
+            var exceptionDetailManager = DependencyResolver.Current.GetService<IExceptionDetailManager>();
 
             var exceptionDetail = Mapper.Map<ExceptionDetailViewModel, ExceptionDetailTransport>(exceptionDetailViewModel);
             exceptionDetailManager.CreateExceptionDetail(exceptionDetail);
