@@ -153,8 +153,12 @@ namespace Pawliner.Logic
             {
                 return orders;
             }
+            else
+            {
+                orders = orders.Where(o => filter.Contains(o.ServiceClassiferDescription)).ToList();
+            }
 
-            return orders.Where(o => filter.Contains(o.ServiceClassiferDescription));
+            return orders;
         }
     }
 }

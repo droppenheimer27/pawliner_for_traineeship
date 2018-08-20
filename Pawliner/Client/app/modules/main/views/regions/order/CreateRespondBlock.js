@@ -80,9 +80,13 @@ define([
             
             this.model = new Respond();
             this.model.set(data);
-            this.model.save(data);
-
-            B.Radio.channel('main').trigger('refreshOrderView');
+            this.model.save(data, {
+                error: function (model, response, error) {
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('saveRespond', model);
+                    B.Radio.channel('main').trigger('refresh');
+                }
+            });
         },
         onRender: function () {
             this.validateForm();

@@ -1,9 +1,10 @@
 define([
+    'backbone',
     'underscore',
     'marionette',
     'text!../../../templates/regions/admin/ExecutorRow.html',
     './SubmitExecutorBlock'
-], function (_, marionette, template, SubmitExecutorBlock) {
+], function (B, _, marionette, template, SubmitExecutorBlock) {
     'use strict';
 
     return marionette.View.extend({
@@ -12,13 +13,19 @@ define([
         },
         tagName: 'tr',
         ui: {
-            submitExecutor: '.submit-executor-region'
+            submit: '.submit-executor'
         },
-        regions: {
-            submitExecutor: '@ui.submitExecutor'
+        events: {
+            'click @ui.submit': 'onClickSubmitButton'
         },
-        onRender: function () {
-            this.showChildView('submitExecutor', new SubmitExecutorBlock({model: this.model}));
-        }
+        onClickSubmitButton: function (e) {
+            e.preventDefault();
+            
+            B.Radio.channel('main').trigger('messageview', {
+                typeHeader: 'success',
+                headerText: 'Executor #' + this.model.get('Id'),
+                bodyText: new SubmitExecutorBlock({model: this.model})
+            });
+        },
     });
 });

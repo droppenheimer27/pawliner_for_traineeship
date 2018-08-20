@@ -3,12 +3,14 @@ define([
     'underscore',
     'marionette',
     '../../collections/Executors',
-    '../regions/executor/ExecutorBlock'
-], function (B, _, marionette, Executors, ExecutorBlock) {
+    '../regions/executor/ExecutorBlock',
+    '../regions/executor/EmptyExecutorBlock'
+], function (B, _, marionette, Executors, ExecutorBlock, EmptyExecutorBlock) {
     'use strict';
 
     return marionette.CollectionView.extend({
         childView: ExecutorBlock,
+        emptyView: EmptyExecutorBlock,
         RadioName: '',
         initialize: function () {
             this.collection = new Executors(),
@@ -21,14 +23,14 @@ define([
             this.collection.trigger("syncstarted");
             this.fetchData();
         },
-        onSync: function(collection){
+        onSync: function (collection) {
             B.Radio.channel(this.RadioName).trigger("changeResult" + this.RadioName, collection.state);
         },
         fetchData: function (paramadd){
             var search = B.Radio.channel('main').request('requestSearchmain');
             // var search = B.Radio.channel(this.RadioName).request("requestSearch"+ this.RadioName);
-            var page = B.Radio.channel(this.RadioName).request("requestPage"+ this.RadioName);
-            var sort = B.Radio.channel(this.RadioName).request("requestSort"+ this.RadioName);
+            var page = B.Radio.channel(this.RadioName).request("requestPage" + this.RadioName);
+            var sort = B.Radio.channel(this.RadioName).request("requestSort" + this.RadioName);
             var per_page = B.Radio.channel(this.RadioName).request("requestCount"+ this.RadioName);
 
             var param = {page: page, "perPage": 3, sort: sort};
@@ -54,7 +56,6 @@ define([
 
             this.render();
         },
-
         getExecutorsBySearch: function (search) {
             this.collection.fetch({
                 data: {

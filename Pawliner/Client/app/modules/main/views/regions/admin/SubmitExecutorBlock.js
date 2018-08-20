@@ -12,12 +12,12 @@ define([
             return _.template(template)(tplPrms);
         },
         ui: {
-            form: 'form[role="form"]'
+            submit: '.submitExecutor'
         },
         events: {
-            'submit @ui.form': 'onSubmitForm'
+            'click @ui.submit': 'onClickSubmit'
         },
-        onSubmitForm: function (e) {
+        onClickSubmit: function (e) {
             e.preventDefault();
             var self = this;
             
@@ -29,9 +29,8 @@ define([
                     Status: 'Submited'
                 },
                 success: function () {
-                    $('#model-admin-executor' + self.model.get('Id')).modal('hide');
-                    B.Radio.channel('main').trigger('refreshExecutorView');
-                    B.Radio.channel('main').trigger('refreshCollection');
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
                 },
                 beforeSend: function (xhr) {
                     var token = window.app.model.get('tokenInfo');

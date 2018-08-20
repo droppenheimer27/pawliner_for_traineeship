@@ -63,15 +63,18 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (response) {
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'success',
+                        headerText: 'Success',
+                        bodyText: 'Successfuly sent document!'
+                    });
+
                     $.ajax({
                         type: 'PUT',
                         url: '/api/executors/UpdateStatus',
                         data: {
                             Id: self.model.get('Id'),
                             Status: 'InWaiting'
-                        },
-                        success: function () {
-                            B.Radio.channel('main').trigger('refreshExecutorView');
                         },
                         beforeSend: function (xhr) {
                             var token = window.app.model.get('tokenInfo');
@@ -83,6 +86,8 @@ define([
                     alert('Error');
                 }
             });
+
+            B.Radio.channel('main').trigger('refresh');
         },
         onRender: function () {
             this.validateForm();

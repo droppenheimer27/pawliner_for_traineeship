@@ -1,11 +1,12 @@
 define([
+    'backbone',
     'jquery',
     'underscore',
     'marionette',
     'text!../../../templates/regions/photos/AddExecutorPhotosBlock.html',
     '../../collections/ExecutorPhotosCollectionView',
     'modules/main/collections/Executors'
-], function ($, _, marionette, template, ExecutorPhotosCollectionView, Executors) {
+], function (B, $, _, marionette, template, ExecutorPhotosCollectionView, Executors) {
     'use strict';
 
     return marionette.View.extend({
@@ -71,12 +72,18 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function (response) {
-                    alert("Successfully add photos!");
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'success',
+                        headerText: 'Success',
+                        bodyText: 'Successfuly added photos!'
+                    });
                 },
                 error: function (response) {
                     alert('Error');
                 }
-            });  
+            });
+            
+            B.Radio.channel('main').trigger('refresh');
         },
         onRender: function () {
             this.validateForm();

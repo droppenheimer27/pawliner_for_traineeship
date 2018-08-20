@@ -65,7 +65,16 @@ namespace Pawliner.Controllers
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            ServiceManager.DeleteService(id);
+            try
+            {
+                ServiceManager.DeleteService(id);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ex.Message);
+                return BadRequest(ModelState);
+            }
+           
             return Ok();
         }
     }

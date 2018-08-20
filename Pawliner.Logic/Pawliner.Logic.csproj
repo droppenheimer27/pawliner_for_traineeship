@@ -104,6 +104,7 @@
     <Compile Include="Models\Enums\OrderStatusTransport.cs" />
     <Compile Include="Models\Enums\RespondStatusTransport.cs" />
     <Compile Include="Models\ExceptionDetailTransport.cs" />
+    <Compile Include="Models\Executors\CreateExecutorTransport.cs" />
     <Compile Include="Models\Executors\ExecutorTransport.cs" />
     <Compile Include="Models\Executors\UpdateExecutorStatusTransport.cs" />
     <Compile Include="Models\JuridicalExecutorTransport.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Models\Services\CreateServiceTransport.cs" />
     <Compile Include="Models\Services\EditServiceTransport.cs" />
     <Compile Include="Models\Services\ServiceTransport.cs" />
+    <Compile Include="Models\Services\ServiceWithOrdersAndExecutorsTransport.cs" />
     <Compile Include="Models\SoleTraderExecutorTransport.cs" />
     <Compile Include="Models\UserTransport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -25,7 +25,7 @@ define([
             'click @ui.removeRespondButton': 'onClickRemoveRespondButton'
         },
         changeModel: function () {
-            $('#model-respond-put' + this.model.get('Id')).modal('hide');
+            B.Radio.channel('main').trigger('messageuihide'); 
         },
         validateForm: function () {
             this.ui.editRespondForm.validate({
@@ -62,7 +62,12 @@ define([
         onClickRemoveRespondButton: function (e) {
             e.preventDefault();
 
-            this.model.destroy();
+            this.model.destroy({
+                success: function () {
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('destroyRespond', self.model.get('Id'));
+                }
+            });
         },
         onRender: function () {
             this.validateForm();

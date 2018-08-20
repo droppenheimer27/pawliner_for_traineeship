@@ -15,6 +15,7 @@ define([
             return _.template(template)(tplPrms);
         },
         initialize: function () {
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.render);
             this.model = new Executor();
         },
         ui: {
@@ -90,25 +91,27 @@ define([
             data.Status = 2;
 
             this.model.set(data);
-            this.model.save(data);
-
-            $.ajax({
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                url: '/api/account/SetUserRole',
-                beforeSend: function (xhr) {
-                    let token =  window.app.model.get('tokenInfo');
-                    xhr.setRequestHeader("Authorization", "Bearer " + token);
-                },
-                success: function () {
-                    var roles = {roles: 'Executor'};
-                    window.app.model.set(roles);
-                    window.app.model.save(roles);
-
+            this.model.save(data, {
+                error: function () {
                     B.Radio.channel('main').trigger('messageui', {
                         typeHeader: 'success',
                         headerText: 'Success',
                         bodyText: 'Successfuly created executor profile!'
+                    });
+
+                    $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        url: '/api/account/SetUserRole',
+                        beforeSend: function (xhr) {
+                            let token =  window.app.model.get('tokenInfo');
+                            xhr.setRequestHeader("Authorization", "Bearer " + token);
+                        },
+                        success: function () {
+                            var roles = {roles: 'Executor'};
+                            window.app.model.set(roles);
+                            window.app.model.save(roles);
+                        }
                     });
                 }
             });

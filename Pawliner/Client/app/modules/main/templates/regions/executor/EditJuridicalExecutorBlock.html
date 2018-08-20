@@ -1,59 +1,58 @@
 <form class="form-horizontal" role="form">
-        <fieldset>
+    <fieldset>
+        <div class="form-group">
+                <div class="col-sm-10">
+                    <input placeholder="First Name" value="<%= FirstName %>" data-fields="FirstName" name="FirstName" class="form-control" type="text" id="editFirstNameJuridicalExecutor">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input placeholder="Last Name" value="<%= LastName %>" name="LastName" class="form-control" type="text" id="editLastNameJuridicalExecutor">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input placeholder="Patronymic" value="<%= Patronymic %>" name="Patronymic" class="form-control" type="text" id="editPatronymicJuridicalExecutor">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <textarea placeholder="Description" name="Description" class="form-control" type="text" style="height: 150px" id="editDescriptionJuridicalExecutor"><%= Description %></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input placeholder="Payer account number" value="<%= JuridicalExecutor.PayerAccountNumber %>" name="PayerAccountNumber" class="form-control" type="text" id="paymentNumberJuridicalrExecutor"/>
+                </div>
+            </div>
             <div class="form-group">
                     <div class="col-sm-10">
-                        <input placeholder="First Name" value="<%= FirstName %>" data-fields="FirstName" name="FirstName" class="form-control" type="text" id="editFirstNameJuridicalExecutor">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input placeholder="Last Name" value="<%= LastName %>" name="LastName" class="form-control" type="text" id="editLastNameJuridicalExecutor">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input placeholder="Patronymic" value="<%= Patronymic %>" name="Patronymic" class="form-control" type="text" id="editPatronymicJuridicalExecutor">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <textarea placeholder="Description" name="Description" class="form-control" type="text" style="height: 150px" id="editDescriptionJuridicalExecutor"><%= Description %></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input placeholder="Payer account number" value="<%= JuridicalExecutor.PayerAccountNumber %>" name="PayerAccountNumber" class="form-control" type="text" id="paymentNumberJuridicalrExecutor"/>
+                        <input placeholder="Short juridical name" value="<%= JuridicalExecutor.ShortJuredicalName %>" name="ShortJuredicalName" class="form-control" type="text" id="paymentNumberJuridicalrExecutor"/>
                     </div>
                 </div>
                 <div class="form-group">
                         <div class="col-sm-10">
-                            <input placeholder="Short juridical name" value="<%= JuridicalExecutor.ShortJuredicalName %>" name="ShortJuredicalName" class="form-control" type="text" id="paymentNumberJuridicalrExecutor"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                            <div class="col-sm-10">
-                                <input placeholder="Full juridical name" value="<%= JuridicalExecutor.FullJuredicalName %>" name="FullJuredicalName" class="form-control" type="text" id="paymentNumberJuridicalrExecutor"/>
-                            </div>
-                        </div>
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input placeholder="Phone number" name="PhoneNumber" class="form-control" type="text" id="editPhoneNumberJuridicalExecutor"/>
+                            <input placeholder="Full juridical name" value="<%= JuridicalExecutor.FullJuredicalName %>" name="FullJuredicalName" class="form-control" type="text" id="paymentNumberJuridicalrExecutor"/>
                         </div>
                     </div>
                 <div class="form-group">
                     <div class="col-sm-10">
-                        <label class="text-black">Select again your services</label>
-                        <div class="select-executor-service-region"></div>
+                        <input placeholder="Phone number" name="PhoneNumber" value="<%= PhoneNumber %>" class="form-control" type="text" id="editPhoneNumberJuridicalExecutor"/>
                     </div>
                 </div>
             <div class="form-group">
                 <div class="col-sm-10">
-                    <div class="">
-                        <button type="submit" class="btn btn-success" id="profileEditJuridicalExecutorSubmit" style="width: 100px">Edit</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 100px">Close</button>
-                        <button type="button" class="btn btn-danger pull-right" id="removeJuridicalExecutor" style="width: 100px">Remove</button>
-                    </div>
+                    <label class="text-black">Select again your services</label>
+                    <div class="select-executor-service-region"></div>
                 </div>
             </div>
-        </fieldset>
-    </form>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <div class="">
+                    <button type="submit" class="btn btn-success" id="profileEditJuridicalExecutorSubmit" style="width: 100px">Edit</button>
+                    <button type="button" class="btn btn-danger pull-right" id="removeJuridicalExecutor" style="width: 100px">Remove</button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

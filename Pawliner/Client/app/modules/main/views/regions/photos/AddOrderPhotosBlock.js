@@ -1,11 +1,12 @@
 define([
+    'backbone',
     'jquery',
     'underscore',
     'marionette',
     'text!../../../templates/regions/photos/AddOrderPhotosBlock.html',
     '../../collections/OrderPhotosCollectionView',
     'modules/main/collections/Orders'
-], function ($, _, marionette, template, OrderPhotosCollectionView, Orders) {
+], function (B, $, _, marionette, template, OrderPhotosCollectionView, Orders) {
     'use strict';
 
     return marionette.View.extend({
@@ -68,10 +69,20 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function () {
-                    $('#modal-order-pictures-success').modal('show');
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'success',
+                        headerText: 'Add photos',
+                        bodyText:  'Successfuly added photos!'
+                    });
+
+                    B.Radio.channel('main').trigger('refresh');
                 },
                 error: function () {
-                    alert('Error');
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'error',
+                        headerText: 'Error',
+                        bodyText:  'While adding photos occured error'
+                    });
                 }
             });  
         },

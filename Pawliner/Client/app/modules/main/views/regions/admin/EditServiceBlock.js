@@ -65,21 +65,21 @@ define([
             var input = '<input placeholder="Description" name="ServiceClassifer" class="form-control" type="text" style="margin-left: 35px;margin-top: 20px; width: 350px"/>';
             $('#after-this' + this.model.get('Id')).after(input);  
         },
-        onClickRemoveInputButton: function (e) {
-            e.preventDefault();
+        // onClickRemoveInputButton: function (e) {
+        //     e.preventDefault();
             
-            var services = [];
-            $(this.ui.form).find('input, select').not('[type="submit"]').each(function() {
-                services.push($(this).val());
-            });
+        //     var services = [];
+        //     $(this.ui.form).find('input, select').not('[type="submit"]').each(function() {
+        //         services.push($(this).val());
+        //     });
 
-           $(this.ui.form).find('input, select').not('[type="submit"]').each(function() {
-                if ($(this).val() === services[services.length - 1]) {
-                    $(this).remove();
-                }
-            });
+        //    $(this.ui.form).find('input, select').not('[type="submit"]').each(function() {
+        //         if ($(this).val() === services[services.length - 1]) {
+        //             $(this).remove();
+        //         }
+        //     });
             
-        },
+        // },
         onSubmitEditServiceForm: function (e) {
             e.preventDefault();
             
@@ -96,18 +96,38 @@ define([
             data.ServiceClassifersDescriptions = services;
 
             this.model.set(data);
-            this.model.save(data);
-
-            B.Radio.channel('main').trigger('refreshData');
-            B.Radio.channel('main').trigger('refreshAdminView');
+            this.model.save(data, {
+                success: function (model, response) {
+                    console.log(response);
+                },
+                error: function (response) {
+                    console.log(response);
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
+                }
+            });
         },
         onClickRemoveServiceForm: function (e) {
             e.preventDefault();
+            var self = this;
 
-            this.model.destroy();
+            this.model.destroy({
+                success: function () {
+                    B.Radio.channel('main').trigger('destroyService', self.model.get('Id'));
+                },
+                error: function (model, response, error) {
+                    console.log(error);
+                    var error = ((_.has(response, 'responseText')) ? response.responseJSON.ModelState.Error[0] : 'Unknown error');
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'error',
+                        headerText: 'Error',
+                        bodyText: error
+                    });
+                }
+            });
 
-            B.Radio.channel('main').trigger('refreshData');
-            B.Radio.channel('main').trigger('refreshAdminView');
+            B.Radio.channel('main').trigger('messageuihide');
+            B.Radio.channel('main').trigger('refresh');
         },
         onRender: function () {
 

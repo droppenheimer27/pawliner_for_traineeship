@@ -1,55 +1,25 @@
-<a class="pull-right text-danger" href="" data-toggle="modal" data-target="#model-photos-post" style="margin-right: 80px;">Add photos</a>
 
-<div class="modal fade in" id="model-photos-post">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Photos</h4>
-                </div>
-            <div class="modal-body">
-                <div class="input-group">
-                    <label class="text-black">Select all of your photos</label>
-                    <form role="form" enctype="multipart/form-data">
-                            <div class="input-group image-preview">
-                                <input type="text" class="form-control image-preview-filename" disabled="disabled"> 
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                                        <span class="glyphicon glyphicon-remove"></span> Clear
-                                    </button>
-                                    
-                                    <div class="btn btn-default image-preview-input">
-                                        <span class="glyphicon glyphicon-folder-open"></span>
-                                        <span class="image-preview-input-title">Select photos</span>
-                                        <input type="file" name="Photos" accept="image/png, image/jpeg, image/gif" id="orderPhotos" multiple/> 
-                                    </div>
-                                </span>
-                            </div>
-                                
-                        <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Save</button>
-                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                    </form>
-                </div>
+
+<div class="input-group">
+    <label class="text-black">Select all of your photos</label>
+    <form role="form" enctype="multipart/form-data">
+            <div class="input-group image-preview">
+                <input type="text" class="form-control image-preview-filename" disabled="disabled"> 
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                        <span class="glyphicon glyphicon-remove"></span> Clear
+                    </button>
+                    
+                    <div class="btn btn-default image-preview-input">
+                        <span class="glyphicon glyphicon-folder-open"></span>
+                        <span class="image-preview-input-title">Select photos</span>
+                        <input type="file" name="Photos" accept="image/png, image/jpeg, image/gif" id="orderPhotos" multiple/> 
+                    </div>
+                </span>
             </div>
-        </div>
-    </div> 
-</div>
-
-<div class="modal modal-success fade" id="modal-order-pictures-success" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Success</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span></button>
-        </div>
-        <div class="modal-body">
-            <p>Pictures added.</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">OK</button>
-        </div>
-        </div>
-    </div>
+                
+        <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Save</button>
+    </form>
 </div>
 
 <style>

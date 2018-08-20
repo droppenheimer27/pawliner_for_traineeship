@@ -472,7 +472,6 @@
     <Compile Include="Controllers\ExceptionDetailsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\ExecutorsController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RespondsController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
@@ -518,22 +517,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
@@ -543,23 +526,6 @@
     <Content Include="Content\adminlte.css.map" />
     <Content Include="Content\adminlte.min.css.map" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\pawliner.js" />
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.min.js" />
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.min.js" />
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -569,21 +535,6 @@
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\umd\popper.min.js.map" />
-    <Content Include="Scripts\umd\popper.js.map" />
-    <Content Include="Scripts\umd\popper-utils.min.js.map" />
-    <Content Include="Scripts\umd\popper-utils.js.map" />
-    <Content Include="Scripts\README.md" />
-    <Content Include="Scripts\popper.min.js.map" />
-    <Content Include="Scripts\popper.js.map" />
-    <Content Include="Scripts\popper-utils.min.js.map" />
-    <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Home\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -591,11 +542,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -608,10 +554,6 @@
     <ProjectReference Include="..\Pawliner.DataProvider\Pawliner.DataProvider.csproj">
       <Project>{2ee1aa92-7546-4e0e-a5dc-59d6ed369af2}</Project>
       <Name>Pawliner.DataProvider</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pawliner.IoC\Pawliner.IoC.csproj">
-      <Project>{a66907a2-98b2-442c-ab60-30dd7916bf16}</Project>
-      <Name>Pawliner.IoC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pawliner.Logic\Pawliner.Logic.csproj">
       <Project>{c4a97727-03c4-4a74-a4ab-5c5c7d2491de}</Project>

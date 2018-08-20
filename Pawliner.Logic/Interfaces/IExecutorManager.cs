@@ -5,7 +5,7 @@ namespace Pawliner.Logic
 {
     public interface IExecutorManager
     {
-        void CreateExecutor(ExecutorViewModel executor);
+        void CreateExecutor(CreateExecutorTransport executor);
         void UpdateExecutor(ExecutorViewModel executor);
         void DeleteExecutor(int id);
         void AddPhotos(int id, List<PhotoTransport> model);

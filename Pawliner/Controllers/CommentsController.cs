@@ -41,34 +41,40 @@ namespace Pawliner.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post(CommentViewModel model)
-        {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            var comment = Mapper.Map<CommentViewModel, CommentTransport>(model);
-            CommentManager.CreateComment(comment);
-
-            return Ok();
-        }
-
-        [HttpPut]
-        public IHttpActionResult Put([FromBody]EditCommentViewModel model)
+        public IHttpActionResult Post(CreateCommentViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            CommentManager.UpdateComment(new EditCommentTransport
+            var comment = new CommentTransport
+            {
+                Content = model.Content,
+                UserId = model.UserId,
+                ExecutorId = model.ExecutorId
+            };
+            //var comment = Mapper.Map<CreateCommentViewModel, CommentTransport>(model);
+            CommentManager.CreateComment(comment);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put([FromBody]CommentViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            CommentManager.UpdateComment(new CommentTransport
             {
                 Id = model.Id,
                 Content = model.Content
             });
 
-            return Ok();
+            return Ok(ModelState);
         }
 
         [HttpDelete]

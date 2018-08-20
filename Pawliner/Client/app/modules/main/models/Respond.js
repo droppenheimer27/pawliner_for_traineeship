@@ -14,7 +14,6 @@ define([
             ExecutorId: '',
             UserId: '',
             Executor: null,
-            User: null
         },
     });
 });

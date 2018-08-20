@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pawliner.Model", "Pawliner.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pawliner.Common", "Pawliner.Common\Pawliner.Common.csproj", "{4733D191-AAD8-4DA4-A1E4-64DF7C3F02B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pawliner.IoC", "Pawliner.IoC\Pawliner.IoC.csproj", "{A66907A2-98B2-442C-AB60-30DD7916BF16}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{4733D191-AAD8-4DA4-A1E4-64DF7C3F02B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4733D191-AAD8-4DA4-A1E4-64DF7C3F02B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4733D191-AAD8-4DA4-A1E4-64DF7C3F02B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A66907A2-98B2-442C-AB60-30DD7916BF16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A66907A2-98B2-442C-AB60-30DD7916BF16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A66907A2-98B2-442C-AB60-30DD7916BF16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A66907A2-98B2-442C-AB60-30DD7916BF16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

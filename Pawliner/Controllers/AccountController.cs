@@ -365,9 +365,6 @@ namespace Pawliner
         {
             var user = UserManager.FindByName(User.Identity.Name);
             var executor = ExecutorManager.GetExecutors(new List<string>(), 0, "").FirstOrDefault(e => string.Equals(e.UserId, user.Id));
-            //var orders = Mapper.Map<IEnumerable<OrderTransport>, ICollection<OrderViewModel>>(OrderManager
-            //    .GetOrders(new List<string>())
-            //    .Where(o => string.Equals(o.UserId, user.Id)));
 
             var model = new UserViewModel
             {
@@ -386,15 +383,6 @@ namespace Pawliner
             {
                 model.ExecutorId = 0;
             }
-
-            //if (user.Orders != null && orders != null)
-            //{
-            //    model.Orders = orders;
-            //}
-            //else
-            //{
-            //    model.ExecutorId = 0;
-            //}
 
             if (user.PhotoId != null)
             {

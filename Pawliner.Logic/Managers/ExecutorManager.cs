@@ -15,7 +15,7 @@ namespace Pawliner.Logic
             this.database = database;
         }
 
-        public void CreateExecutor(ExecutorViewModel model)
+        public void CreateExecutor(CreateExecutorTransport model)
         {
             var services = database.ServiceClassifers.GetList()
                 .Where(s => model.ServiceClassifersIds
@@ -30,7 +30,8 @@ namespace Pawliner.Logic
                 Patronymic = model.Patronymic,
                 Description = model.Description,
                 ServiceClassifers = services,
-                Status = ExecutorStatus.Unsubmited
+                PhoneNumber = model.PhoneNumber,
+                Status = ExecutorStatus.Unsubmited,
             };
 
             if (string.Equals(model.Type, "NP"))
@@ -270,8 +271,12 @@ namespace Pawliner.Logic
             {
                 return result; 
             }
+            else
+            {
+                result = result.Where(s => s.ServiceClassifers.Any(sr => filterServices.Contains(sr)));
+            }
 
-            return result.Where(s => s.ServiceClassifers.Any(sr => filterServices.Contains(sr))); 
+            return result; 
         }
 
         public void AddPhotos(int id, List<PhotoTransport> models)

@@ -1,11 +1,12 @@
 define([
     'backbone',
     'underscore',
+    'jquery',
     'syphon',
 	'marionette',
     'text!../../../templates/regions/admin/LoginBlock.html',
     'jqueryvalidate'
-], function (B, _, syphon, Mn, tpl) {
+], function (B, _, $, syphon, Mn, tpl) {
 	'use strict';
 
 	return Mn.View.extend({
@@ -66,6 +67,8 @@ define([
                     
                     window.app.model.set(args);
                     window.app.model.save(args);
+
+                    window.app.setupToken(args.tokenInfo);
 
                     B.Radio.channel('main').trigger('messageui', {
                         typeHeader: 'success',

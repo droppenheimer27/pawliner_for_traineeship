@@ -67,6 +67,8 @@ define([
                     window.app.model.set(args);
                     window.app.model.save(args);
 
+                    window.app.setupToken(args.tokenInfo);
+
                     B.Radio.channel('main').trigger('messageui', {
                         typeHeader: 'success',
                         headerText: 'Success',

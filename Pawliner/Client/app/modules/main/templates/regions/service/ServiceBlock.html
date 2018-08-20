@@ -7,7 +7,11 @@
                 </a>
             </div>
             <div class="col-lg-2 text-black">
-                <div class="edit-service-block"></div>
+                <% if (window.app.model.get('roles') === 'Administrator' && !_.isEmpty(window.app.model.get('userId'))) { %>
+                <button type="button" class="btn btn-box-tool" id="edit-service" data-original-title="Edit">
+                    <i class="glyphicon glyphicon-wrench"></i>
+                </button>
+                <% } %>
             </div>
         </div>
         <div class="box-tools pull-right">

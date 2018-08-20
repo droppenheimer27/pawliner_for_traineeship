@@ -7,8 +7,9 @@ define([
     '../collections/ServiceCollectionView',
     '../collections/ExecutorCollectionView',
     '../../../../common/views/Paginator',
-    '../../../../common/models/Paginator'
-], function (B, $, marionette, template, OrderCollectionView, ServiceCollectionView, ExecutorCollectionView, Paginator, PaginatorModel) {
+    '../../../../common/models/Paginator',
+    '../AnimatedRegion'
+], function (B, $, marionette, template, OrderCollectionView, ServiceCollectionView, ExecutorCollectionView, Paginator, PaginatorModel, AnimatedRegion) {
     'use strict';
 
     return marionette.View.extend({
@@ -36,9 +37,11 @@ define([
         regions: {
             orderRegion: {
                 el: '@ui.orderRegion',
+                regionClass: AnimatedRegion
             },
             executorRegion: {
                 el: '@ui.executorRegion',
+                regionClass: AnimatedRegion
             },
             serviceRegion: {
                 el: '@ui.serviceRegion',
@@ -46,9 +49,11 @@ define([
             },
             paginatorOrders: {
                 el: '@ui.paginatorOrders',
+                regionClass: AnimatedRegion
             },
             paginatorExecutors: {
                 el: '@ui.paginatorExecutors',
+                regionClass: AnimatedRegion
             }
         },
         isLogin: function (e) {

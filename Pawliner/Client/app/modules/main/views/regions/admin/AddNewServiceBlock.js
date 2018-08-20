@@ -27,15 +27,15 @@ define([
                    },
                },
                highlight: function(element) {
-                   $(element).closest('.form-group').addClass('has-error');
+                   $(element).closest('.input-group').addClass('has-error');
                },
                unhighlight: function(element) {
-                   $(element).closest('.form-group').removeClass('has-error');
+                   $(element).closest('.input-group').removeClass('has-error');
                },
                errorElement: 'span',
                errorClass: 'help-block',
                errorPlacement: function(error, element) {
-                   if (element.parent('.form-group').length) {
+                   if (element.parent('.input-group').length) {
                        error.insertAfter(element.parent());
                    } else {
                        error.insertAfter(element);
@@ -49,14 +49,15 @@ define([
 
             this.model = new Service();
             this.model.set(data);
-            this.model.save(data, {type: 'POST'}, {
-                success: function () {
-                    $('#model-service-add').modal('hide');
+            this.model.save(data, {
+                type: 'POST',
+                error: function (model, response) {
+                    B.Radio.channel('main').trigger('saveService', model);
+
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
                 }
             });
-            
-            B.Radio.channel('main').trigger('refreshData');
-            B.Radio.channel('main').trigger('refreshAdminView');
         },
         onRender: function () {
            this.validateForm();

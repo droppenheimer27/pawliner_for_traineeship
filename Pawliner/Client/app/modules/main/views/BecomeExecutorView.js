@@ -7,8 +7,9 @@ define([
     './regions/executor/ExecutorTypeBlock',
     './regions/executor/NaturalExecutorBlock',
     './regions/executor/SoleTraderExecutorBlock',
-    './regions/executor/JuridicalExecutorBlock'
-], function (B, _, $, Mn, template, ExecutorTypeBlock, NaturalExecutorBlock, SoleTraderExecutorBlock, JuridicalExecutorBlock) {
+    './regions/executor/JuridicalExecutorBlock',
+    './AnimatedRegion'
+], function (B, _, $, Mn, template, ExecutorTypeBlock, NaturalExecutorBlock, SoleTraderExecutorBlock, JuridicalExecutorBlock, AnimatedRegion) {
     'use strict';
 
     return Mn.View.extend({
@@ -32,7 +33,8 @@ define([
         regions: {
             content: '.content',
             executorBlockRegion: {
-                el: '@ui.executorBlockRegion'
+                el: '@ui.executorBlockRegion',
+                regionClass: AnimatedRegion
             }
         },
         toNaturalExecutorBlock: function (e) {

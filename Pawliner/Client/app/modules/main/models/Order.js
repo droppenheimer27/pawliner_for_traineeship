@@ -22,6 +22,7 @@ define([
             OrderStatus: '',
             Photos: [],
             Responds: [],
+            User: {},
             Executor: {
                 Description: '',
                 FirstName: '',

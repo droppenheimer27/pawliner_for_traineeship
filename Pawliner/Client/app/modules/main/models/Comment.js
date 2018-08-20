@@ -11,9 +11,13 @@ define([
             Content: '',
             CreatedAt: '',
             UserId: '', 
-            User: null,
+            User: {
+                Photo: {
+                    Path: ''
+                }
+            },
             ExecutorId: '',
-            Executor: null,
+            Executor: {},
         },
     });
 });

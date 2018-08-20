@@ -1,23 +1,7 @@
-<a class="text-white pull-right" href="" data-toggle="modal" data-target="#model-respond-put<%= Id %>" style="margin-right: 80px;">Edit a respond</a>
-
-<div class="modal fade in" id="model-respond-put<%= Id %>">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit the respond</h4>
-                </div>
-            <div class="modal-body">
-                <div class="input-group">
-                    <form role="form">
-                        <textarea type="text" name="Content" id="contentRespondEdit" placeholder="Leave the respond..." class="form-control" style="height: 150px; margin-bottom: 10px;"><%= Content %></textarea>
-
-                        <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Edit</button>
-                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-
-                        <button type="button" class="btn btn-danger pull-left" id="removeRespond">Remove</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> 
+<div class="input-group">
+    <form role="form">
+        <textarea type="text" name="Content" id="contentRespondEdit" placeholder="Leave the respond..." class="form-control" style="height: 150px; margin-bottom: 10px;"><%= Content %></textarea>
+        <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Edit</button>
+        <button type="button" class="btn btn-danger pull-left" id="removeRespond">Remove</button>
+    </form>
 </div>

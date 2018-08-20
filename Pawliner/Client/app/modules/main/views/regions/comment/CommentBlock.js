@@ -11,16 +11,18 @@ define([
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
         },
+        initialize: function () {
+            this.model.on('sync', this.onSync, this);
+        },
         ui: {
-            edit: '.edit-comment',
-            // editBlock: '.edit-comment-block-region',
+            edit: '.edit-comment'
         },
         events: {
             'click @ui.edit': 'onClickEditButton'
         },
-        // regions: {
-        //     editBlock: '@ui.editBlock',
-        // },
+        onSync: function () {
+            this.render();
+        },
         onClickEditButton: function (e) {
             e.preventDefault();
             
@@ -30,10 +32,5 @@ define([
                 bodyText: new EditCommentBlock({model: this.model})
             });
         },
-        onRender: function () {
-            // if (this.model.get('UserId') === window.app.model.get('userId')) {
-            //     this.showChildView('editBlock', new EditCommentBlock({model: this.model}));
-            // }
-        }
     });
 });

@@ -21,6 +21,9 @@ define([
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
         },
+        initialize: function () {
+            this.model.on('sync', this.changeModel, this);
+        },
         ui: {
             selectServiceRegion: '.select-service-region',
             editExecutorTypeRegion: '.edit-executor-type-region',
@@ -35,6 +38,9 @@ define([
                 el: '@ui.editExecutorTypeRegion',
                 replaceElement: true
             },
+        },
+        changeModel: function () {
+            this.render();
         },
         onRender: function () {
             if (this.model.get('NaturalExecutor') !== null) {

@@ -1,15 +1,17 @@
 define([
+    'backbone',
     'syphon',
     'jquery',
     'marionette',
     'text!../templates/UserProfileView.html'
-], function (syphon, $, marionette, template) {
+], function (B, syphon, $, marionette, template) {
     'use strict';
     return marionette.View.extend({
         template: function (args) {
             return _.template(template)(args);
         },
         initialize: function() {
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.render);
             var self = this;
 
             $.ajax({
@@ -41,7 +43,7 @@ define([
             });
         },
         ui: {
-            profileForm: 'form[role="form"]',
+            profileForm: '#user-profile-form',
         },
         events: {
             'submit @ui.profileForm': 'onSubmitProfileForm'
@@ -84,7 +86,7 @@ define([
                errorElement: 'span',
                errorClass: 'help-block',
                errorPlacement: function(error, element) {
-                   if(element.parent('.form-group').length) {
+                   if (element.parent('.form-group').length) {
                        error.insertAfter(element.parent());
                    } else {
                        error.insertAfter(element);
@@ -106,7 +108,9 @@ define([
             formData.append('FullName', data.FullName);
             formData.append('PhoneNumber', data.PhoneNumber);
             formData.append('Skype', data.Skype);
-            formData.append('Avatar', file.files[0]);
+            if (file.files[0] != null) {
+                formData.append('Avatar', file.files[0]);
+            }
 
             $.ajax({
                 type: 'POST',
@@ -118,16 +122,33 @@ define([
                     var token = window.app.model.get('tokenInfo');
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
-                success: function (response) {
-                    alert("Successfully saving info!");
+                success: function () {
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'success',
+                        headerText: 'Success',
+                        bodyText: 'Successfuly updating profile!'
+                    });
+
+                    B.Radio.channel('main').trigger('refresh');
                 },
                 error: function (response) {
-                    alert('Error');
+                    var error = ((_.has(response, 'responseText')) ? response.responseJSON.ModelState : 'Unknown error');
+                    var message = _.first(_.values(error)).join('\n');
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'danger',
+                        headerText: 'Error',
+                        bodyText: message
+                    });
                 }
             });
+            
         },
         onRender: function () {
             this.validateForm();
+
+            if (_.isEmpty(window.app.model.get('tokenInfo'))) {
+                window.router.navigate('', { trigger: true });
+            }
         }
     });
 });

@@ -52,6 +52,7 @@
     <Compile Include="ViewModels\AccountBindingModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\Comments\CommentViewModel.cs" />
+    <Compile Include="ViewModels\Comments\CreateCommentViewModel.cs" />
     <Compile Include="ViewModels\Comments\EditCommentViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\Enums\ExecutorEnumStatusVieModel.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="ViewModels\Enums\OrderStatusViewModel.cs" />
     <Compile Include="ViewModels\Enums\RespondStatusViewModel.cs" />
     <Compile Include="ViewModels\ExceptionDetailViewModel.cs" />
+    <Compile Include="ViewModels\Executors\CreateExecutorViewModel.cs" />
     <Compile Include="ViewModels\Executors\UpdateExecutorStatusViewModel.cs" />
     <Compile Include="ViewModels\Executors\ExecutorIdentityViewModel.cs" />
     <Compile Include="ViewModels\Executors\ExecutorPagebleViewModel.cs" />

@@ -16,8 +16,12 @@
                         <h2 class="widget-user-username"><a class="text-orange" href="#!/main/executor/<%= Executor.Id %>"><%= Executor.FirstName %> <%= Executor.LastName %></a></h2>
                     </div>
                     <div class="col">
-                        <div class="edit-respond-block-region"></div>
-                        <div class="submit-respond-block-region"></div>
+                        <% if (Executor.UserId === window.app.model.get('userId')) { %>
+                            <a class="text-white pull-right edit-respond" href="" style="margin-right: 80px;">Edit a respond</a>
+                        <% } %>
+                        <% if (Order.UserId === window.app.model.get('userId')) { %>
+                            <a class="text-white pull-right submit-respond" href="" style="margin-right: 80px;">Submit</a>
+                        <% } %>
                     </div>
                 </div>
             </div>

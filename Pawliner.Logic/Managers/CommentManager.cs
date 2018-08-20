@@ -47,7 +47,7 @@ namespace Pawliner.Logic
             return comments;
         }
 
-        public void UpdateComment(EditCommentTransport model)
+        public void UpdateComment(CommentTransport model)
         {
             var comment = database.Comments.Get(model.Id);
             comment.Content = model.Content;

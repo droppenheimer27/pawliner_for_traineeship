@@ -26,6 +26,13 @@ namespace Pawliner.Logic
 
         public void DeleteService(int id)
         {
+            var service = database.Services.Get(id);
+            var serviceClassifers = database.ServiceClassifers.GetList().ToList().Where(sr => sr.Service == service);
+            if (serviceClassifers.SelectMany(sr => sr.Orders).Count() > 0 || serviceClassifers.SelectMany(sr => sr.Executors).Count() > 0)
+            {
+                throw new Exception("You cannot remove this service because some orders or executors depends of it");
+            }
+
             database.Services.Delete(id);
             database.Save();
         }

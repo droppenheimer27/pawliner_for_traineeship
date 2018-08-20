@@ -10,17 +10,14 @@ define([
     return marionette.CollectionView.extend({
         childView: ServiceBlock,
         initialize: function () {
-            this.listenTo(B.Radio.channel('main'), 'refreshData', this.refreshData);
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.render);
 
             this.collection = new Services();
             this.collection.fetch();
             this.collection.on("sync", this.onSync, this);
         },
         onSync: function () {
-            //console.log(this.model);
+            this.render();
         },
-        refreshData: function () {
-            this.collection.fetch();
-        }
     });
 });

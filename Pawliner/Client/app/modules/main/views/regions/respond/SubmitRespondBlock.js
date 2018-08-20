@@ -22,12 +22,13 @@ define([
         },
         onClickSubmitRespondButton: function (e) {
             e.preventDefault();
+            var self = this;
 
             $.ajax({
                 type: 'PUT',
                 url: '/api/responds/UpdateStatus',
                 data: {
-                    Id: this.model.get('Id'),
+                    Id: self.model.get('Id'),
                     Status: 1
                 },
                 beforeSend: function (xhr) {
@@ -35,23 +36,26 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function () {
-                    $('#model-submit-respond-put' + this.model.get('Id')).modal('hide');
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-
-            $.ajax({
-                type: 'PUT',
-                url: '/api/order/UpdateStatus',
-                data: {
-                    Id: this.model.get('OrderId'),
-                    Status: 'Submit'
-                },
-                beforeSend: function (xhr) {
-                    let token =  window.app.model.get('tokenInfo');
-                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                    B.Radio.channel('main').trigger('messageuihide');
+                    
+                    $.ajax({
+                        type: 'PUT',
+                        url: '/api/order/UpdateStatus',
+                        data: {
+                            Id: self.model.get('OrderId'),
+                            Status: 'Submit'
+                        },
+                        beforeSend: function (xhr) {
+                            let token =  window.app.model.get('tokenInfo');
+                            xhr.setRequestHeader("Authorization", "Bearer " + token);
+                        },
+                        success: function () {
+                            B.Radio.channel('main').trigger('refresh');
+                        },
+                        error: function (response) {
+                            console.log(response);
+                        }
+                    });
                 },
                 error: function (response) {
                     console.log(response);

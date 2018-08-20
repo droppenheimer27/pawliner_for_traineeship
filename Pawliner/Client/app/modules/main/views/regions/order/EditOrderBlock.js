@@ -21,9 +21,6 @@ define([
         template: function(tplPrms) {
             return _.template(template)(tplPrms);
         },
-        initialize: function () {
-            this.model.on('change', this.changeModel, this);
-        },
         ui: {
             selectServiceRegion: '.select-service-region',
             form: 'form[role="form"]',
@@ -89,16 +86,13 @@ define([
                errorElement: 'span',
                errorClass: 'help-block',
                errorPlacement: function(error, element) {
-                   if(element.parent('.form-group').length) {
+                   if (element.parent('.form-group').length) {
                        error.insertAfter(element.parent());
                    } else {
                        error.insertAfter(element);
                    }
                }
            });
-        },
-        changeModel: function () {
-            $('#model-order-put').modal('hide');
         },
         onSubmitEditOrderForm: function (e) {
             e.preventDefault();
@@ -108,7 +102,11 @@ define([
                 data.Price = 'Deal';
             }
             this.model.set(data);
-            this.model.save(data);            
+            this.model.save(data, {
+                success: function () {
+                    B.Radio.channel('main').trigger('messageuihide');
+                }
+            });            
         },
         onClickRemoveOrder: function (e) {
             e.preventDefault();
@@ -121,9 +119,9 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function () {
-                    $('#model-order-put').modal('hide');
+                    B.Radio.channel('main').trigger('messageuihide');
                     
-                    window.router.navigate('', { trigger: true });
+                    window.router.navigate('#!/main/profile', { trigger: true });
                 },
                 error: function (response) {
                     console.log(response);

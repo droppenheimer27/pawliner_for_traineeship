@@ -32,7 +32,9 @@
                             <% } %>
                         </div>
                         <div class="col">
-                            <div class="edit-executor-block-region"></div>
+                            <% if (window.app.model.get('userId') === UserId) { %>
+                                <a href="" class="text-white pull-right" id="edit-executor" style="margin-right: 50px"><small>Edit</small></a>
+                            <% } %>
                         </div>  
                     </div>
                 </div>
@@ -44,6 +46,9 @@
                     <p style="word-wrap: break-word;"><%= Description %></p>
                     <div id="gallery-executor" style="margin-top: 30px;"></div>
                     <div class="add-photos-region"></div>
+                    <% if (window.app.model.get('userId') === UserId) { %>
+                        <a class="pull-right text-danger" href="#" id="addExecutorPhotos" style="margin-right: 80px;">Add photos</a>
+                    <% } %>
                 </div>
                 <div class="col col-lg-2">
                     <label class="text-muted">Services</label>

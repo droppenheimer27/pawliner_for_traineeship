@@ -1,5 +1,7 @@
 ﻿
 
+using System.Collections.Generic;
+
 namespace Pawliner.Logic
 {
     public class ServiceClassiferTransport

@@ -1,44 +1,21 @@
-<button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#model-edit-service-put<%= Id %>" data-original-title="Edit">
-    <i class="glyphicon glyphicon-wrench"></i>
-</button>
-
-<div class="modal fade in" id="model-edit-service-put<%= Id %>">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit the service</h4>
-                </div>
-            <form role="form">
-            <div class="modal-body">
-                <div class="input-group">
-                    <div class="form-group">
-                        <div class="col-sm-10" id="after-this<%= Id %>">
-                            <div class="row">
-                                <div class="col-lg-9">
-                                    <input placeholder="Description" name="Description" class="form-control" type="text" id="editServiceDescrtiption<%= Id %>" value="<%= Description %>"/>
-                                </div>
-                                <div class="col-xs">
-                                    <button type="button" id="createInputButton" class="btn btn-box-tool" data-original-title="Add new service classifer">
-                                        <i class="glyphicon glyphicon-plus text-primary"></i>
-                                    </button>
-                                </div>
-                                <div class="col">
-                                    <button type="button" id="removeInputButton" class="btn btn-box-tool" data-original-title="Remove service classifer">
-                                        <i class="glyphicon glyphicon-minus text-danger"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="service-classifers-region"></div>
-                        </div>
+<form role="form">
+    <div class="input-group">
+        <div class="form-group">
+            <div class="col-sm-10" id="after-this<%= Id %>">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <input placeholder="Description" name="Description" class="form-control" type="text" id="editServiceDescrtiption<%= Id %>" value="<%= Description %>"/>
+                    </div>
+                    <div class="col-xs">
+                        <button type="button" id="createInputButton" class="btn btn-box-tool" data-original-title="Add new service classifer">
+                            <i class="glyphicon glyphicon-plus text-primary"></i>
+                        </button>
                     </div>
                 </div>
+                <div class="service-classifers-region"></div>
             </div>
-            <div class="modal-footer">
-                    <button type="submit" class="btn btn-success pull-right" style="margin-left: 30px;">Edit</button>
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger pull-left" id="removeService">Remove</button>
-            </div>
-            </form>
         </div>
-    </div> 
-</div>
+        <button type="submit" class="btn btn-success pull-right" style="margin-top: 30px;">Edit</button>
+        <button type="button" class="btn btn-danger pull-left" id="removeService" style="margin-top: 30px;" >Remove</button>
+    </div>
+</form>

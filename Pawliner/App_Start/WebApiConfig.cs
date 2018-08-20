@@ -9,7 +9,6 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Pawliner.Common;
 using Pawliner.DataProvider;
-using Pawliner.IoC;
 using Pawliner.Logic;
 using Pawliner.Model;
 using System.Net.Http.Headers;

@@ -4,6 +4,7 @@ define([
     'marionette',
     'text!../../templates/regions/AdminHome.html',
     '../ModalView',
+    '../AnimatedRegion',
     '../collections/ServiceCollectionView',
     './admin/AddNewServiceBlock',
     './admin/ExecutorTable',
@@ -15,6 +16,7 @@ define([
     marionette, 
     template, 
     ModalView, 
+    AnimatedRegion,
     ServiceCollectionView, 
     AddNewServiceBlock, 
     ExecutorTable, 
@@ -28,31 +30,39 @@ define([
             return _.template(template)(tplPrms);
         },
         initialize: function () {
-            this.listenTo(B.Radio.channel('main'), 'refresh', this.refreshAdminView);
+            this.listenTo(B.Radio.channel('main'), 'refresh', this.render);
         },
         ui: {
+            addService: '#add-new-service',
             serviceRegion: '.service-template-region',
-            addNewService: '.add-new-service-region',
             executorTableRegion: '.executor-table-region',
             exceptionTableRegion: '.exception-table-region',
+        },
+        events: {
+            'click @ui.addService': 'onClickNewService'
         },
         regions: {
             serviceRegion: {
                 el: '@ui.serviceRegion',
                 replaceElement: true
             },
-            addNewService: {
-                el: '@ui.addNewService'
-            },
             executorTableRegion: {
-                el: '@ui.executorTableRegion'
+                el: '@ui.executorTableRegion',
+                regionClass: AnimatedRegion
             },
             exceptionTableRegion: {
-                el: '@ui.exceptionTableRegion'
+                el: '@ui.exceptionTableRegion',
+                regionClass: AnimatedRegion
             },
         },
-        refreshAdminView: function () {
-            this.render();
+        onClickNewService: function (e) {
+            e.preventDefault();
+            
+            B.Radio.channel('main').trigger('messageview', {
+                typeHeader: 'success',
+                headerText: 'Add new service',
+                bodyText: new AddNewServiceBlock()
+            });
         },
         onRender: function() {
             this.showChildView('serviceRegion', new ServiceCollectionView());
@@ -62,7 +72,6 @@ define([
             this.showChildView('exceptionTableRegion', new ExceptionTable({
                 collection: new ExceptionsDetails()
             }));
-            this.showChildView('addNewService', new AddNewServiceBlock());
         },
     });
 });

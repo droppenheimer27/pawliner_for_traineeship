@@ -1,10 +1,11 @@
 define([
+    'backbone',
     'underscore',
     'syphon',
     'jquery',
     'marionette',
     'text!../templates/RegisterView.html',
-], function (_, syphon, $, marionette, template) {
+], function (B, _, syphon, $, marionette, template) {
     'use strict';
 
     return marionette.View.extend({
@@ -72,7 +73,13 @@ define([
                     $('#model-register').modal('show');
                 },
                 error: function (response) {
-                    console.log(response);
+                    var error = ((_.has(response, 'responseText')) ? response.responseJSON.ModelState : 'Unknown error');
+                    var message = _.first(_.values(error)).join('\n');
+                    B.Radio.channel('main').trigger('messageui', {
+                        typeHeader: 'danger',
+                        headerText: 'Error',
+                        bodyText: message
+                    });
                 }
             });
         },

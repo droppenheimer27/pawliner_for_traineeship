@@ -122,9 +122,10 @@ namespace Pawliner.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post(ExecutorViewModel model)
-        {   
-            ExecutorManager.CreateExecutor(model);
+        public IHttpActionResult Post(CreateExecutorViewModel model)
+        {
+            var executor = Mapper.Map<CreateExecutorViewModel, CreateExecutorTransport>(model);
+            ExecutorManager.CreateExecutor(executor);
             return Ok();
         }
 

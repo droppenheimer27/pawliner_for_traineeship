@@ -15,7 +15,8 @@ define([
     './regions/executor/WaitingSubmitExecutorStatusBlock',
     'modules/main/collections/Executors',
     'modules/main/models/Comment',
-    'modules/main/models/Photo'
+    'modules/main/models/Photo',
+    './AnimatedRegion'
 ], function (B, 
     $, 
     marionette, 
@@ -32,19 +33,25 @@ define([
     WaitingSubmitExecutorStatusBlock,
     Executors, 
     Comment, 
-    Photo) {
+    Photo,
+    AnimatedRegion) {
     'use strict';
+    
     return marionette.View.extend({
         template: function (args) {
             return _.template(template)(args);
         },
         initialize: function() {
             this.listenTo(B.Radio.channel('main'), 'refresh', this.render);
+            this.listenTo(B.Radio.channel('main'), 'saveComment', this.saveComment);
+            this.listenTo(B.Radio.channel('main'), 'destroyComment', this.destroyComment);
             
             this.model.fetch();
             this.model.on("sync", this.onSync, this);
         },
         ui: {
+            edit: '#edit-executor',
+            addPhotos: '#addExecutorPhotos',
             createComment: '#createComment',
             serviceBlock: '.executor-service-region',
             editExecutorBlock: '.edit-executor-block-region',
@@ -54,12 +61,17 @@ define([
             addDocumentBlock: '.add-document-region'
         },
         events: {
-            'click @ui.createComment': 'onClickLeaveCommentButton'
+            'click @ui.edit': 'onClickEditExecutorButton',
+            'click @ui.createComment': 'onClickLeaveCommentButton',
+            'click @ui.addPhotos': 'onClickAddPhotosButton'
         },
         regions: {
             serviceBlock: '@ui.serviceBlock',
             editExecutorBlock: '@ui.editExecutorBlock',
-            commentsBlock: '@ui.commentsBlock',
+            commentsBlock: {
+                el: '@ui.commentsBlock',
+                regionClass: AnimatedRegion
+            },
             photosRegion: {
                 el: '@ui.photosRegion',
                 replaceElement: true
@@ -70,6 +82,28 @@ define([
         onSync: function () {
             this.render();
         },
+        saveComment: function (model) {
+            var newComments = this.model.get('Comments');
+            newComments.push(model);;
+
+            this.model.set({'Comments': newComments});
+            this.model.fetch();
+        },
+        destroyComment: function (id) {
+            var newComments = _.reject(this.model.get('Comments'), function (el) {
+                return id == el.Id;
+            });
+            this.model.set({'Comments': newComments});
+        },
+        onClickEditExecutorButton: function (e) {
+            e.preventDefault();
+            
+            B.Radio.channel('main').trigger('messageview', {
+                typeHeader: 'success',
+                headerText: 'Edit the executor',
+                bodyText: new EditExecutorBlock({model: this.model})
+            });
+        },
         onClickLeaveCommentButton: function (e) {
             e.preventDefault();
             
@@ -78,36 +112,44 @@ define([
                 headerText: 'Leave the comment',
                 bodyText: new CreateCommentBlock({model: this.model})
             });
+            this.onRenderCommentsBlock();
         },
-        onRender: function () {
-
-            var PhotoCollection = B.Collection.extend({
-                model: Photo
+        onClickAddPhotosButton: function (e) {
+            e.preventDefault();
+            
+            B.Radio.channel('main').trigger('messageview', {
+                typeHeader: 'success',
+                headerText: 'Add photos',
+                bodyText:  new AddExecutorPhotosBlock({model: this.model})
             });
-
-            this.showChildView('photosRegion', new ExecutorPhotosCollectionView({
-                collection: new PhotoCollection(this.model.get('Photos')) //this.model.get('Photos')
-            }));
-
+        },
+        onRenderCommentsBlock: function () {
             var CommentCollection = B.Collection.extend({
                 model: Comment
             });
 
-            this.showChildView('serviceBlock', new ExecutorServicesCollectionView({
-                collection: new B.Collection(this.model.get('ServiceClassifers'))
-            }));
-            
-           
             if (this.model.get('Comments') !== null) {
                 this.showChildView('commentsBlock', new CommentCollectionView({
                     collection: new CommentCollection(this.model.get('Comments'))
                 }));
             }
+        },
+        onRender: function () {
+            var PhotoCollection = B.Collection.extend({
+                model: Photo
+            });
 
+            this.showChildView('photosRegion', new ExecutorPhotosCollectionView({
+                collection: new PhotoCollection(this.model.get('Photos'))
+            }));
+            
+            this.showChildView('serviceBlock', new ExecutorServicesCollectionView({
+                collection: new B.Collection(this.model.get('ServiceClassifers'))
+            }));
+
+            this.onRenderCommentsBlock();    
+            
             if (window.app.model.get('userId') === this.model.get('UserId')) {
-                this.showChildView('editExecutorBlock', new EditExecutorBlock({model: this.model}));
-                this.showChildView('addPhotosBlock', new AddExecutorPhotosBlock({model: this.model}));
-
                 if (this.model.get('Status') === 2 && this.model.get('NaturalExecutor') !== null) {
                     this.showChildView('addDocumentBlock', new AddNaturalExecutorDocumentBlock({model: this.model}));
                 } else if (this.model.get('Status') === 2 && this.model.get('JuridicalExecutor') !== null) {

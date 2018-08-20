@@ -91,8 +91,9 @@ define([
             this.model.set(data);
             this.model.save(data, {
                 success: function () {
-                    $('#model-executor-put').modal('hide');
-                }
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
+                },
             })
         },
         onClickRemoveJuridicalExecutor: function (e) {
@@ -106,7 +107,8 @@ define([
                     xhr.setRequestHeader("Authorization", "Bearer " + token);
                 },
                 success: function () {
-                    $('#model-executor-put').modal('hide');
+                    B.Radio.channel('main').trigger('messageuihide');
+                    B.Radio.channel('main').trigger('refresh');
                 },
                 error: function (response) {
                     console.log(response);
@@ -126,7 +128,7 @@ define([
                     window.app.model.set(roles);
                     window.app.model.save(roles);
 
-                    window.router.navigate('', { trigger: true });
+                    window.router.navigate('#!/main/profile', { trigger: true });
                 }
             });
         },

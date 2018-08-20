@@ -11,7 +11,9 @@
                         <h5 class="widget-user-desc"><%= OrderStatus %></h5>
                     </div>
                     <div class="col">
-                        <div class="edit-order-block-region"></div>
+                        <% if (window.app.model.get('userId') === UserId) { %>
+                        <a href="" class="text-white pull-right" id="editOrder" style="margin-right: 50px"><small>Edit</small></a>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -21,7 +23,10 @@
                 <div class="col">
                     <p><%= Description %></p>
                     <div id="gallery" style="margin-top: 30px;"></div>
-                    <div class="add-photos-region"></div>
+                    <% if (window.app.model.get('userId') === UserId) { %>
+                        <a class="pull-right text-danger" href="" id="addPhotos" style="margin-right: 80px;">Add photos</a>
+                    <% } %>
+                    <!-- <div class="add-photos-region"></div> -->
                 </div>
                 <div class="col col-lg-2">
                     <ul class="">
@@ -47,7 +52,9 @@
                     <p>Complete on <%= CompletedOn %> </p>
                 </div>
                 <div class="pull-right" style="margin-right: 50px;">
-                    <div class="create-respond-block-region"/>
+                    <% if (window.app.model.get('roles') === 'Executor') { %>
+                    <button type="button" id="createRespond" class="btn btn-block btn-success" style="margin-right: 80px;">Leave a respond</button>
+                    <% } %>
                 </div>
             </div>
         </div>

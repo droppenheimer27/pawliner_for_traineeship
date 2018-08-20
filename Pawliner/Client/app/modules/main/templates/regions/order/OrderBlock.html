@@ -26,7 +26,11 @@
                         <% } else { %>
                         <li class="text-muted"><%= Price %> р.</li>
                         <% } %>
-                        <!-- <li class="">1 отклик</li> -->
+                        <% if (Status === 0) { %>
+                        <li class="text-muted">Active</li>
+                        <% } else { %>
+                        <li class="text-muted">Submited</li>
+                        <% } %>
                     </ul>
                 </div>
             </div>
